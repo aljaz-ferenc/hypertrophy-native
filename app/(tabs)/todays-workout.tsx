@@ -26,6 +26,7 @@ import useTodaysWorkoutStore from "@/store/todaysWorkout.store";
 import { useShallow } from "zustand/react/shallow";
 import Button from "@/components/ui/Button";
 import { opacity } from "react-native-reanimated/lib/typescript/reanimated2/Colors";
+import Heading from "@/components/ui/Heading";
 
 export default function TodaysWorkout() {
   const {
@@ -78,11 +79,11 @@ export default function TodaysWorkout() {
   }
 
   return (
-    <ScrollView style={{ backgroundColor: "#020817" }}>
-      <Text style={styles.whiteText}>Todays Workout</Text>
+    <ScrollView style={styles.screenContainer}>
+      <Heading modifier="h1">Todays Workout</Heading>
       {active && exercises && (
         <>
-          <Box style={styles.exercisesContainer}>
+          <Box>
             <VStack space={3}>
               <Box style={[styles.exerciseContainer]}>
                 <Text style={[styles.whiteText, { opacity: 0.5 }]}>
@@ -213,8 +214,9 @@ export default function TodaysWorkout() {
 }
 
 const styles = StyleSheet.create({
-  exercisesContainer: {
+  screenContainer: {
     padding: 10,
+    backgroundColor: "#020817"
   },
   exerciseContainer: {
     backgroundColor: "#1E293B",
