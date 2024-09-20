@@ -20,6 +20,7 @@ import useCreateUser from "@/api/queries/useCreateUser";
 import {months} from "@/constants/Months";
 import {UnitSystems} from "@/enums/UnitSystems";
 import {ActivityLevels} from "@/enums/ActivityLevels";
+import useGetUser from "@/api/queries/useGetUser";
 
 const years = Array.from({length: 100}, (_, index) => new Date().getFullYear() - index)
 
@@ -49,6 +50,7 @@ export default function TellUsMore({userData, setUserData}: TellUsMoreProps) {
         month: null,
         year: null
     })
+
 
     const setInput = (field: keyof FormData, value: any) => setUserData((prev) => {
         switch (field) {
