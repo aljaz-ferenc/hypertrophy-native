@@ -8,17 +8,10 @@ import 'react-native-reanimated';
 import 'react-native-reanimated'
 import 'react-native-gesture-handler'
 
-import {useColorScheme} from '@/hooks/useColorScheme';
-import {ColorValue, StyleSheet, Text, View} from "react-native";
-import {ThemedView} from "@/components/ThemedView";
-import {ThemedText} from "@/components/ThemedText";
-import WelcomeScreen from "@/screens/WelcomeScreen";
-import {styled} from "nativewind";
-import {HamburgerIcon, NativeBaseProvider} from "native-base";
+import {StyleSheet } from "react-native";
+
 import {QueryClient, QueryClientProvider} from "react-query";
-import {createNativeStackNavigator} from "react-native-screens/native-stack";
 import {createDrawerNavigator} from "@react-navigation/drawer";
-import DrawerContent from "@/components/molecules/DrawerContent";
 import TodaysWorkout from "@/app/todays-workout";
 import CreateMesocycle from "@/app/create-mesocycle";
 import MyMesocycles from "@/app/my-mesocycles";
@@ -26,12 +19,12 @@ import CompletedWorkouts from "@/app/completed-workouts";
 import Stats from "@/app/stats";
 import Nutrition from "@/app/nutrition";
 import {Icon} from "react-native-elements";
+import {NativeBaseProvider} from "native-base";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-    const colorScheme = useColorScheme();
     const [loaded] = useFonts({
         SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     });
@@ -52,7 +45,7 @@ export default function RootLayout() {
     return (
         <QueryClientProvider client={new QueryClient()}>
             <NativeBaseProvider>
-                {/*<Text style={{color: '#fff'}} onPress={() => }>Close/Open</Text>*/}
+
                 <Drawer.Navigator screenOptions={{
                     headerShown: true,
                     drawerStyle: {backgroundColor: '#1E293B'},
@@ -93,20 +86,15 @@ export default function RootLayout() {
                         drawerIcon: () => <Icon name={'restaurant'} color={'white'}/>
                     }}/>
                 </Drawer.Navigator>
-                {/*<View style={{flex: 1, backgroundColor:'white', padding: 10}}>*/}
-                {/*    <WelcomeScreen/>*/}
-                {/*</View>*/}
             </NativeBaseProvider>
         </QueryClientProvider>
-        /*<Stack>*/
-        //{/*  <Stack.Screen name="(tabs)" options={{ headerShown: false }} />*/}
-        //{/*  <Stack.Screen name="+not-found" />*/}
-        //{/*</Stack>*/
     );
 }
+
 
 const styles = StyleSheet.create({
     label: {
         // color: '#ddd',
     }
 })
+
