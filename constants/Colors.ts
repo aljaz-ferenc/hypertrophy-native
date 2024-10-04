@@ -28,5 +28,8 @@
 export const Colors = {
     border:'#1e293b',
     textGray: '#94A3B8',
-    white: '#ffffff'
+    white: '#ffffff',
+    primary: "#020817",
+    secondary: "#1E293B",
+    danger: "red"
 }

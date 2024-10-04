@@ -21,7 +21,8 @@ import {
 } from "date-fns";
 import useTodaysWorkoutStore from "@/store/todaysWorkout.store";
 import {useShallow} from "zustand/react/shallow";
-import Button from "@/components/ui/Button";
+import Button from "@/components/atoms/Button";
+import {Colors} from "@/constants/Colors";
 
 
 export default function TodaysWorkout() {
@@ -211,10 +212,10 @@ export default function TodaysWorkout() {
 const styles = StyleSheet.create({
     screenContainer: {
         padding: 10,
-        backgroundColor: "#020817"
+        backgroundColor: Colors.primary
     },
     exerciseContainer: {
-        backgroundColor: "#1E293B",
+        backgroundColor: Colors.secondary,
         padding: 10,
     },
     whiteText: {

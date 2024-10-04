@@ -14,7 +14,7 @@ const fetchUser = async (userId: string): Promise<User> => {
 
 export default (userId: string) => {
     return useQuery({
-        queryKey: ['user'],
+        queryKey: ['user', {userId}],
         queryFn: () => fetchUser(userId),
     });
 };

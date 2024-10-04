@@ -10,16 +10,16 @@ type ButtonProps = {
     style?: StyleProps
 }
 
-export default function Button({modifier, onPress, children, style = {}}: ButtonProps){
+export default function Button({modifier, onPress, children, style = {}}: PropsWithChildren<ButtonProps>){
     return (
-        <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
+        <TouchableOpacity style={[styles[modifier], style]} onPress={onPress}>
             <Text>{children}</Text>
         </TouchableOpacity>
     )
 }
 
 const styles = StyleSheet.create({
-    button:{
+    primary:{
         backgroundColor: 'white',
         borderRadius: 5,
         color: 'black',
