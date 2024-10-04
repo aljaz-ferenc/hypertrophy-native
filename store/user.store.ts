@@ -6,7 +6,6 @@ enum UnitSystem {
     METRIC = 'metric'
 }
 
-
 type UserStore = {
     user: User | null,
     setUser: (user: User) => void

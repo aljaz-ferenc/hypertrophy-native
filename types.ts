@@ -55,3 +55,22 @@ export type WorkoutLog = {
         }[]
     }[]
 }
+
+export type Log = {
+    duration: number,
+    mesoId: string,
+    mesoTitle: string,
+    user: string,
+    weeks: LogWeek
+}
+
+type LogWeek = {
+    workouts: {
+        day: number,
+        exercises: {
+           data: {reps: number, weight: number}[],
+           exercise: string,
+           id: string
+        }[]
+    }[]
+}[]
