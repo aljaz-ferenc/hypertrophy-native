@@ -14,7 +14,7 @@ import {
     Text,
     VStack,
 } from "native-base";
-import {todaysWorkout} from "@/utils";
+import {getTodaysDay, todaysWorkout} from "@/utils";
 import {
     differenceInCalendarISOWeeks,
     format,
@@ -23,6 +23,8 @@ import useTodaysWorkoutStore from "@/store/todaysWorkout.store";
 import {useShallow} from "zustand/react/shallow";
 import Button from "@/components/atoms/Button";
 import {Colors} from "@/constants/Colors";
+import { WorkoutLog } from "@/types";
+import useCompleteWorkout from "@/api/queries/useCompleteWorkout";
 
 
 export default function TodaysWorkout() {
@@ -36,11 +38,11 @@ export default function TodaysWorkout() {
         isFetching: isMesoFetching,
         error: isMesoError,
     } = useGetMesocycles("65fd893a65caf1b69f1da64b");
-    const setUser = useUserStore(useShallow((state) => state.setUser));
+    const [setUser, userId] = useUserStore(useShallow((state) => [state.setUser, state.user?._id]));
     const [setExercises, exercises, addInput, removeInput, updateInput] =
-        useTodaysWorkoutStore(
-            useShallow((state) => [
-                state.setExercises,
+    useTodaysWorkoutStore(
+        useShallow((state) => [
+            state.setExercises,
                 state.exercises,
                 state.addInput,
                 state.removeInput,
@@ -50,7 +52,8 @@ export default function TodaysWorkout() {
     const {setMesocycles, active} = useMesocyclesStore(
         useShallow((state) => state)
     );
-
+    const {mutateAsync, error} = useCompleteWorkout()
+    
     useEffect(() => {
         if (!userData || !mesoData) return;
         setUser(userData);
@@ -73,6 +76,28 @@ export default function TodaysWorkout() {
                 <Spinner size={"lg"}/>
             </Box>
         );
+    }
+
+    const onCompleteWorkout = async () =>{
+        if(!active) return
+        const week = differenceInCalendarISOWeeks(
+            new Date(),
+            new Date(active.startDate)
+          );
+
+        const workoutLog: WorkoutLog = {
+            day: getTodaysDay(),
+            exercises: exercises.map(e => ({
+                exercise: e.exercise,
+                data: e.data.map(d => ({
+                    reps: d.reps || 0,
+                    weight: d.weight || 0
+                }))
+            })),
+        }
+
+        if(!userId) return
+        await mutateAsync({userId, logId: active._id, workout: workoutLog, weekIndex: week, workoutIndex: workoutLog.day})
     }
 
     return (
@@ -195,9 +220,7 @@ export default function TodaysWorkout() {
                         </VStack>
                         <Button
                             style={{flex: 1, alignSelf: "stretch"}}
-                            onPress={() => {
-                                console.log(exercises);
-                            }}
+                            onPress={onCompleteWorkout}
                             modifier="primary"
                         >
                             Complete Workout

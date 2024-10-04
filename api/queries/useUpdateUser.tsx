@@ -2,7 +2,7 @@ import {BASE_URL} from "@/constants/api";
 import {useMutation, useQuery} from "react-query";
 import {User} from "@/types";
 
-const fetchUpdateUser = async (userId: string, update: object): Promise<User> => {
+const fetchUpdateUser = async (userId: string, update: object): Promise<any> => {
     try{
     const res = await fetch(`${BASE_URL}/users/${userId}`, {
         method: 'PATCH',

@@ -3,12 +3,12 @@ import {Mesocycle} from "@/types";
 import {getTodaysDay} from "@/utils";
 
 type Exercise = {
-    id: string;
     exercise: string;
+    id: string,
     data: {
         reps: number | '';
         weight: number | '';
-        id: string;
+        id: string
     }[];
 };
 
