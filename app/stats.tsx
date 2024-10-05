@@ -31,7 +31,6 @@ export default function Stats() {
   const queryClient = useQueryClient();
   const { data, error, isFetching } = useGetWeight(user!._id, range);
   const { t } = useTranslation();
-  console.log(data);
 
   useEffect(() => {
     queryClient.invalidateQueries(["weight", { userId: user?._id }]);

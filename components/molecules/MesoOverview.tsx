@@ -48,6 +48,7 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
         <AccordionContent>
           <ScrollView horizontal style={styles.workoutsContainer}>
             <FlatList
+              horizontal
               data={meso.workouts}
               keyExtractor={(item) => item.id}
               renderItem={({ item, index }) => (
@@ -63,16 +64,20 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
                   </Text>
                   <VStack>
                     <VStack style={styles.exercisesContainer}>
-                      {item.exercises.map((exercise) => (
-                        <Box style={styles.exerciseContainer}>
-                          <Text style={styles.badge}>
-                            {t(`MUSCLE_GROUPS.${exercise.muscleGroup}`)}
-                          </Text>
-                          <Text style={styles.textWhite}>
-                            {exercise.exercise}
-                          </Text>
-                        </Box>
-                      ))}
+                      <FlatList
+                        data={item.exercises}
+                        keyExtractor={(item) => item.id}
+                        renderItem={({ item }) => (
+                          <Box style={styles.exerciseContainer}>
+                            <Text style={styles.badge}>
+                              {t(`MUSCLE_GROUPS.${item.muscleGroup}`)}
+                            </Text>
+                            <Text style={styles.textWhite}>
+                              {item.exercise}
+                            </Text>
+                          </Box>
+                        )}
+                      />
                     </VStack>
                   </VStack>
                 </View>
@@ -128,6 +133,7 @@ const styles = StyleSheet.create({
     padding: 10,
     gap: 5,
     borderRadius: 7,
+    marginBottom: 10,
   },
   badge: {
     color: Colors.black,

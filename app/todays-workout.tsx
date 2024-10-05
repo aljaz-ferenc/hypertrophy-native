@@ -36,7 +36,6 @@ export default function TodaysWorkout() {
     isFetching,
     error: activeMesoError,
   } = useGetActiveMesocycle(userId!);
-  console.log(data);
   const [setExercises, exercises, addInput, removeInput, updateInput] =
     useTodaysWorkoutStore(
       useShallow((state) => [
@@ -188,7 +187,6 @@ export default function TodaysWorkout() {
                                 return;
                               }
                               if (!isNaN(parseInt(value))) {
-                                console.log(!isNaN(parseInt(value)));
                                 updateInput(
                                   e.id,
                                   input.id,
@@ -209,7 +207,6 @@ export default function TodaysWorkout() {
                                 return;
                               }
                               if (!isNaN(parseInt(value))) {
-                                console.log(!isNaN(parseInt(value)));
                                 updateInput(
                                   e.id,
                                   input.id,
