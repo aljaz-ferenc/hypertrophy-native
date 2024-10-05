@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useTransition} from "react";
 import useGetUser from "@/api/queries/useGetUser";
 import useGetMesocycles from "@/api/queries/useGetMesocycles";
 import useUserStore from "@/store/user.store";
@@ -18,6 +18,7 @@ import {getTodaysDay, todaysWorkout} from "@/utils";
 import {
     differenceInCalendarISOWeeks,
     format,
+    getDay,
 } from "date-fns";
 import useTodaysWorkoutStore from "@/store/todaysWorkout.store";
 import {useShallow} from "zustand/react/shallow";
@@ -25,9 +26,12 @@ import Button from "@/components/atoms/Button";
 import {Colors} from "@/constants/Colors";
 import { WorkoutLog } from "@/types";
 import useCompleteWorkout from "@/api/queries/useCompleteWorkout";
+import { useTranslation } from "react-i18next";
+import { Days } from "@/enums/Days";
 
 
 export default function TodaysWorkout() {
+    const {t} = useTranslation()
     const {
         data: userData,
         isFetching: isUserFetching,
@@ -116,7 +120,7 @@ export default function TodaysWorkout() {
                                         {fontSize: 18, fontWeight: "bold"},
                                     ]}
                                 >
-                                    WEEK{" "}
+                                    {t('TODAYS_WORKOUT.week')}{' '}
                                     <Text style={{fontSize: 24}}>
                                         {differenceInCalendarISOWeeks(
                                             new Date(),
@@ -124,7 +128,7 @@ export default function TodaysWorkout() {
                                         ) + 1}
                                     </Text>
                                     / {active.duration} -{" "}
-                                    {format(new Date(), "EEEE").toUpperCase()}
+                                    {t(`DAYS.${Days[getDay(new Date())]}`).toUpperCase()}
                                 </Text>
                             </Box>
                             {exercises.map((e) => (
@@ -223,7 +227,7 @@ export default function TodaysWorkout() {
                             onPress={onCompleteWorkout}
                             modifier="primary"
                         >
-                            Complete Workout
+                            {t('TODAYS_WORKOUT.completeBtn')}
                         </Button>
                     </Box>
                 </>

@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { StyleProps } from "react-native-reanimated";
 
 type HeadingProps = {
-  modifier: "h1" | 'h2';
+  modifier: "h1" | 'h2' | 'h3';
   style?: StyleProps;
 } & PropsWithChildren;
 
@@ -28,6 +28,11 @@ const styles = StyleSheet.create({
     fontSize: 28,
     fontWeight: 'semibold',
     marginBottom: 10
+  },
+  h3:{
+    fontSize: 24,
+    fontWeight: 'semibold',
+    marginBottom: 5
   },
   spacer: {
     height: 0.5,

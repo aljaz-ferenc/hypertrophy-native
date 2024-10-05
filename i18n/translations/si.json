@@ -1,0 +1,58 @@
+{
+  "MENU": {
+    "todaysWorkout": "Današnja Vaja",
+    "createMesocycle": "Ustvari Mezocikel",
+    "myMesocycles": "Moji Mezocikli",
+    "completedWorkouts": "Opravljene Vaje",
+    "stats": "Statistika",
+    "nutrition": "Prehrana",
+    "settings": "Nastavitve"
+  },
+  "SETTINGS": {
+    "title": "Nastavitve",
+    "language": {
+      "title": "Izberite jezik"
+    }
+  },
+  "TODAYS_WORKOUT": {
+    "week": "TEDEN",
+    "completeBtn": "Končaj Vajo"
+  },
+  "MY_MESOCYCLES": {
+    "delete": "Izbriši",
+    "activate": "Aktiviraj",
+    "active": "Aktiven"
+  },
+  "STATS": {
+    "weight": "Teža",
+    "thisWeek": "Ta teden",
+    "month": "Mesec",
+    "year": "Leto",
+    "all": "Vse",
+    "add": "Dodaj"
+  },
+  "DAYS": {
+    "monday": "ponedeljek",
+    "tuesday": "torek",
+    "wednesday": "sreda",
+    "thursday": "četrtek",
+    "friday": "petek",
+    "saturday": "sobota",
+    "sunday": "nedelja"
+  },
+  "MUSCLE_GROUPS": {
+    "back": "hrbet",
+    "biceps": "biceps",
+    "forearms": "podlakti",
+    "traps": "trapez",
+    "chest": "prsi",
+    "shoulders": "ramena",
+    "triceps": "triceps",
+    "glutes": "gluteusi",
+    "quads": "kvadricepsi",
+    "hamstrings": "stegna",
+    "calves": "meča",
+    "abs": "trebušne mišice",
+    "neck": "vrat"
+  }
+}

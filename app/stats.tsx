@@ -20,6 +20,7 @@ import { useQueryClient } from "react-query";
 import Heading from "@/components/atoms/Heading";
 import useGetWeight from "@/api/queries/useGetWeight";
 import { Range } from "@/types";
+import { useTranslation } from "react-i18next";
 
 export default function Stats() {
   const user = useUserStore((state) => state.user);
@@ -29,6 +30,7 @@ export default function Stats() {
   const { mutateAsync } = useUpdateUser();
   const queryClient = useQueryClient();
   const { data, error, isFetching } = useGetWeight(user!._id, range);
+  const { t } = useTranslation();
 
   useEffect(() => {
     queryClient.invalidateQueries(["weight", { userId: user?._id }]);
@@ -47,9 +49,8 @@ export default function Stats() {
         },
       });
       setWeightInput("");
-    //   await queryClient.invalidateQueries(["user", { userId: user?._id }]);
+      //   await queryClient.invalidateQueries(["user", { userId: user?._id }]);
       queryClient.invalidateQueries(["weight", { userId: user?._id }]);
-
     } else {
       setErrors((prev: any) => ({
         ...prev,
@@ -60,7 +61,7 @@ export default function Stats() {
 
   return (
     <ScrollView style={styles.screenContainer}>
-      <Heading modifier={"h2"}>Weight</Heading>
+      <Heading modifier={"h3"}>{t("STATS.weight")}</Heading>
       {data && !!data.weight?.length && (
         <>
           <HStack space={5} marginBottom={5}>
@@ -68,25 +69,25 @@ export default function Stats() {
               modifier={range === "week" ? "secondary" : "primary"}
               onPress={() => setRange("week")}
             >
-              This Week
+              {t("STATS.thisWeek")}
             </Button>
             <Button
               modifier={range === "month" ? "secondary" : "primary"}
               onPress={() => setRange("month")}
             >
-              Month
+              {t("STATS.month")}
             </Button>
             <Button
               modifier={range === "year" ? "secondary" : "primary"}
               onPress={() => setRange("year")}
             >
-              Year
+              {t("STATS.year")}
             </Button>
             <Button
               modifier={range === "all" ? "secondary" : "primary"}
               onPress={() => setRange("all")}
             >
-              All
+              {t("STATS.all")}
             </Button>
           </HStack>
 
@@ -148,8 +149,12 @@ export default function Stats() {
           />
           <InputRightAddon children={"KG"} />
         </InputGroup>
-        <Button modifier={"primary"} onPress={handleAddWeight}>
-          Add
+        <Button
+          modifier={"primary"}
+          onPress={handleAddWeight}
+          style={styles.addBtn}
+        >
+          {t("STATS.add")}
         </Button>
         {errors.input && (
           <Text style={styles.errorMessage}>{errors.input}</Text>
@@ -166,5 +171,8 @@ const styles = StyleSheet.create({
   },
   errorMessage: {
     color: Colors.danger,
+  },
+  addBtn: {
+    marginTop: 5,
   },
 });

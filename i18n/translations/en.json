@@ -1,0 +1,58 @@
+{
+  "MENU": {
+    "todaysWorkout": "Today's Workout",
+    "createMesocycle": "Create Mesocycle",
+    "myMesocycles": "My Mesocycles",
+    "completedWorkouts": "Completed Workouts",
+    "stats": "Stats",
+    "nutrition": "Nutrition",
+    "settings": "Settings"
+  },
+  "SETTINGS": {
+    "title": "Settings",
+    "language": {
+      "title": "Change language"
+    }
+  },
+  "TODAYS_WORKOUT": {
+    "week": "WEEK",
+    "completeBtn": "Complete Workout"
+  },
+  "MY_MESOCYCLES": {
+    "delete": "Delete",
+    "activate": "Activate",
+    "active": "Active"
+  },
+  "STATS": {
+    "weight": "Weight",
+    "thisWeek": "This Week",
+    "month": "Month",
+    "year": "Year",
+    "all": "All",
+    "add": "Add"
+  },
+  "DAYS": {
+    "monday": "monday",
+    "tuesday": "tuesday",
+    "wednesday": "wednesday",
+    "thursday": "thursday",
+    "friday": "friday",
+    "saturday": "saturday",
+    "sunday": "sunday"
+  },
+  "MUSCLE_GROUPS": {
+    "back": "back",
+    "biceps": "biceps",
+    "forearms": "forearms",
+    "traps": "traps",
+    "chest": "chest",
+    "shoulders": "shoulders",
+    "triceps": "triceps",
+    "glutes": "glutes",
+    "quads": "quads",
+    "hamstrings": "hamstrings",
+    "calves": "calves",
+    "abs": "abs",
+    "neck": "neck"
+  }
+}

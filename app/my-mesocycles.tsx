@@ -20,7 +20,6 @@ export default function MyMesocycles() {
 
   return (
     <ScreenContainer>
-      <Heading modifier="h2">My Mesocycles</Heading>
       <Accordion style={{flex: 1}}>
         {data.map((meso) => (
           <MesoOverview meso={meso}/>

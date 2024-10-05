@@ -20,12 +20,15 @@ import {
 } from "@/components/ui/accordion";
 import useMesocyclesStore from "@/store/mesocycles.store";
 import Button from "../atoms/Button";
+import { useTranslation } from "react-i18next";
 
 type MesoOverviewProps = {
   meso: Mesocycle;
 };
 
 export default function MesoOverview({ meso }: MesoOverviewProps) {
+  const { t } = useTranslation();
+
   return (
     <View>
       <AccordionItem value={meso._id}>
@@ -34,7 +37,9 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
             <HStack style={{ gap: 10 }}>
               <Text style={{ color: "white" }}>{meso.title}</Text>
               {meso.isActive && (
-                <Text style={{ color: Colors.green }}>Active</Text>
+                <Text style={{ color: Colors.green }}>
+                  {t("MY_MESOCYCLES.active")}
+                </Text>
               )}
             </HStack>
           </AccordionTrigger>
@@ -48,12 +53,16 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
                   { marginLeft: i === 0 ? 0 : 15 },
                 ]}
               >
-                <Text style={styles.workoutTitle}>{Days[workout.weekDay]}</Text>
+                <Text style={styles.workoutTitle}>
+                  {t(`DAYS.${Days[workout.weekDay]}`)}
+                </Text>
                 <VStack>
                   <VStack style={styles.exercisesContainer}>
                     {workout.exercises.map((exercise) => (
                       <Box style={styles.exerciseContainer}>
-                        <Text style={styles.badge}>{exercise.muscleGroup}</Text>
+                        <Text style={styles.badge}>
+                          {t(`MUSCLE_GROUPS.${exercise.muscleGroup}`)}
+                        </Text>
                         <Text style={styles.textWhite}>
                           {exercise.exercise}
                         </Text>
@@ -70,7 +79,7 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
               onPress={() => {}}
               modifier="destructive"
             >
-              Delete
+              {t("MY_MESOCYCLES.delete")}
             </Button>
             {!meso.isActive && (
               <Button
@@ -78,7 +87,7 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
                 onPress={() => {}}
                 modifier="secondary"
               >
-                Activate
+                {t("MY_MESOCYCLES.activate")}
               </Button>
             )}
           </HStack>
@@ -94,6 +103,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
     fontWeight: "bold",
+    textTransform: "capitalize",
   },
   workoutsContainer: {},
   workoutContainer: {
