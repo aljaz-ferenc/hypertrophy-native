@@ -20,6 +20,9 @@ import Stats from "@/app/stats";
 import Nutrition from "@/app/nutrition";
 import {Icon} from "react-native-elements";
 import {NativeBaseProvider} from "native-base";
+import useUserStore from '@/store/user.store'
+import SetUser from '@/components/modules/SetUser';
+
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -28,6 +31,7 @@ export default function RootLayout() {
     const [loaded] = useFonts({
         SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     });
+    const user = useUserStore(state => state.user)
 
     useEffect(() => {
         if (loaded) {
@@ -44,8 +48,8 @@ export default function RootLayout() {
 
     return (
         <QueryClientProvider client={new QueryClient()}>
-            <NativeBaseProvider>
-
+             <NativeBaseProvider>
+            {!user ? <SetUser/> :
                 <Drawer.Navigator screenOptions={{
                     headerShown: true,
                     drawerStyle: {backgroundColor: '#1E293B'},
@@ -86,6 +90,7 @@ export default function RootLayout() {
                         drawerIcon: () => <Icon name={'restaurant'} color={'white'}/>
                     }}/>
                 </Drawer.Navigator>
+            }
             </NativeBaseProvider>
         </QueryClientProvider>
     );
