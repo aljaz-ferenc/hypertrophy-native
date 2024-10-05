@@ -83,3 +83,5 @@ type LogWeek = {
         }[]
     }[]
 }[]
+
+export type Range = 'all' | 'week' | 'month' | 'year'
