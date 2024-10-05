@@ -1,8 +1,6 @@
 import {
   StyleSheet,
-  StyleSheetProperties,
   TouchableOpacity,
-  View,
 } from "react-native";
 import { PropsWithChildren } from "react";
 import { Text } from "native-base";
@@ -10,7 +8,7 @@ import { StyleProps } from "react-native-reanimated";
 import { Colors } from "@/constants/Colors";
 
 type ButtonProps = {
-  modifier: "primary" | "secondary" | "disabled";
+  modifier: "primary" | "secondary" | "disabled" | 'destructive' | 'success';
   onPress: () => void;
   children: React.ReactNode;
   style?: StyleProps;
@@ -32,10 +30,9 @@ export default function Button({
 const button = StyleSheet.create({
   base: {
     borderRadius: 5,
-    padding: 5,
-    marginTop: 10,
+    padding: 6,
     alignSelf: "flex-start",
-    paddingHorizontal: 7,
+    paddingHorizontal: 15,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -50,6 +47,12 @@ const textStyles = StyleSheet.create({
     },
     disabled: {
         color: Colors.black
+    },
+    destructive: {
+      color: Colors.white
+    },
+    success: {
+      color: Colors.white
     }
 })
 
@@ -67,4 +70,12 @@ const buttonStyles = StyleSheet.create({
     ...button.base,
     backgroundColor: Colors.white,
   },
+  destructive: {
+    ...button.base,
+    backgroundColor: Colors.danger
+  },
+  success: {
+    ...button.base,
+    backgroundColor: Colors.green
+  }
 });

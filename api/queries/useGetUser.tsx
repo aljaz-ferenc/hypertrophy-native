@@ -1,7 +1,6 @@
 import {useQuery} from 'react-query';
 import {User} from "@/types";
-
-const BASE_URL = 'http://localhost:3000/api'
+import { BASE_URL } from '@/constants/api';
 
 const fetchUser = async (userId: string): Promise<User> => {
     const res = await fetch(`${BASE_URL}/users/${userId}`);

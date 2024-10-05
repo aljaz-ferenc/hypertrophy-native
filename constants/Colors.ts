@@ -32,5 +32,6 @@ export const Colors = {
     primary: "#020817",
     secondary: "#1E293B",
     danger: "red",
-    black: 'black'
+    black: 'black',
+    green: '#16a34a'
 }

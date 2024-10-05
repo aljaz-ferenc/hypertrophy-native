@@ -47,7 +47,9 @@ export default function Stats() {
         },
       });
       setWeightInput("");
-      await queryClient.invalidateQueries(["user", { userId: user?._id }]);
+    //   await queryClient.invalidateQueries(["user", { userId: user?._id }]);
+      queryClient.invalidateQueries(["weight", { userId: user?._id }]);
+
     } else {
       setErrors((prev: any) => ({
         ...prev,
@@ -59,78 +61,82 @@ export default function Stats() {
   return (
     <ScrollView style={styles.screenContainer}>
       <Heading modifier={"h2"}>Weight</Heading>
-      <HStack space={5} marginBottom={5}>
-        <Button
-          modifier={range === "week" ? "secondary" : "primary"}
-          onPress={() => setRange("week")}
-        >
-          This Week
-        </Button>
-        <Button
-          modifier={range === "month" ? "secondary" : "primary"}
-          onPress={() => setRange("month")}
-        >
-          Month
-        </Button>
-        <Button
-          modifier={range === "year" ? "secondary" : "primary"}
-          onPress={() => setRange("year")}
-        >
-          Year
-        </Button>
-        <Button
-          modifier={range === "all" ? "secondary" : "primary"}
-          onPress={() => setRange("all")}
-        >
-          All
-        </Button>
-      </HStack>
-      {data && (
-        <View style={{alignItems: 'center'}}>
-          <LineChart
-            data={{
-              labels: data.weight.map((weight, i) => {
-                const thisMonth = format(new Date(weight.date), "M");
+      {data && !!data.weight?.length && (
+        <>
+          <HStack space={5} marginBottom={5}>
+            <Button
+              modifier={range === "week" ? "secondary" : "primary"}
+              onPress={() => setRange("week")}
+            >
+              This Week
+            </Button>
+            <Button
+              modifier={range === "month" ? "secondary" : "primary"}
+              onPress={() => setRange("month")}
+            >
+              Month
+            </Button>
+            <Button
+              modifier={range === "year" ? "secondary" : "primary"}
+              onPress={() => setRange("year")}
+            >
+              Year
+            </Button>
+            <Button
+              modifier={range === "all" ? "secondary" : "primary"}
+              onPress={() => setRange("all")}
+            >
+              All
+            </Button>
+          </HStack>
 
-                if (
-                  i > 0 &&
-                  thisMonth === format(data.weight[i - 1]?.date!, "M")
-                ) {
-                  return format(new Date(weight.date), "d");
-                }
+          <View style={{ alignItems: "center" }}>
+            <LineChart
+              data={{
+                labels: data.weight.map((weight, i) => {
+                  const thisMonth = format(new Date(weight.date), "M");
 
-                return format(new Date(weight.date), "MMM d");
-              }),
-              datasets: [
+                  if (
+                    i > 0 &&
+                    thisMonth === format(data.weight[i - 1]?.date!, "M")
+                  ) {
+                    return format(new Date(weight.date), "d");
+                  }
+
+                  return format(new Date(weight.date), "MMM d");
+                }),
+                datasets: [
+                  {
+                    data: data.weight.map((weight) => weight.value || 0), // Default to 0 if undefined
+                  },
+                ],
+              }}
+              width={Dimensions.get("window").width - 20}
+              height={220}
+              yAxisInterval={range === "week" ? 1 : 5}
+              chartConfig={
                 {
-                  data: data.weight.map((weight) => weight.value || 0), // Default to 0 if undefined
-                },
-              ],
-            }}
-            width={Dimensions.get("window").width - 20}
-            height={220}
-            yAxisInterval={range === 'week' ? 1 : 5}
-            chartConfig={
-              {
-                backgroundColor: Colors.white,
-                decimalPlaces: 1,
-                color: (opacity = 1) => "#8784D8",
-                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                propsForDots: {
-                  r: "4",
-                  strokeWidth: "1",
-                  stroke: "white",
-                  fill: "white",
-                },
-              } as AbstractChartConfig
-            }
-            bezier
-            style={{
-              marginVertical: 8,
-              borderRadius: 16,
-            }}
-          />
-        </View>
+                  backgroundColor: Colors.white,
+                  decimalPlaces: 1,
+                  color: (opacity = 1) => "#8784D8",
+                  labelColor: (opacity = 1) =>
+                    `rgba(255, 255, 255, ${opacity})`,
+                  propsForDots: {
+                    r: "4",
+                    strokeWidth: "1",
+                    stroke: "white",
+                    fill: "white",
+                  },
+                } as AbstractChartConfig
+              }
+              bezier
+              style={{
+                marginVertical: 8,
+                borderRadius: 16,
+              }}
+            />
+          </View>
+        </>
       )}
       <View>
         <InputGroup alignSelf={"self-start"}>
@@ -138,6 +144,7 @@ export default function Stats() {
             style={{ color: "white" }}
             keyboardType={"numeric"}
             onChangeText={(weight) => setWeightInput(weight)}
+            value={weightInput}
           />
           <InputRightAddon children={"KG"} />
         </InputGroup>

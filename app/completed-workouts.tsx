@@ -6,6 +6,7 @@ import {useEffect, useState} from "react";
 import {Days} from "@/enums/Days";
 import useLogsStore from '@/store/logs.store'
 import {Colors} from "@/constants/Colors";
+import LoadingScreen from "@/components/modules/LoadingScreen";
 
 export default function CompletedWorkouts() {
     const userId = useUserStore(state => state.user?._id)
@@ -26,6 +27,10 @@ export default function CompletedWorkouts() {
             }
             return mesoId
         })
+    }
+
+    if(isFetching){
+        return <LoadingScreen/>
     }
 
     return (

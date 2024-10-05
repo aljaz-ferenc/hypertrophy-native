@@ -1,4 +1,5 @@
 import './../gesture-handler'
+import "@/global.css";
 import {DarkTheme, DefaultTheme, NavigationContainer, ThemeProvider} from '@react-navigation/native';
 import {useFonts} from 'expo-font';
 import {Stack} from 'expo-router';
@@ -22,6 +23,7 @@ import {Icon} from "react-native-elements";
 import {NativeBaseProvider} from "native-base";
 import useUserStore from '@/store/user.store'
 import SetUser from '@/components/modules/SetUser';
+import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -47,52 +49,52 @@ export default function RootLayout() {
 
 
     return (
-        <QueryClientProvider client={new QueryClient()}>
-             <NativeBaseProvider>
-            {!user ? <SetUser/> :
-                <Drawer.Navigator screenOptions={{
-                    headerShown: true,
-                    drawerStyle: {backgroundColor: '#1E293B'},
-                    drawerLabelStyle: styles.label,
-                    drawerInactiveBackgroundColor: 'transparent',
-                    drawerInactiveTintColor: '#aaa',
-                    drawerActiveTintColor: 'white',
-                    drawerType: 'slide'
-                }}>
-                    <Drawer.Screen name={'todays-workout'} component={TodaysWorkout} options={{
-                        drawerLabel: "Today's Workout",
-                        title: "Today's workout",
-                        drawerIcon: () => <Icon name={'fitness-center'} color={'white'}/>
-                    }}/>
-                    <Drawer.Screen name={'create-mesocycle'} component={CreateMesocycle} options={{
-                        drawerLabel: "Create Mesocycle",
-                        title: 'Create Mesocycle',
-                        drawerIcon: () => <Icon name={'add-circle'} color={'white'}/>
-                    }}/>
-                    <Drawer.Screen name={'my-mesocycles'} component={MyMesocycles} options={{
-                        drawerLabel: "My Mesocycles",
-                        title: 'My Mesocycles',
-                        drawerIcon: () => <Icon name={'folder-open'} color={'white'}/>
-                    }}/>
-                    <Drawer.Screen name={'completed-workouts'} component={CompletedWorkouts} options={{
-                        drawerLabel: "Completed Workouts",
-                        title: 'Completed Workouts',
-                        drawerIcon: () => <Icon name={'task'} color={'white'}/>
-                    }}/>
-                    <Drawer.Screen name={'stats'} component={Stats} options={{
-                        drawerLabel: "Stats",
-                        title: 'Stats',
-                        drawerIcon: () => <Icon name={'leaderboard'} color={'white'}/>
-                    }}/>
-                    <Drawer.Screen name={'nutrition'} component={Nutrition} options={{
-                        drawerLabel: "Nutrition",
-                        title: 'Nutrition',
-                        drawerIcon: () => <Icon name={'restaurant'} color={'white'}/>
-                    }}/>
-                </Drawer.Navigator>
-            }
-            </NativeBaseProvider>
-        </QueryClientProvider>
+        <GluestackUIProvider mode="light"><QueryClientProvider client={new QueryClient()}>
+                <NativeBaseProvider>
+               {!user ? <SetUser/> :
+                   <Drawer.Navigator screenOptions={{
+                       headerShown: true,
+                       drawerStyle: {backgroundColor: '#1E293B'},
+                       drawerLabelStyle: styles.label,
+                       drawerInactiveBackgroundColor: 'transparent',
+                       drawerInactiveTintColor: '#aaa',
+                       drawerActiveTintColor: 'white',
+                       drawerType: 'slide'
+                   }}>
+                       <Drawer.Screen name={'todays-workout'} component={TodaysWorkout} options={{
+                           drawerLabel: "Today's Workout",
+                           title: "Today's workout",
+                           drawerIcon: () => <Icon name={'fitness-center'} color={'white'}/>
+                       }}/>
+                       <Drawer.Screen name={'create-mesocycle'} component={CreateMesocycle} options={{
+                           drawerLabel: "Create Mesocycle",
+                           title: 'Create Mesocycle',
+                           drawerIcon: () => <Icon name={'add-circle'} color={'white'}/>
+                       }}/>
+                       <Drawer.Screen name={'my-mesocycles'} component={MyMesocycles} options={{
+                           drawerLabel: "My Mesocycles",
+                           title: 'My Mesocycles',
+                           drawerIcon: () => <Icon name={'folder-open'} color={'white'}/>
+                       }}/>
+                       <Drawer.Screen name={'completed-workouts'} component={CompletedWorkouts} options={{
+                           drawerLabel: "Completed Workouts",
+                           title: 'Completed Workouts',
+                           drawerIcon: () => <Icon name={'task'} color={'white'}/>
+                       }}/>
+                       <Drawer.Screen name={'stats'} component={Stats} options={{
+                           drawerLabel: "Stats",
+                           title: 'Stats',
+                           drawerIcon: () => <Icon name={'leaderboard'} color={'white'}/>
+                       }}/>
+                       <Drawer.Screen name={'nutrition'} component={Nutrition} options={{
+                           drawerLabel: "Nutrition",
+                           title: 'Nutrition',
+                           drawerIcon: () => <Icon name={'restaurant'} color={'white'}/>
+                       }}/>
+                   </Drawer.Navigator>
+               }
+               </NativeBaseProvider>
+            </QueryClientProvider></GluestackUIProvider>
     );
 }
 
