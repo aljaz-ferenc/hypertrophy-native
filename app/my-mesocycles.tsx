@@ -9,6 +9,7 @@ import {
   Accordion,
 
 } from "@/components/ui/accordion";
+import { FlatList } from "native-base";
 
 export default function MyMesocycles() {
   const userId = useUserStore((state) => state.user!._id);
@@ -21,9 +22,11 @@ export default function MyMesocycles() {
   return (
     <ScreenContainer>
       <Accordion style={{flex: 1}}>
-        {data.map((meso) => (
-          <MesoOverview meso={meso}/>
-        ))}
+        <FlatList
+          data={data}
+          keyExtractor={item => item._id}
+          renderItem={({item}) => <MesoOverview meso={item}/>}
+        />
       </Accordion>
     </ScreenContainer>
   );

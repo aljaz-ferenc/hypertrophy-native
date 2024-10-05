@@ -4,6 +4,7 @@ import { Mesocycle } from "@/types";
 import {
   Box,
   Divider,
+  FlatList,
   HStack,
   ScrollView,
   Text,
@@ -46,32 +47,37 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
         </AccordionHeader>
         <AccordionContent>
           <ScrollView horizontal style={styles.workoutsContainer}>
-            {meso.workouts.map((workout, i) => (
-              <View
-                style={[
-                  styles.workoutContainer,
-                  { marginLeft: i === 0 ? 0 : 15 },
-                ]}
-              >
-                <Text style={styles.workoutTitle}>
-                  {t(`DAYS.${Days[workout.weekDay]}`)}
-                </Text>
-                <VStack>
-                  <VStack style={styles.exercisesContainer}>
-                    {workout.exercises.map((exercise) => (
-                      <Box style={styles.exerciseContainer}>
-                        <Text style={styles.badge}>
-                          {t(`MUSCLE_GROUPS.${exercise.muscleGroup}`)}
-                        </Text>
-                        <Text style={styles.textWhite}>
-                          {exercise.exercise}
-                        </Text>
-                      </Box>
-                    ))}
+            <FlatList
+              data={meso.workouts}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item, index }) => (
+                <View
+                  key={item.id}
+                  style={[
+                    styles.workoutContainer,
+                    { marginLeft: index === 0 ? 0 : 15 },
+                  ]}
+                >
+                  <Text style={styles.workoutTitle}>
+                    {t(`DAYS.${Days[item.weekDay]}`)}
+                  </Text>
+                  <VStack>
+                    <VStack style={styles.exercisesContainer}>
+                      {item.exercises.map((exercise) => (
+                        <Box style={styles.exerciseContainer}>
+                          <Text style={styles.badge}>
+                            {t(`MUSCLE_GROUPS.${exercise.muscleGroup}`)}
+                          </Text>
+                          <Text style={styles.textWhite}>
+                            {exercise.exercise}
+                          </Text>
+                        </Box>
+                      ))}
+                    </VStack>
                   </VStack>
-                </VStack>
-              </View>
-            ))}
+                </View>
+              )}
+            />
           </ScrollView>
           <HStack style={{ justifyContent: "space-between", marginTop: 20 }}>
             <Button
