@@ -1,9 +1,9 @@
 {
   "MENU": {
-    "todaysWorkout": "Današnja Vaja",
+    "todaysWorkout": "Današnji Trening",
     "createMesocycle": "Ustvari Mezocikel",
     "myMesocycles": "Moji Mezocikli",
-    "completedWorkouts": "Opravljene Vaje",
+    "completedWorkouts": "Opravljeni Treningi",
     "stats": "Statistika",
     "nutrition": "Prehrana",
     "settings": "Nastavitve"
@@ -16,7 +16,27 @@
   },
   "TODAYS_WORKOUT": {
     "week": "TEDEN",
-    "completeBtn": "Končaj Vajo"
+    "completeBtn": "Končaj Traning",
+    "REST":{
+      "title":"Dan počitka",
+      "message":"Danes je dan za počitek – ne pozabi, da je okrevanje enako pomembno kot trening! Izkoristi ta čas za sprostitev, raztezanje in regeneracijo telesa. Tvoj naslednji trening bo še boljši zaradi današnjega truda!"
+    },
+    "NO_ACTIVE_MESOS":{
+      "title":"Ni aktivnega mezocikla",
+      "message":"Da ostaneš na pravi poti do svojih fitnes ciljev, aktiviraj obstoječi mezocikel ali ustvari novega in začni svojo naslednjo fazo treninga. Nadaljujmo z napredkom!"
+    },
+    "MESO_COMPLETED":{
+      "title":"Mezocikel zaključen",
+      "message":"Ta mezocikel si že zaključil, zato danes ni predvidenega treninga. Pregled svojega napredka si lahko ogledaš v razdelku 'Zaključeni treningi'. Če želiš, lahko aktiviraš drugi mezocikel ali ustvariš novega. Odlično opravljeno!"
+    },
+    "WORKOUT_COMPLETED":{
+      "title":"Trening opravljen",
+      "message":"Današnji trening si že opravil. Kar tako naprej!"
+    },
+    "STARTS_MONDAY":{
+      "title":"Začneš v ponedeljek",
+      "message":"Tvoj mezocikel je trenutno aktiven! Prvi trening se začne v ponedeljek. Pripravi se na akcijo!"
+    }
   },
   "MY_MESOCYCLES": {
     "delete": "Izbriši",

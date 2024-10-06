@@ -1,4 +1,5 @@
 import { Colors } from "@/constants/Colors";
+import { styleConstants } from "@/constants/styles";
 import { ScrollView, View } from "native-base";
 import { StyleSheet } from "react-native";
 
@@ -16,6 +17,6 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: Colors.primary,
         flex: 1,
-        padding: 10
+        padding: styleConstants.screenPadding
     }
 })

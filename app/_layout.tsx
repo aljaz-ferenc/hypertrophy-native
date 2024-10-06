@@ -26,6 +26,7 @@ import { GluestackUIProvider } from '@/components/ui/gluestack-ui-provider';
 import '@/i18n/i18n.config.ts'
 import Settings from './settings';
 import { useTranslation } from 'react-i18next';
+import { Colors } from '@/constants/Colors';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -56,14 +57,19 @@ export default function RootLayout() {
                {!user ? <SetUser/> :
                    <Drawer.Navigator screenOptions={{
                        headerShown: true,
+                       headerTitleStyle:{color: Colors.white},
+                       headerTintColor:Colors.white,
                        drawerStyle: {backgroundColor: '#1E293B'},
                        drawerLabelStyle: styles.label,
                        drawerInactiveBackgroundColor: 'transparent',
                        drawerInactiveTintColor: '#aaa',
                        drawerActiveTintColor: 'white',
-                       drawerType: 'slide'
+                       drawerType: 'front',
+                       headerStyle: {
+                        backgroundColor: Colors.primary,
+                       },
                    }}>
-                       <Drawer.Screen name={'todays-workout'} component={TodaysWorkout} options={{
+                       <Drawer.Screen name={'todays-workout'} component={TodaysWorkout}  options={{
                            drawerLabel: t("MENU.todaysWorkout"),
                            title: t("MENU.todaysWorkout"),
                            drawerIcon: () => <Icon name={'fitness-center'} color={'white'}/>
@@ -108,7 +114,7 @@ export default function RootLayout() {
 
 const styles = StyleSheet.create({
     label: {
-        // color: '#ddd',
+        color: Colors.white,
     }
 })
 

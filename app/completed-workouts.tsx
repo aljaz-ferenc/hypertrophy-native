@@ -36,12 +36,11 @@ export default function CompletedWorkouts() {
   return (
     <ScrollView style={styles.screenContainer}>
       <VStack style={styles.container}>
-        {logs?.map((log) => (
-          <View key={log.mesoId}>
+        {logs?.map((log, i) => (
+          <View key={i}>
             <Text
               onPress={() => handleOpenLog(log.mesoId)}
               style={styles.title}
-              key={log.mesoId}
             >
               {log.mesoTitle}
             </Text>

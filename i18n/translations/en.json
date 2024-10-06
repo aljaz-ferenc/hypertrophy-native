@@ -16,7 +16,27 @@
   },
   "TODAYS_WORKOUT": {
     "week": "WEEK",
-    "completeBtn": "Complete Workout"
+    "completeBtn": "Complete Workout",
+    "REST":{
+      "title":"Rest day",
+      "message":"Today is your rest day—remember, recovery is just as important as training! Take this time to recharge, stretch, and let your body rebuild stronger. Your next workout is going to be even better because of the work you're putting in today!"
+    },
+    "NO_ACTIVE_MESOS":{
+      "title":"No active mesocycle",
+      "message":" To stay on track with your fitness goals, activate an existing mesocycle or create a new one to begin your next training phase. Let's keep progressing!"
+    },
+    "MESO_COMPLETED":{
+      "title":"Mesocycle completed",
+      "message":"You've already completed your mesocycle, so there's no workout scheduled for today. You can view the overview of your progress in the 'Completed Workouts' section. If you'd like, you can activate another mesocycle or create a new one. Great job!"
+    },
+    "WORKOUT_COMPLETED":{
+      "title":"Workout Completed",
+      "message":"Today's workout has already been completed. Great job staying on track!"
+    },
+    "STARTS_MONDAY":{
+      "title":"You start on Monday",
+      "message":"Your mesocycle is active! The first workout kicks off this Monday. Get ready to crush it!"
+    }
   },
   "MY_MESOCYCLES": {
     "delete": "Delete",

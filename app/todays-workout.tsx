@@ -14,7 +14,7 @@ import {
   Text,
   VStack,
 } from "native-base";
-import { getTodaysDay, todaysWorkout } from "@/utils";
+import { getMesocycleProgress, getTodaysDay, todaysWorkout } from "@/utils";
 import { differenceInCalendarISOWeeks, format, getDay } from "date-fns";
 import useTodaysWorkoutStore from "@/store/todaysWorkout.store";
 import { useShallow } from "zustand/react/shallow";
@@ -26,10 +26,17 @@ import { useTranslation } from "react-i18next";
 import { Days } from "@/enums/Days";
 import useGetActiveMesocycle from "@/api/queries/useGetActiveMesocycle";
 import ScreenContainer from "@/components/molecules/ScreenContainer";
+import Heading from "@/components/atoms/Heading";
+import { useQueryClient } from "react-query";
+import { useRouter } from "expo-router";
+import { Progress, ProgressFilledTrack } from "@/components/ui/progress";
+import MesoProgressBar from "@/components/molecules/MesoProgressBar";
 
 export default function TodaysWorkout() {
   const [userId] = useUserStore(useShallow((state) => [state.user?._id]));
   const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const router = useRouter();
 
   const {
     data,
@@ -86,27 +93,78 @@ export default function TodaysWorkout() {
     };
 
     if (!userId) return;
-    await mutateAsync({
-      userId,
-      logId: data?.mesocycle._id,
-      workout: workoutLog,
-      weekIndex: week,
-      workoutIndex: workoutLog.day,
-    });
+    try {
+      await mutateAsync({
+        userId,
+        logId: data?.mesocycle._id,
+        workout: workoutLog,
+        weekIndex: week,
+        workoutIndex: workoutLog.day,
+      });
+      queryClient.invalidateQueries({ queryKey: ["logs"] });
+      queryClient.invalidateQueries({ queryKey: ["active-mesocycle"] });
+      router.push("/completed-workouts");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   if (data?.message === "startsMonday") {
     return (
       <ScreenContainer>
-        <Text style={styles.whiteText}>{data?.message}</Text>
+        {data?.mesocycle ? (
+          <MesoProgressBar
+            startDate={data.mesocycle.startDate}
+            durationInWeeks={data.mesocycle.duration}
+          />
+        ) : null}
+        <Heading style={styles.noMesoTitle} modifier="h2">
+          {t("TODAYS_WORKOUT.STARTS_MONDAY.title")}
+        </Heading>
+
+        <Text style={styles.noMesoMessage}>
+          {t("TODAYS_WORKOUT.STARTS_MONDAY.message")}
+        </Text>
       </ScreenContainer>
     );
   }
 
-  if (data?.message === "completed") {
+  if (data?.message === "mesoCompleted") {
     return (
       <ScreenContainer>
-        <Text style={styles.whiteText}>{data?.message}</Text>
+        {data?.mesocycle ? (
+          <MesoProgressBar
+            startDate={data.mesocycle.startDate}
+            durationInWeeks={data.mesocycle.duration}
+          />
+        ) : null}
+        <Heading style={styles.noMesoTitle} modifier="h2">
+          {t("TODAYS_WORKOUT.MESO_COMPLETED.title")}
+        </Heading>
+
+        <Text style={styles.noMesoMessage}>
+          {t("TODAYS_WORKOUT.MESO_COMPLETED.message")}
+        </Text>
+      </ScreenContainer>
+    );
+  }
+
+  if (data?.message === "workoutCompleted") {
+    return (
+      <ScreenContainer>
+        {data?.mesocycle ? (
+          <MesoProgressBar
+            startDate={data.mesocycle.startDate}
+            durationInWeeks={data.mesocycle.duration}
+          />
+        ) : null}
+        <Heading style={styles.noMesoTitle} modifier="h2">
+          {t("TODAYS_WORKOUT.WORKOUT_COMPLETED.title")}
+        </Heading>
+
+        <Text style={styles.noMesoMessage}>
+          {t("TODAYS_WORKOUT.WORKOUT_COMPLETED.message")}
+        </Text>
       </ScreenContainer>
     );
   }
@@ -114,7 +172,13 @@ export default function TodaysWorkout() {
   if (data?.message === "noActiveMesos") {
     return (
       <ScreenContainer>
-        <Text style={styles.whiteText}>{data?.message}</Text>
+        <Heading style={styles.noMesoTitle} modifier="h2">
+          {t("TODAYS_WORKOUT.NO_ACTIVE_MESOS.title")}
+        </Heading>
+
+        <Text style={styles.noMesoMessage}>
+          {t("TODAYS_WORKOUT.NO_ACTIVE_MESOS.message")}
+        </Text>
       </ScreenContainer>
     );
   }
@@ -122,14 +186,30 @@ export default function TodaysWorkout() {
   if (data?.message === "restDay") {
     return (
       <ScreenContainer>
-        <Text style={styles.whiteText}>{data?.message}</Text>
+        {data?.mesocycle ? (
+          <MesoProgressBar
+            startDate={data.mesocycle.startDate}
+            durationInWeeks={data.mesocycle.duration}
+          />
+        ) : null}
+        <Heading style={styles.noMesoTitle} modifier="h2">
+          {t("TODAYS_WORKOUT.REST.title")}
+        </Heading>
+        <Text style={styles.noMesoMessage}>
+          {t("TODAYS_WORKOUT.REST.message")}
+        </Text>
       </ScreenContainer>
     );
   }
 
   return (
     <ScrollView style={styles.screenContainer}>
-      <Text  style={styles.whiteText}>hi</Text>
+      {data?.mesocycle ? (
+        <MesoProgressBar
+          startDate={data.mesocycle.startDate}
+          durationInWeeks={data.mesocycle.duration}
+        />
+      ) : null}
       {data?.mesocycle && exercises ? (
         <>
           <Box>
@@ -152,7 +232,7 @@ export default function TodaysWorkout() {
                     ) + 1}
                   </Text>
                   / {data.mesocycle.duration} -{" "}
-                  {t(`DAYS.${Days[getDay(new Date())]}`).toUpperCase()}
+                  {t(`DAYS.${Days[getTodaysDay()]}`).toUpperCase()}
                 </Text>
               </Box>
               {exercises.map((e) => (
@@ -245,7 +325,7 @@ export default function TodaysWorkout() {
               ))}
             </VStack>
             <Button
-              style={{ flex: 1, alignSelf: "stretch" }}
+              style={styles.completeBtn}
               onPress={onCompleteWorkout}
               modifier="primary"
             >
@@ -299,5 +379,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#020817",
+  },
+  completeBtn: { flex: 1, alignSelf: "stretch", marginTop: 10 },
+  noMesoTitle: {
+    color: Colors.white,
+    paddingTop: 10,
+  },
+  noMesoMessage: {
+    color: Colors.white,
   },
 });
