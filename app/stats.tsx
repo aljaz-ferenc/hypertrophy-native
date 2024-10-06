@@ -138,7 +138,8 @@ export default function Stats() {
       <View>
         <InputGroup alignSelf={"self-start"}>
           <Input
-            style={{ color: "white" }}
+            style={{ color: "white", backgroundColor: Colors.secondary }}
+            width={100}
             keyboardType={"numeric"}
             onChangeText={(weight) => setWeightInput(weight)}
             value={weightInput}
