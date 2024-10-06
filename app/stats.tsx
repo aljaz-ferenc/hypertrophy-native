@@ -40,7 +40,8 @@ export default function Stats() {
     if (!weightInput) {
       setErrors((prev: any) => ({ ...prev, input: "Please add a value." }));
     }
-    if (weightInput.match(/^[0-9]+$/) != null) {
+    if (weightInput.match(/^[0-9]*\.?[0-9]+$/
+) != null) {
       await mutateAsync({
         userId: user?._id as string,
         update: {
@@ -49,6 +50,7 @@ export default function Stats() {
         },
       });
       setWeightInput("");
+      setErrors({})
       queryClient.invalidateQueries(["weight", { userId: user?._id }]);
     } else {
       setErrors((prev: any) => ({
