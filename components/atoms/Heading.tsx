@@ -14,7 +14,7 @@ export default function Heading({ modifier, style, children }: HeadingProps) {
       <Text style={[styles[`${modifier}`], { color: "white" }, style]}>
         {children}
       </Text>
-      {modifier === 'h1' && <View style={styles.spacer}/>}
+      {modifier === 'h1' ? <View style={styles.spacer}/> : null}
     </>
   );
 }

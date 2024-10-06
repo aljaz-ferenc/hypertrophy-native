@@ -95,33 +95,42 @@ export default function TodaysWorkout() {
     });
   };
 
-  if (data?.message === "noActiveMesos") {
-    return <Text>{data?.message}</Text>;
-  }
-
   if (data?.message === "startsMonday") {
-    return <Text>{data?.message}</Text>;
+    return (
+      <ScreenContainer>
+        <Text style={styles.whiteText}>{data?.message}</Text>
+      </ScreenContainer>
+    );
   }
 
   if (data?.message === "completed") {
-    return <Text>{data?.message}</Text>;
+    return (
+      <ScreenContainer>
+        <Text style={styles.whiteText}>{data?.message}</Text>
+      </ScreenContainer>
+    );
   }
 
   if (data?.message === "noActiveMesos") {
-    return <Text>{data?.message}</Text>;
+    return (
+      <ScreenContainer>
+        <Text style={styles.whiteText}>{data?.message}</Text>
+      </ScreenContainer>
+    );
   }
 
   if (data?.message === "restDay") {
     return (
       <ScreenContainer>
-        <Text style={styles.whiteText}>{data?.message}</Text>;
+        <Text style={styles.whiteText}>{data?.message}</Text>
       </ScreenContainer>
     );
   }
 
   return (
     <ScrollView style={styles.screenContainer}>
-      {data?.mesocycle && exercises && (
+      <Text  style={styles.whiteText}>hi</Text>
+      {data?.mesocycle && exercises ? (
         <>
           <Box>
             <VStack space={3}>
@@ -244,7 +253,7 @@ export default function TodaysWorkout() {
             </Button>
           </Box>
         </>
-      )}
+      ) : null}
     </ScrollView>
   );
 }

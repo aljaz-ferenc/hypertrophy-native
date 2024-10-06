@@ -88,9 +88,9 @@ export default function Stats() {
         </Button>
       </HStack>
 
-      {data && !!data.weight?.length && (
+      {data && !!data.weight?.length ? (
         <View style={{ alignItems: "center" }}>
-          <LineChart
+          {/* <LineChart
             data={{
               labels: data.weight.map((weight, i) => {
                 const thisMonth = format(new Date(weight.date), "M");
@@ -132,9 +132,9 @@ export default function Stats() {
               marginVertical: 8,
               borderRadius: 16,
             }}
-          />
+          /> */}
         </View>
-      )}
+      ) : null}
       <View>
         <InputGroup alignSelf={"self-start"}>
           <Input
@@ -152,9 +152,9 @@ export default function Stats() {
         >
           {t("STATS.add")}
         </Button>
-        {errors.input && (
+        {errors.input ? (
           <Text style={styles.errorMessage}>{errors.input}</Text>
-        )}
+        ): null}
       </View>
     </ScrollView>
   );

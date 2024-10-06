@@ -37,11 +37,11 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
           <AccordionTrigger>
             <HStack style={{ gap: 10 }}>
               <Text style={{ color: "white" }}>{meso.title}</Text>
-              {meso.isActive && (
+              {meso.isActive ? (
                 <Text style={{ color: Colors.green }}>
                   {t("MY_MESOCYCLES.active")}
                 </Text>
-              )}
+              ) : null}
             </HStack>
           </AccordionTrigger>
         </AccordionHeader>
@@ -92,7 +92,7 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
             >
               {t("MY_MESOCYCLES.delete")}
             </Button>
-            {!meso.isActive && (
+            {!meso.isActive ? (
               <Button
                 style={{ marginBottom: 10 }}
                 onPress={() => {}}
@@ -100,7 +100,7 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
               >
                 {t("MY_MESOCYCLES.activate")}
               </Button>
-            )}
+            ) : null}
           </HStack>
         </AccordionContent>
       </AccordionItem>

@@ -1,6 +1,7 @@
 import {create} from "zustand";
 import {Mesocycle} from "@/types";
 import {getTodaysDay} from "@/utils";
+import * as Crypto from 'expo-crypto'
 
 type Exercise = {
     exercise: string;
@@ -34,7 +35,7 @@ const useTodaysWorkoutStore = create<TodaysWorkoutStore>((set) => ({
             const modded: Exercise[] = exercises.map((e) => ({
                 exercise: e.exercise,
                 id: e.id,
-                data: [{reps: "", weight: "", id: crypto.randomUUID()}],
+                data: [{reps: "", weight: "", id:Crypto.randomUUID()}],
             }));
             return {...state, exercises: modded};
         }),
@@ -43,7 +44,7 @@ const useTodaysWorkoutStore = create<TodaysWorkoutStore>((set) => ({
             ...state,
             exercises: state.exercises.map((e) => {
                 if (e.id === exerciseId) {
-                    e.data.push({reps: "", weight: "", id: crypto.randomUUID()});
+                    e.data.push({reps: "", weight: "", id: Crypto.randomUUID()});
                 }
                 return e;
             }),
