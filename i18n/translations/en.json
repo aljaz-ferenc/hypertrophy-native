@@ -51,6 +51,9 @@
     "all": "All",
     "add": "Add"
   },
+  "NUTRITION":{
+    "today":"Today"
+  },
   "DAYS": {
     "monday": "monday",
     "tuesday": "tuesday",

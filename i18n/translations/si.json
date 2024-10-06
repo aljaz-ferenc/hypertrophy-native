@@ -51,6 +51,9 @@
     "all": "Vse",
     "add": "Dodaj"
   },
+  "NUTRITION":{
+    "today":"Danes"
+  },
   "DAYS": {
     "monday": "ponedeljek",
     "tuesday": "torek",

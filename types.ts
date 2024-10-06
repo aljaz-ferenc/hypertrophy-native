@@ -85,3 +85,12 @@ type LogWeek = {
 }[]
 
 export type Range = 'all' | 'week' | 'month' | 'year'
+ 
+export type Nutrition = {
+    _id: string,
+    user: string,
+    date: Date,
+    amount: number,
+    itemId: string,
+    item: string,
+}
