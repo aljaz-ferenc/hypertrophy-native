@@ -90,7 +90,7 @@ export default function Stats() {
 
       {data && !!data.weight?.length ? (
         <View style={{ alignItems: "center" }}>
-          {/* <LineChart
+          <LineChart
             data={{
               labels: data.weight.map((weight, i) => {
                 const thisMonth = format(new Date(weight.date), "M");
@@ -132,7 +132,7 @@ export default function Stats() {
               marginVertical: 8,
               borderRadius: 16,
             }}
-          /> */}
+          />
         </View>
       ) : null}
       <View>
