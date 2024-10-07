@@ -31,6 +31,11 @@ import { useQueryClient } from "react-query";
 import { useRouter } from "expo-router";
 import { Progress, ProgressFilledTrack } from "@/components/ui/progress";
 import MesoProgressBar from "@/components/molecules/MesoProgressBar";
+import StartsMondayScreen from "@/components/modules/StartsMondayScreen";
+import MesoCompletedScreen from "@/components/modules/MesoCompletedScreen";
+import WorkoutCompletedScreen from "@/components/modules/WorkoutCompletedScreen";
+import NoActiveMesosScreen from "@/components/modules/NoActiveMesosScreen";
+import RestDayScreen from "@/components/modules/RestDayScreen";
 
 export default function TodaysWorkout() {
   const [userId] = useUserStore(useShallow((state) => [state.user?._id]));
@@ -58,7 +63,7 @@ export default function TodaysWorkout() {
 
   useEffect(() => {
     if (!data?.mesocycle) return;
-    const workout = todaysWorkout(data?.mesocycle);
+    const workout = todaysWorkout(data.mesocycle);
     const exercises = workout?.exercises.map((e) => ({
       id: e.id,
       exercise: e.exercise,
@@ -78,7 +83,7 @@ export default function TodaysWorkout() {
     if (!data?.mesocycle) return;
     const week = differenceInCalendarISOWeeks(
       new Date(),
-      new Date(data?.mesocycle.startDate)
+      new Date(data.mesocycle.startDate)
     );
 
     const workoutLog: WorkoutLog = {
@@ -96,7 +101,7 @@ export default function TodaysWorkout() {
     try {
       await mutateAsync({
         userId,
-        logId: data?.mesocycle._id,
+        logId: data.mesocycle._id,
         workout: workoutLog,
         weekIndex: week,
         workoutIndex: workoutLog.day,
@@ -110,95 +115,32 @@ export default function TodaysWorkout() {
   };
 
   if (data?.message === "startsMonday") {
-    return (
-      <ScreenContainer>
-        {data?.mesocycle ? (
-          <MesoProgressBar
-            startDate={data.mesocycle.startDate}
-            durationInWeeks={data.mesocycle.duration}
-          />
-        ) : null}
-        <Heading style={styles.noMesoTitle} modifier="h2">
-          {t("TODAYS_WORKOUT.STARTS_MONDAY.title")}
-        </Heading>
-
-        <Text style={styles.noMesoMessage}>
-          {t("TODAYS_WORKOUT.STARTS_MONDAY.message")}
-        </Text>
-      </ScreenContainer>
+    return (data.mesocycle ?
+      <StartsMondayScreen mesocycle={data.mesocycle}/> : null
     );
   }
 
   if (data?.message === "mesoCompleted") {
-    return (
-      <ScreenContainer>
-        {data?.mesocycle ? (
-          <MesoProgressBar
-            startDate={data.mesocycle.startDate}
-            durationInWeeks={data.mesocycle.duration}
-          />
-        ) : null}
-        <Heading style={styles.noMesoTitle} modifier="h2">
-          {t("TODAYS_WORKOUT.MESO_COMPLETED.title")}
-        </Heading>
-
-        <Text style={styles.noMesoMessage}>
-          {t("TODAYS_WORKOUT.MESO_COMPLETED.message")}
-        </Text>
-      </ScreenContainer>
+    return (data.mesocycle ?
+      <MesoCompletedScreen mesocycle={data.mesocycle}/> : null
     );
   }
 
   if (data?.message === "workoutCompleted") {
-    return (
-      <ScreenContainer>
-        {data?.mesocycle ? (
-          <MesoProgressBar
-            startDate={data.mesocycle.startDate}
-            durationInWeeks={data.mesocycle.duration}
-          />
-        ) : null}
-        <Heading style={styles.noMesoTitle} modifier="h2">
-          {t("TODAYS_WORKOUT.WORKOUT_COMPLETED.title")}
-        </Heading>
-
-        <Text style={styles.noMesoMessage}>
-          {t("TODAYS_WORKOUT.WORKOUT_COMPLETED.message")}
-        </Text>
-      </ScreenContainer>
+    return ( data.mesocycle ?
+      <WorkoutCompletedScreen mesocycle={data.mesocycle}/> : null
     );
   }
 
   if (data?.message === "noActiveMesos") {
     return (
-      <ScreenContainer>
-        <Heading style={styles.noMesoTitle} modifier="h2">
-          {t("TODAYS_WORKOUT.NO_ACTIVE_MESOS.title")}
-        </Heading>
-
-        <Text style={styles.noMesoMessage}>
-          {t("TODAYS_WORKOUT.NO_ACTIVE_MESOS.message")}
-        </Text>
-      </ScreenContainer>
+      <NoActiveMesosScreen/>
     );
   }
 
   if (data?.message === "restDay") {
-    return (
-      <ScreenContainer>
-        {data?.mesocycle ? (
-          <MesoProgressBar
-            startDate={data.mesocycle.startDate}
-            durationInWeeks={data.mesocycle.duration}
-          />
-        ) : null}
-        <Heading style={styles.noMesoTitle} modifier="h2">
-          {t("TODAYS_WORKOUT.REST.title")}
-        </Heading>
-        <Text style={styles.noMesoMessage}>
-          {t("TODAYS_WORKOUT.REST.message")}
-        </Text>
-      </ScreenContainer>
+    return (data.mesocycle ?
+      <RestDayScreen mesocycle={data.mesocycle}/>: null
     );
   }
 
