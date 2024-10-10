@@ -77,28 +77,28 @@ type LogWeek = {
     workouts: {
         day: number,
         exercises: {
-           data: {reps: number, weight: number}[],
-           exercise: string,
-           id: string
+            data: { reps: number, weight: number }[],
+            exercise: string,
+            id: string
         }[]
     }[]
 }[]
 
 export type Range = 'all' | 'week' | 'month' | 'year'
- 
+
 export type Nutrition = {
     _id: string,
     user: string,
     date: Date,
     amount: number,
     itemId: string,
-    item: string,
 }
 
 export type Portion = {
     title: string,
     amount: string,
     id: string
+    item: string
 }
 
 export type FoodItem = {
@@ -110,3 +110,27 @@ export type FoodItem = {
     user: string,
     portions: Portion[]
 }
+
+export type MuscleGroup =
+    | "biceps"
+    | "triceps"
+    | "chest"
+    | "back"
+    | "shoulders"
+    | "quads"
+    | "glutes"
+    | "hamstrings"
+    | "abs"
+    | "traps"
+    | "forearms"
+    | "calves"
+    | "neck"
+
+export type Weekday =
+    | "monday"
+    | "tuesday"
+    | "wednesday"
+    | "thursday"
+    | "friday"
+    | "saturday"
+    | "sunday";
