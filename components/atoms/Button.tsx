@@ -46,7 +46,7 @@ const textStyles = StyleSheet.create({
         color: Colors.white
     },
     disabled: {
-        color: Colors.black
+        color: Colors.white,
     },
     destructive: {
       color: Colors.white
@@ -68,7 +68,7 @@ const buttonStyles = StyleSheet.create({
   },
   disabled: {
     ...button.base,
-    backgroundColor: Colors.white,
+      backgroundColor:Colors.textGray
   },
   destructive: {
     ...button.base,
