@@ -2,7 +2,7 @@ import useGetNutrition from "@/api/queries/useGetNutrition";
 import Heading from "@/components/atoms/Heading";
 import ScreenContainer from "@/components/molecules/ScreenContainer";
 import {Colors} from "@/constants/Colors";
-import {Box, Button, FlatList, HStack, Text, View} from "native-base";
+import { FlatList, HStack, Text, View} from "native-base";
 import {useTranslation} from "react-i18next";
 import {StyleSheet} from "react-native";
 import useUserStore from "@/store/user.store";
@@ -13,6 +13,7 @@ import useDeleteNutrition from "@/api/queries/useDeleteNutrition";
 import {Actionsheet} from "native-base";
 import {useEffect, useState} from "react";
 import CreateItemModal from "@/components/molecules/CreateItemModal";
+import Dropdown from 'react-native-input-select';
 
 export default function Nutrition() {
     const {t} = useTranslation();
@@ -20,6 +21,7 @@ export default function Nutrition() {
     const {data, error: getError, isFetching} = useGetNutrition(userId!);
     const [menuIsOpen, setMenuIsOpen] = useState(false)
     const [createNewItemIsOpen, setCreateNewItemIsOpen] = useState(false)
+    const [country, setCountry] = useState();
     const {
         mutateAsync,
         error: deleteError,
@@ -67,20 +69,6 @@ export default function Nutrition() {
                     </Actionsheet.Content>
                 </Actionsheet>
                 <Heading modifier="h3">{t("NUTRITION.today")}</Heading>
-                {/* <View style={styles.todaysNutritionContainer}>
-                <View>
-                    <Text style={styles.whiteText}>Calories</Text>
-                </View>
-                <View>
-                    <Text  style={styles.whiteText}>Protein</Text>
-                </View>
-                <View>
-                    <Text  style={styles.whiteText}>Fat</Text>
-                </View>
-                <View>
-                    <Text style={styles.whiteText}>Carbs</Text>
-                </View>
-            </View> */}
                 <FlatList
                     data={data?.nutrition}
                     keyExtractor={(item) => item._id}
@@ -97,6 +85,37 @@ export default function Nutrition() {
                         </HStack>
                     )}
                 />
+                {/* <View style={styles.todaysNutritionContainer}>
+                <View>
+                    <Text style={styles.whiteText}>Calories</Text>
+                </View>
+                <View>
+                    <Text  style={styles.whiteText}>Protein</Text>
+                </View>
+                <View>
+                    <Text  style={styles.whiteText}>Fat</Text>
+                </View>
+                <View>
+                    <Text style={styles.whiteText}>Carbs</Text>
+                </View>
+            </View> */}
+                <View style={{marginTop: 30}}>
+                    <Text style={{color: Colors.white}}>Add item</Text>
+                    <Dropdown
+                        label="Country"
+                        placeholder="Select an option..."
+                        options={[
+                            { label: 'Nigeria', value: 'NG' },
+                            { label: 'Åland Islands', value: 'AX' },
+                            { label: 'Algeria', value: 'DZ' },
+                            { label: 'American Samoa', value: 'AS' },
+                            { label: 'Andorra', value: 'AD' },
+                        ]}
+                        selectedValue={country}
+                        onValueChange={(value) => console.log(value)}
+                        primaryColor={'green'}
+                    />
+                </View>
             </ScreenContainer>
         </View>
     );
