@@ -28,6 +28,7 @@ type CreateItemModalProps = {
   onClose: () => void;
   portions: Portion[]
   setPortions: React.Dispatch<React.SetStateAction<Portion[]>>
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>
 };
 
 type Errors = Partial<{
@@ -42,7 +43,8 @@ export default function CreateItemModal({
   isOpen,
   onClose,
   portions,
-  setPortions
+  setPortions,
+  setIsOpen,
 }: CreateItemModalProps) {
   const [name, setName] = useState("");
   const [calories, setCalories] = useState("");
@@ -54,6 +56,7 @@ export default function CreateItemModal({
   const { mutateAsync, error, isLoading } = useCreateFoodItem();
   const [saveitem, setSaveItem] = useState(false);
   const { t } = useTranslation();
+
   const createItem = async () => {
     if (!userId) return;
 
@@ -91,7 +94,12 @@ export default function CreateItemModal({
 
     try {
       const res = await mutateAsync(newItem);
-      console.log(res);
+      setIsOpen(false)
+      setName('')
+      setCalories('')
+      setFat('')
+      setCarbs('')
+      setPortions([])
     } catch (err: unknown) {
       if (err instanceof Error) {
         console.log(err.message);

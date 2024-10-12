@@ -81,6 +81,7 @@ export default function Nutrition() {
       setPortions={setPortions}
         isOpen={createNewItemIsOpen}
         onClose={handleClose}
+        setIsOpen={setCreateNewItemIsOpen}
       />
       <View style={styles.fabContainer}>
         <TouchableOpacity
