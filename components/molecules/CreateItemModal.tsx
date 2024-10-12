@@ -7,6 +7,7 @@ import {
   InputGroup,
   InputRightAddon,
   Modal,
+  ScrollView,
   Text,
   View,
   VStack,
@@ -25,6 +26,8 @@ import { useTranslation } from "react-i18next";
 type CreateItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
+  portions: Portion[]
+  setPortions: React.Dispatch<React.SetStateAction<Portion[]>>
 };
 
 type Errors = Partial<{
@@ -38,6 +41,8 @@ type Errors = Partial<{
 export default function CreateItemModal({
   isOpen,
   onClose,
+  portions,
+  setPortions
 }: CreateItemModalProps) {
   const [name, setName] = useState("");
   const [calories, setCalories] = useState("");
@@ -47,7 +52,6 @@ export default function CreateItemModal({
   const [errors, setErrors] = useState<Partial<Errors>>({});
   const userId = useUserStore((state) => state.user?._id);
   const { mutateAsync, error, isLoading } = useCreateFoodItem();
-  const [portions, setPortions] = useState<Portion[]>([]);
   const [saveitem, setSaveItem] = useState(false);
   const { t } = useTranslation();
   const createItem = async () => {
@@ -121,7 +125,8 @@ export default function CreateItemModal({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size={"lg"}>
-      <Modal.Content height={"500"}>
+      <Modal.Content >
+        {/* <ScrollView> */}
         <Modal.CloseButton />
         <Modal.Header>{t("NUTRITION.createNewItem")}</Modal.Header>
         <Modal.Body
@@ -148,7 +153,7 @@ export default function CreateItemModal({
                       keyboardType={"numeric"}
                       onChangeText={setCalories}
                     />
-                    <InputRightAddon>g</InputRightAddon>
+                    <InputRightAddon>kcal</InputRightAddon>
                   </InputGroup>
                 </View>
                 <FormErrorMessage message={errors.calories} />
@@ -223,7 +228,43 @@ export default function CreateItemModal({
             <Text style={{ marginTop: 3, color: Colors.textGray }}>
               {t("NUTRITION.createPortions")}
             </Text>
-            <FlatList
+            <View>
+              {portions.map(portion => 
+                <View
+                style={{
+                  gap: 10,
+                  marginTop: 20,
+                  shadowColor: Colors.textGray,
+                  padding: 20,
+                  shadowRadius: 10,
+                  borderRadius: 10,
+                  shadowOpacity: 0.5,
+                  elevation: 5,
+                  minWidth: 250,
+                }}
+              >
+                <View>
+                  <Text>{t("NUTRITION.portion")}</Text>
+                  <Input
+                    onChangeText={(val) => updatePortionTitle(portion, val)}
+                    placeholder={t("NUTRITION.portionPlaceholder")}
+                  />
+                </View>
+                <View>
+                  <Text>{t("NUTRITION.amount")}</Text>
+                  {/* <InputGroup> */}
+                    <Input
+                    keyboardType="numeric"
+                      onChangeText={(val) => updatePortionAmount(portion, val)}
+                    />
+                    {/* <InputRightAddon>g</InputRightAddon> */}
+                    {/* 
+                  </InputGroup> */}
+                </View>
+              </View>
+              )}
+            </View>
+            {/* {!!portions.length && <FlatList
               data={portions}
               renderItem={({ item }) => (
                 <View
@@ -255,7 +296,7 @@ export default function CreateItemModal({
                   </View>
                 </View>
               )}
-            />
+            />} */}
             <Button
               style={{ marginTop: 20 }}
               onPress={() =>
@@ -282,6 +323,7 @@ export default function CreateItemModal({
             {t("NUTRITION.save")}
           </Button>
         </Modal.Footer>
+        {/* </ScrollView> */}
       </Modal.Content>
     </Modal>
   );

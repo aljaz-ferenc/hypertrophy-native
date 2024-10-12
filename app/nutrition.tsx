@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import CreateItemModal from "@/components/molecules/CreateItemModal";
 import FoodItemSelect from "@/components/molecules/FoodItemsSelect";
 import useGetFoodItems from "@/api/queries/useGetFoodItems";
-import { FoodItem } from "@/types";
+import { FoodItem, Portion } from "@/types";
 import { AddItemModal } from "@/components/molecules/AddItemModal";
 
 export default function Nutrition() {
@@ -24,6 +24,7 @@ export default function Nutrition() {
   const { data, error: getError, isFetching } = useGetNutrition(userId!);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [createNewItemIsOpen, setCreateNewItemIsOpen] = useState(false);
+  const [portions, setPortions] = useState<Portion[]>([]);
   const {
     data: foodItems,
     error,
@@ -68,11 +69,18 @@ export default function Nutrition() {
     refetch();
   };
 
+  const handleClose = () => {
+    setCreateNewItemIsOpen(false)
+    setPortions([])
+  }
+
   return (
     <View style={{ position: "relative", flex: 1 }}>
       <CreateItemModal
+      portions={portions}
+      setPortions={setPortions}
         isOpen={createNewItemIsOpen}
-        onClose={() => setCreateNewItemIsOpen(false)}
+        onClose={handleClose}
       />
       <View style={styles.fabContainer}>
         <TouchableOpacity

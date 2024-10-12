@@ -27,12 +27,13 @@ const styles = StyleSheet.create({
   h2: {
     fontSize: 28,
     fontWeight: 'semibold',
-    marginBottom: 10
+    marginBottom: 10,
   },
   h3:{
     fontSize: 24,
     fontWeight: 'semibold',
-    marginBottom: 5
+    marginBottom: 5,
+    paddingTop: 5
   },
   spacer: {
     height: 0.5,

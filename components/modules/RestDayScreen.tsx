@@ -16,12 +16,12 @@ export default function RestDayScreen({mesocycle}: RestDayScreenProps){
 
     return (
         <ScreenContainer>
-            {mesocycle ? (
+            {/* {mesocycle ? (
                 <MesoProgressBar
                     startDate={mesocycle.startDate}
                     durationInWeeks={mesocycle.duration}
                 />
-            ) : null}
+            ) : null} */}
             <Heading style={styles.noMesoTitle} modifier="h2">
                 {t("TODAYS_WORKOUT.REST.title")}
             </Heading>

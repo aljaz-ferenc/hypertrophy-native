@@ -60,8 +60,8 @@ export function AddItemModal({ item, setSelectedItem }: AddItemModalProps) {
         <Modal.Body>
           <VStack marginBottom={5}>
             <Text style={styles.itemName}>{item.name}</Text>
-            <HStack space={3}>
-              <Input keyboardType="numeric" style={{ width: 70 }} onChangeText={(val) => setAmount(val)}/>
+            <HStack space={3} alignItems={'center'}>
+              <Input keyboardType="numeric" style={{ maxWidth: 70 }} onChangeText={(val) => setAmount(val)}/>
               <Select placeholder={t("NUTRITION.select")} style={{ maxWidth: 120 }} onValueChange={(val) => setPortion(val)}>
                 <Select.Item label="g" value="1"/>
                 {item.portions.map((portion) => (

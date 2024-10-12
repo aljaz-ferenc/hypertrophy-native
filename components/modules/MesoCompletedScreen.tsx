@@ -15,12 +15,12 @@ export default function MesoCompletedScreen({mesocycle}: MesoCompletedScreenProp
     const {t} = useTranslation()
     return (
         <ScreenContainer>
-            {mesocycle ? (
+            {/* {mesocycle ? (
                 <MesoProgressBar
                     startDate={mesocycle.startDate}
                     durationInWeeks={mesocycle.duration}
                 />
-            ) : null}
+            ) : null} */}
             <Heading style={styles.noMesoTitle} modifier="h2">
                 {t("TODAYS_WORKOUT.MESO_COMPLETED.title")}
             </Heading>

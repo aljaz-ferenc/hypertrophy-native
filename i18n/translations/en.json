@@ -66,7 +66,7 @@
     "portions":"Portions",
     "portion":"Portion",
     "createPortions":"Create portions with predefined amounts.",
-    "amount":"Amount",
+    "amount":"Amount (g)",
     "addPortion":"Add portion",
     "optional":"(Optional)",
     "portionPlaceholder":"e.g. spoon, bite, piece..."

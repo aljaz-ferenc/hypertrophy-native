@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
     container: {
         backgroundColor: Colors.primary,
         flex: 1,
-        padding: styleConstants.screenPadding
+        padding: styleConstants.screenPadding,
+        // paddingVertical: 20
     }
 })

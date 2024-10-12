@@ -15,12 +15,12 @@ export default function StartsMondayScreen({mesocycle}: StartsMondayScreenProps)
     const {t} = useTranslation()
     return (
         <ScreenContainer>
-            {mesocycle ? (
+            {/* {mesocycle ? (
                 <MesoProgressBar
                     startDate={mesocycle.startDate}
                     durationInWeeks={mesocycle.duration}
                 />
-            ) : null}
+            ) : null} */}
             <Heading style={styles.noMesoTitle} modifier="h2">
                 {t("TODAYS_WORKOUT.STARTS_MONDAY.title")}
             </Heading>

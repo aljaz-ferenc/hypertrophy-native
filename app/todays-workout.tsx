@@ -146,12 +146,12 @@ export default function TodaysWorkout() {
 
   return (
     <ScrollView style={styles.screenContainer}>
-      {data?.mesocycle ? (
+      {/* {data?.mesocycle ? (
         <MesoProgressBar
           startDate={data.mesocycle.startDate}
           durationInWeeks={data.mesocycle.duration}
         />
-      ) : null}
+      ) : null} */}
       {data?.mesocycle && exercises ? (
         <>
           <Box>

@@ -16,12 +16,12 @@ export default function WorkoutCompletedScreen({mesocycle}: WorkoutCompletedScre
 
     return (
         <ScreenContainer>
-            {mesocycle ? (
+            {/* {mesocycle ? (
                 <MesoProgressBar
                     startDate={mesocycle.startDate}
                     durationInWeeks={mesocycle.duration}
                 />
-            ) : null}
+            ) : null} */}
             <Heading style={styles.noMesoTitle} modifier="h2">
                 {t("TODAYS_WORKOUT.WORKOUT_COMPLETED.title")}
             </Heading>
