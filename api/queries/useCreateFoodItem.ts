@@ -3,6 +3,7 @@ import {FoodItem} from "@/types";
 import {BASE_URL} from "@/constants/api";
 
 const addFoodItem = async (item: FoodItem): Promise<FoodItem> => {
+    console.log("ITEM: ", item)
     const res = await fetch(`${BASE_URL}/foodItems`, {
         method: "POST",
         headers: {

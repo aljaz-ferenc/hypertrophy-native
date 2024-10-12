@@ -1,4 +1,10 @@
 {
+  "GENERAL":{
+    "calories":"kalorije",
+    "protein":"beljakovine",
+    "fat":"maščobe",
+    "carbs":"ogljikovi hidrati"
+  },
   "MENU": {
     "todaysWorkout": "Današnji Trening",
     "createMesocycle": "Ustvari Mezocikel",

@@ -1,4 +1,10 @@
 {
+  "GENERAL": {
+    "calories": "calories",
+    "protein": "protein",
+    "fat": "fat",
+    "carbs": "carbs"
+  },
   "MENU": {
     "todaysWorkout": "Today's Workout",
     "createMesocycle": "Create Mesocycle",
@@ -17,25 +23,25 @@
   "TODAYS_WORKOUT": {
     "week": "WEEK",
     "completeBtn": "Complete Workout",
-    "REST":{
-      "title":"Rest day",
-      "message":"Today is your rest day—remember, recovery is just as important as training! Take this time to recharge, stretch, and let your body rebuild stronger. Your next workout is going to be even better because of the work you're putting in today!"
+    "REST": {
+      "title": "Rest day",
+      "message": "Today is your rest day—remember, recovery is just as important as training! Take this time to recharge, stretch, and let your body rebuild stronger. Your next workout is going to be even better because of the work you're putting in today!"
     },
-    "NO_ACTIVE_MESOS":{
-      "title":"No active mesocycle",
-      "message":" To stay on track with your fitness goals, activate an existing mesocycle or create a new one to begin your next training phase. Let's keep progressing!"
+    "NO_ACTIVE_MESOS": {
+      "title": "No active mesocycle",
+      "message": " To stay on track with your fitness goals, activate an existing mesocycle or create a new one to begin your next training phase. Let's keep progressing!"
     },
-    "MESO_COMPLETED":{
-      "title":"Mesocycle completed",
-      "message":"You've already completed your mesocycle, so there's no workout scheduled for today. You can view the overview of your progress in the 'Completed Workouts' section. If you'd like, you can activate another mesocycle or create a new one. Great job!"
+    "MESO_COMPLETED": {
+      "title": "Mesocycle completed",
+      "message": "You've already completed your mesocycle, so there's no workout scheduled for today. You can view the overview of your progress in the 'Completed Workouts' section. If you'd like, you can activate another mesocycle or create a new one. Great job!"
     },
-    "WORKOUT_COMPLETED":{
-      "title":"Workout Completed",
-      "message":"Today's workout has already been completed. Great job staying on track!"
+    "WORKOUT_COMPLETED": {
+      "title": "Workout Completed",
+      "message": "Today's workout has already been completed. Great job staying on track!"
     },
-    "STARTS_MONDAY":{
-      "title":"You start on Monday",
-      "message":"Your mesocycle is active! The first workout kicks off this Monday. Get ready to crush it!"
+    "STARTS_MONDAY": {
+      "title": "You start on Monday",
+      "message": "Your mesocycle is active! The first workout kicks off this Monday. Get ready to crush it!"
     }
   },
   "MY_MESOCYCLES": {
@@ -51,25 +57,25 @@
     "all": "All",
     "add": "Add"
   },
-  "NUTRITION":{
-    "today":"Today",
+  "NUTRITION": {
+    "today": "Today",
     "addItem": "Add item",
     "select": "Select...",
     "cancel": "Cancel",
     "save": "Save",
     "createNewItem": "Create new item",
     "name": "Name...",
-    "calories":"Calories: ",
-    "protein":"Protein: ",
-    "fat":"Fat: ",
-    "carbs":"Carbs: ",
-    "portions":"Portions",
-    "portion":"Portion",
-    "createPortions":"Create portions with predefined amounts.",
-    "amount":"Amount (g)",
-    "addPortion":"Add portion",
-    "optional":"(Optional)",
-    "portionPlaceholder":"e.g. spoon, bite, piece..."
+    "calories": "Calories: ",
+    "protein": "Protein: ",
+    "fat": "Fat: ",
+    "carbs": "Carbs: ",
+    "portions": "Portions",
+    "portion": "Portion",
+    "createPortions": "Create portions with predefined amounts.",
+    "amount": "Amount (g)",
+    "addPortion": "Add portion",
+    "optional": "(Optional)",
+    "portionPlaceholder": "e.g. spoon, bite, piece..."
   },
   "DAYS": {
     "monday": "monday",

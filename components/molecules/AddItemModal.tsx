@@ -15,9 +15,9 @@ import useUserStore from '@/store/user.store'
 import { useTranslation } from "react-i18next";
 
 type AddItemModalProps = {
-  item: FoodItem & { _id: string };
+  item: FoodItem;
   setSelectedItem: React.Dispatch<
-    React.SetStateAction<(FoodItem & { _id: string }) | undefined>
+    React.SetStateAction<(FoodItem) | undefined>
   >;
 };
 
@@ -30,15 +30,17 @@ export function AddItemModal({ item, setSelectedItem }: AddItemModalProps) {
 
   const handleSave = async () => {
     setSelectedItem(undefined);
-    console.log(amount, portion)
+    console.log(item)
+    // console.log(amount, portion)
 
-    const newNutrition: Omit<Nutrition & {item: string}, '_id'> = {
+    const newNutrition: Omit<Nutrition & {itemId: string}, 'item'> = {
         amount: +amount * +portion,
         user: userId!,
         date: new Date(),
-        itemId: item._id,
-        item: item.name
+        itemId: item._id!
     }
+
+    // console.log('NEW_NUTRITION: ', newNutrition)
 
     try{
         await mutateAsync(newNutrition)

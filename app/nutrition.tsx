@@ -2,7 +2,7 @@ import useGetNutrition from "@/api/queries/useGetNutrition";
 import Heading from "@/components/atoms/Heading";
 import ScreenContainer from "@/components/molecules/ScreenContainer";
 import { Colors } from "@/constants/Colors";
-import { FlatList, HStack, Text, View } from "native-base";
+import { FlatList, HStack, Text, View, VStack } from "native-base";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import useUserStore from "@/store/user.store";
@@ -32,16 +32,10 @@ export default function Nutrition() {
     refetch,
   } = useGetFoodItems(userId!);
   const [foodItemsIsOpen, setFoodItemsIsOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<
-    (FoodItem & { _id: string }) | undefined
-  >();
+  const [selectedItem, setSelectedItem] = useState<FoodItem | undefined>();
   const { mutateAsync, error: deleteError, isLoading } = useDeleteNutrition();
 
-  useEffect(() => {
-    console.log(createNewItemIsOpen);
-  }, [createNewItemIsOpen]);
-
-  if (isFetching && !foodItems?.length) {
+  if (!data?.nutrition || (isFetching && !foodItems?.length)) {
     return <LoadingScreen />;
   }
 
@@ -65,20 +59,19 @@ export default function Nutrition() {
   const handlePress = () => {
     setMenuIsOpen(false);
     setFoodItemsIsOpen(true);
-    console.log(foodItemsIsOpen)
     refetch();
   };
 
   const handleClose = () => {
-    setCreateNewItemIsOpen(false)
-    setPortions([])
-  }
+    setCreateNewItemIsOpen(false);
+    setPortions([]);
+  };
 
   return (
     <View style={{ position: "relative", flex: 1 }}>
       <CreateItemModal
-      portions={portions}
-      setPortions={setPortions}
+        portions={portions}
+        setPortions={setPortions}
         isOpen={createNewItemIsOpen}
         onClose={handleClose}
         setIsOpen={setCreateNewItemIsOpen}
@@ -94,36 +87,64 @@ export default function Nutrition() {
       <ScreenContainer>
         <Actionsheet onClose={() => setMenuIsOpen(false)} isOpen={menuIsOpen}>
           <Actionsheet.Content>
-            {/* <Actionsheet.Item onPress={handleAddExistingPress}>
+            <Actionsheet.Item onPress={handleAddExistingPress}>
               Create new meal
-            </Actionsheet.Item> */}
+            </Actionsheet.Item>
             <Actionsheet.Item onPress={handleCreateNewPress}>
-              {t('NUTRITION.createNewItem')}
+              {t("NUTRITION.createNewItem")}
             </Actionsheet.Item>
           </Actionsheet.Content>
         </Actionsheet>
         <Heading modifier="h3">{t("NUTRITION.today")}</Heading>
-        <FlatList
-          data={data?.nutrition}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <HStack style={styles.singleNutritionContainer}>
-              <Text style={[styles.whiteText, { flexGrow: 1 }]}>
-                {item.item}
-              </Text>
-              <Text style={[styles.whiteText, { marginRight: 10 }]}>
-                {item.amount}g
-              </Text>
-              {/* <Text style={styles.whiteText}>{format(item.date, 'p')}</Text> */}
-              <TouchableOpacity onPress={() => handleDeleteItem(item._id)}>
-                <Icon name="close" color={Colors.danger} />
-              </TouchableOpacity>
-            </HStack>
-          )}
-        />
-        <TouchableOpacity style={styles.addItemBtn} onPress={handlePress}>
+
+        {data.nutrition.length > 0 && (
+          <FlatList
+            data={data?.nutrition}
+            keyExtractor={(item) => Math.random().toString()}
+            renderItem={({ item }) => (
+              <HStack style={styles.singleNutritionContainer}>
+                <Text style={[styles.whiteText, { flexGrow: 1 }]}>
+                  {item.item.name}
+                </Text>
+                <Text style={[styles.whiteText, { marginRight: 10 }]}>
+                  {item.amount}g
+                </Text>
+                <TouchableOpacity onPress={() => handleDeleteItem(item._id!)}>
+                  <Icon name="close" color={Colors.danger} />
+                </TouchableOpacity>
+              </HStack>
+            )}
+          />
+        )}
+                <TouchableOpacity style={styles.addItemBtn} onPress={handlePress}>
           <Icon name="add" color={Colors.white} />
         </TouchableOpacity>
+        <HStack justifyContent={"space-between"} marginBottom={10} marginTop={10}>
+          <VStack alignItems={"center"}>
+            <Text style={{ color: Colors.white, textTransform: 'capitalize' }}>{t("GENERAL.calories")}</Text>
+            <Text style={{ color: Colors.white, fontWeight: "bold" }}>
+              {data.totalToday.calories} kcal
+            </Text>
+          </VStack>
+          <VStack alignItems={"center"}>
+            <Text style={{ color: Colors.white, textTransform: 'capitalize'  }}>{t("GENERAL.protein")}</Text>
+            <Text style={{ color: Colors.white, fontWeight: "bold" }}>
+              {data.totalToday.protein} g
+            </Text>
+          </VStack>
+          <VStack alignItems={"center"}>
+            <Text style={{ color: Colors.white, textTransform: 'capitalize'  }}>{t("GENERAL.fat")}</Text>
+            <Text style={{ color: Colors.white, fontWeight: "bold" }}>
+              {data.totalToday.fat} g
+            </Text>
+          </VStack>
+          <VStack alignItems={"center"}>
+            <Text style={{ color: Colors.white, textTransform: 'capitalize'  }}>{t("GENERAL.carbs")}</Text>
+            <Text style={{ color: Colors.white, fontWeight: "bold" }}>
+              {data.totalToday.carbs} g
+            </Text>
+          </VStack>{" "}
+        </HStack>
         <FoodItemSelect
           setSelectedItem={setSelectedItem}
           setIsOpen={setFoodItemsIsOpen}
