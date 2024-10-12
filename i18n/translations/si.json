@@ -52,7 +52,24 @@
     "add": "Dodaj"
   },
   "NUTRITION":{
-    "today":"Danes"
+    "today":"Danes",
+    "addItem": "Dodaj",
+    "select": "Izberi...",
+    "cancel": "Prekliči",
+    "save": "Shrani",
+    "createNewItem": "Ustvari novo",
+    "name": "Ime...",
+    "calories":"Kalorije: ",
+    "protein":"Beljakovine: ",
+    "fat":"Maščobe: ",
+    "carbs":"Ogljikovi hidrati: ",
+    "portions":"Porcije",
+    "portion":"Porcija",
+    "createPortions":"Ustvari porcije z določeno količino",
+    "amount":"Količina",
+    "addPortion":"Dodaj porcijo",
+    "optional":"(Opcijsko)",
+    "portionPlaceholder":"npr. žlica, pajs, kos..."
   },
   "DAYS": {
     "monday": "ponedeljek",

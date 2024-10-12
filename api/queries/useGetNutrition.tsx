@@ -2,7 +2,7 @@ import { BASE_URL } from "@/constants/api"
 import { Nutrition } from "@/types"
 import { useQuery } from "react-query"
 
-const fetchNutrition = async (userId: string): Promise<{nutrition: Nutrition[]}> => {
+const fetchNutrition = async (userId: string): Promise<{nutrition: Array<Nutrition & {item: string}>}> => {
     const res = await fetch(`${BASE_URL}/nutrition/user/${userId}`)
     const data = await res.json()
     return data

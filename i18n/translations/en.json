@@ -52,7 +52,24 @@
     "add": "Add"
   },
   "NUTRITION":{
-    "today":"Today"
+    "today":"Today",
+    "addItem": "Add item",
+    "select": "Select...",
+    "cancel": "Cancel",
+    "save": "Save",
+    "createNewItem": "Create new item",
+    "name": "Name...",
+    "calories":"Calories: ",
+    "protein":"Protein: ",
+    "fat":"Fat: ",
+    "carbs":"Carbs: ",
+    "portions":"Portions",
+    "portion":"Portion",
+    "createPortions":"Create portions with predefined amounts.",
+    "amount":"Amount",
+    "addPortion":"Add portion",
+    "optional":"(Optional)",
+    "portionPlaceholder":"e.g. spoon, bite, piece..."
   },
   "DAYS": {
     "monday": "monday",
