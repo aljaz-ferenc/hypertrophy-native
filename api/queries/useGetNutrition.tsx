@@ -1,10 +1,12 @@
 import { BASE_URL } from "@/constants/api"
-import { Nutrition } from "@/types"
+import { Macros, Nutrition } from "@/types"
 import { useQuery } from "react-query"
 
 type ResponseData = {
     nutrition: Array<Nutrition>,
-    totalToday: {calories: number, protein: number, fat: number, carbs: number}
+    totalToday: Macros
+    totalWeek: Macros
+    weightData: {date: Date, caloriesTotal: number}[]
 }
 
 const fetchNutrition = async (userId: string): Promise<ResponseData> => {

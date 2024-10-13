@@ -7,7 +7,7 @@ enum UnitSystem {
 }
 
 type UserStore = {
-    user: Omit<User, 'stats'> | null,
+    user: User | null,
     setUser: (user: User) => void
 }
 

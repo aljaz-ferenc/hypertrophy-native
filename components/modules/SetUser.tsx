@@ -17,6 +17,7 @@ export default function SetUser() {
   useEffect(() => {
     if (!data) return;
     setUser(data);
+    console.log(data)
   }, [data]);
 
   useEffect(() => {

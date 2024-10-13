@@ -112,6 +112,9 @@ export type FoodItem = {
     portions: Portion[]
 }
 
+export type Macros = {calories: number, protein: number, fat: number, carbs: number}
+
+
 export type MuscleGroup =
     | "biceps"
     | "triceps"

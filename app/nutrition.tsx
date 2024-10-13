@@ -17,10 +17,15 @@ import FoodItemSelect from "@/components/molecules/FoodItemsSelect";
 import useGetFoodItems from "@/api/queries/useGetFoodItems";
 import { FoodItem, Portion } from "@/types";
 import { AddItemModal } from "@/components/molecules/AddItemModal";
+import WeightChart from "@/components/molecules/WeeklyNutritionChart";
+import TotalMacros from "@/components/molecules/TotalMacros";
+import { useShallow } from "zustand/react/shallow";
 
 export default function Nutrition() {
   const { t } = useTranslation();
-  const userId = useUserStore((state) => state.user?._id);
+  const [userId, bmr] = useUserStore(
+    useShallow((state) => [state.user?._id, state.user?.stats?.bmr])
+  );
   const { data, error: getError, isFetching } = useGetNutrition(userId!);
   const [menuIsOpen, setMenuIsOpen] = useState(false);
   const [createNewItemIsOpen, setCreateNewItemIsOpen] = useState(false);
@@ -34,7 +39,7 @@ export default function Nutrition() {
   const [foodItemsIsOpen, setFoodItemsIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<FoodItem | undefined>();
   const { mutateAsync, error: deleteError, isLoading } = useDeleteNutrition();
-
+  console.log(data);
   if (!data?.nutrition || (isFetching && !foodItems?.length)) {
     return <LoadingScreen />;
   }
@@ -96,7 +101,32 @@ export default function Nutrition() {
           </Actionsheet.Content>
         </Actionsheet>
         <Heading modifier="h3">{t("NUTRITION.today")}</Heading>
-
+        <TotalMacros macros={data.totalToday} />
+        {bmr && bmr - data.totalToday.calories >= 0 && (
+          <Text style={{ color: Colors.green, marginTop: 5 }}>
+            Ostane še {bmr - data.totalToday.calories} kcal
+          </Text>
+        )}
+        {bmr && bmr - data.totalToday.calories < 0 && (
+          <Text style={{ color: Colors.danger, marginTop: 5 }}>
+            Prekorečeno za {bmr - data.totalToday.calories} kcal
+          </Text>
+        )}
+        <TouchableOpacity style={styles.addItemBtn} onPress={handlePress}>
+          <Icon name="add" color={Colors.white} />
+        </TouchableOpacity>
+        <Heading style={{ marginTop: 20 }} modifier="h2">
+          Ta teden
+        </Heading>
+        <TotalMacros style={{ marginBottom: 20 }} macros={data.totalWeek} />
+        <FoodItemSelect
+          setSelectedItem={setSelectedItem}
+          setIsOpen={setFoodItemsIsOpen}
+          isOpen={foodItemsIsOpen}
+          foodItems={foodItems}
+          isFetching={isFetchingFoodItems}
+        />
+        <WeightChart weight={data.weightData.map(n => ({value: n.caloriesTotal}))} />
         {data.nutrition.length > 0 && (
           <FlatList
             data={data?.nutrition}
@@ -116,42 +146,6 @@ export default function Nutrition() {
             )}
           />
         )}
-                <TouchableOpacity style={styles.addItemBtn} onPress={handlePress}>
-          <Icon name="add" color={Colors.white} />
-        </TouchableOpacity>
-        <HStack justifyContent={"space-between"} marginBottom={10} marginTop={10}>
-          <VStack alignItems={"center"}>
-            <Text style={{ color: Colors.white, textTransform: 'capitalize' }}>{t("GENERAL.calories")}</Text>
-            <Text style={{ color: Colors.white, fontWeight: "bold" }}>
-              {data.totalToday.calories} kcal
-            </Text>
-          </VStack>
-          <VStack alignItems={"center"}>
-            <Text style={{ color: Colors.white, textTransform: 'capitalize'  }}>{t("GENERAL.protein")}</Text>
-            <Text style={{ color: Colors.white, fontWeight: "bold" }}>
-              {data.totalToday.protein} g
-            </Text>
-          </VStack>
-          <VStack alignItems={"center"}>
-            <Text style={{ color: Colors.white, textTransform: 'capitalize'  }}>{t("GENERAL.fat")}</Text>
-            <Text style={{ color: Colors.white, fontWeight: "bold" }}>
-              {data.totalToday.fat} g
-            </Text>
-          </VStack>
-          <VStack alignItems={"center"}>
-            <Text style={{ color: Colors.white, textTransform: 'capitalize'  }}>{t("GENERAL.carbs")}</Text>
-            <Text style={{ color: Colors.white, fontWeight: "bold" }}>
-              {data.totalToday.carbs} g
-            </Text>
-          </VStack>
-        </HStack>
-        <FoodItemSelect
-          setSelectedItem={setSelectedItem}
-          setIsOpen={setFoodItemsIsOpen}
-          isOpen={foodItemsIsOpen}
-          foodItems={foodItems}
-          isFetching={isFetchingFoodItems}
-        />
       </ScreenContainer>
       {selectedItem ? (
         <AddItemModal setSelectedItem={setSelectedItem} item={selectedItem} />
