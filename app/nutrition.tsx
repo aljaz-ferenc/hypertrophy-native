@@ -143,7 +143,7 @@ export default function Nutrition() {
             <Text style={{ color: Colors.white, fontWeight: "bold" }}>
               {data.totalToday.carbs} g
             </Text>
-          </VStack>{" "}
+          </VStack>
         </HStack>
         <FoodItemSelect
           setSelectedItem={setSelectedItem}
