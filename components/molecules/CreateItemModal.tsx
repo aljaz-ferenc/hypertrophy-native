@@ -237,8 +237,9 @@ export default function CreateItemModal({
               {t("NUTRITION.createPortions")}
             </Text>
             <View>
-              {portions.map(portion => 
+              {portions.map((portion, i) =>
                 <View
+                    key={i}
                 style={{
                   gap: 10,
                   marginTop: 20,

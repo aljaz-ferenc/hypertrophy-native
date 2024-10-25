@@ -79,7 +79,20 @@
     "amount": "Amount (g)",
     "addPortion": "Add portion",
     "optional": "(Optional)",
-    "portionPlaceholder": "e.g. spoon, bite, piece..."
+    "portionPlaceholder": "e.g. spoon, bite, piece...",
+    "createNewMeal": "Create new meal",
+    "caloriesLeft": "{{calories}} kcal left",
+    "overCalories": "Surpassed by {{calories}} kcal",
+    "thisWeek": "This week",
+    "daysAbbr": {
+      "mon": "mon",
+      "tue": "tue",
+      "wed": "wed",
+      "thu": "thu",
+      "fri": "fri",
+      "sat": "sat",
+      "sun": "sun"
+    }
   },
   "DAYS": {
     "monday": "monday",

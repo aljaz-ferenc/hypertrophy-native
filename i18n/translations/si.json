@@ -79,7 +79,20 @@
     "amount":"Količina (g)",
     "addPortion":"Dodaj porcijo",
     "optional":"(Opcijsko)",
-    "portionPlaceholder":"npr. žlica, pajs, kos..."
+    "portionPlaceholder":"npr. žlica, pajs, kos...",
+    "createNewMeal": "Ustvari nov obrok",
+    "caloriesLeft": "Ostane še {{calories}} kcal",
+    "overCalories": "Prekoračeno za {{calories}} kcal",
+    "thisWeek": "Ta teden",
+    "daysAbbr": {
+      "mon": "pon",
+      "tue": "tor",
+      "wed": "sre",
+      "thu": "čet",
+      "fri": "pet",
+      "sat": "sob",
+      "sun": "ned"
+    }
   },
   "DAYS": {
     "monday": "ponedeljek",
