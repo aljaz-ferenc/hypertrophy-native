@@ -23,6 +23,10 @@
   "TODAYS_WORKOUT": {
     "week": "WEEK",
     "completeBtn": "Complete Workout",
+    "set": "SET",
+    "weight": "WEIGHT",
+    "reps": "REPS",
+    "addSetBtn": "ADD SET",
     "REST": {
       "title": "Rest day",
       "message": "Today is your rest day—remember, recovery is just as important as training! Take this time to recharge, stretch, and let your body rebuild stronger. Your next workout is going to be even better because of the work you're putting in today!"

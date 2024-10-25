@@ -23,6 +23,10 @@
   "TODAYS_WORKOUT": {
     "week": "TEDEN",
     "completeBtn": "Končaj Traning",
+    "set": "SERIJA",
+    "weight": "TEŽA",
+    "reps": "REPETICIJE",
+    "addSetBtn": "DODAJ SERIJO",
     "REST":{
       "title":"Dan počitka",
       "message":"Danes je dan za počitek – ne pozabi, da je okrevanje enako pomembno kot trening! Izkoristi ta čas za sprostitev, raztezanje in regeneracijo telesa. Tvoj naslednji trening bo še boljši zaradi današnjega truda!"
