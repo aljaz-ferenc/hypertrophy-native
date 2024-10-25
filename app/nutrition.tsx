@@ -109,6 +109,7 @@ export default function Nutrition() {
                         <TotalMacros macros={data.totalToday}/>
                         {bmr && bmr - data.totalToday.calories >= 0 && (
                             <Text style={{color: Colors.green, marginVertical: 5}}>
+
                                 {t("NUTRITION.caloriesLeft", {calories: bmr - data.totalToday.calories})}
                             </Text>
                         )}
@@ -136,25 +137,25 @@ export default function Nutrition() {
                         <WeightChart weight={data.weightData.map(n => ({value: n.caloriesTotal}))}/>
                     </View>
 
-                        {data.nutrition.length > 0 && (
-                            <FlatList
-                                data={data?.nutrition}
-                                keyExtractor={(item) => Math.random().toString()}
-                                renderItem={({item}) => (
-                                    <HStack style={styles.singleNutritionContainer}>
-                                        <Text style={[styles.whiteText, {flexGrow: 1}]}>
-                                            {item.item.name}
-                                        </Text>
-                                        <Text style={[styles.whiteText, {marginRight: 10}]}>
-                                            {item.amount}g
-                                        </Text>
-                                        <TouchableOpacity onPress={() => handleDeleteItem(item._id!)}>
-                                            <Icon name="close" color={Colors.danger}/>
-                                        </TouchableOpacity>
-                                    </HStack>
-                                )}
-                            />
-                        )}
+                    {data.nutrition.length > 0 && (
+                        <FlatList
+                            data={data?.nutrition}
+                            keyExtractor={(item) => Math.random().toString()}
+                            renderItem={({item}) => (
+                                <HStack style={styles.singleNutritionContainer}>
+                                    <Text style={[styles.whiteText, {flexGrow: 1}]}>
+                                        {item.item.name}
+                                    </Text>
+                                    <Text style={[styles.whiteText, {marginRight: 10}]}>
+                                        {item.amount}g
+                                    </Text>
+                                    <TouchableOpacity onPress={() => handleDeleteItem(item._id!)}>
+                                        <Icon name="close" color={Colors.danger}/>
+                                    </TouchableOpacity>
+                                </HStack>
+                            )}
+                        />
+                    )}
 
                 </View>
             </ScreenContainer>
