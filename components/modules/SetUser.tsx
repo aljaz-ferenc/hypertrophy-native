@@ -8,8 +8,8 @@ import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useTranslation } from "react-i18next";
 
 export default function SetUser() {
-  // const { data, error, isFetching } = useGetUser("65fd893a65caf1b69f1da64b");
-  const { data, error, isFetching } = useGetUser("6606e51210bebde7c975eb95");
+  const { data, error, isFetching } = useGetUser("65fd893a65caf1b69f1da64b");
+  // const { data, error, isFetching } = useGetUser("6606e51210bebde7c975eb95");
   const setUser = useUserStore((state) => state.setUser);
   const { getItem } = useAsyncStorage("hypertrophyLng");
   const { i18n } = useTranslation();
