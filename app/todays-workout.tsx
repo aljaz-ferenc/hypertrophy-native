@@ -91,8 +91,8 @@ export default function TodaysWorkout() {
             exercises: exercises.map((e) => ({
                 exercise: e.exercise,
                 data: e.data.map((d) => ({
-                    reps: d.reps || 0,
-                    weight: d.weight || 0,
+                    reps: +d.reps || 0,
+                    weight: +d.weight || 0,
                 })),
             })),
         };
@@ -211,25 +211,32 @@ export default function TodaysWorkout() {
                         >
                           <Text style={styles.whiteText}>{i + 1}</Text>
                           <Input
-                            keyboardType="numeric"
-                            onChangeText={(value) => {
-                              if (value === "") {
-                                updateInput(e.id, input.id, value, "weight");
-                                return;
-                              }
-                              if (!isNaN(parseInt(value))) {
-                                updateInput(
-                                  e.id,
-                                  input.id,
-                                  parseInt(value),
-                                  "weight"
-                                );
-                                return;
-                              }
-                            }}
-                            style={styles.input}
-                            value={input.weight.toString()}
-                          />
+  keyboardType="numeric"
+  onChangeText={(value) => {
+    if (value === "") {
+      updateInput(e.id, input.id, value, "weight");
+      return;
+    }
+    // Regex to allow whole numbers, decimals, and partial decimal inputs like "12."
+    if (/^\d*\.?\d*$/.test(value)) {
+      // Parse and update only if the value is a valid float number
+      const parsedValue = parseFloat(value);
+      if (!isNaN(parsedValue) && parsedValue.toString() === value) {
+        updateInput(e.id, input.id, parsedValue.toString(), "weight");
+      } else {
+        // For partial inputs like "12." or ".", retain the string input
+        updateInput(e.id, input.id, value, "weight");
+      }
+    }
+  }}
+  style={styles.input}
+  value={input.weight.toString()}
+/>
+
+
+
+
+
                           <Input
                             keyboardType="numeric"
                             onChangeText={(value) => {
@@ -241,7 +248,7 @@ export default function TodaysWorkout() {
                                 updateInput(
                                   e.id,
                                   input.id,
-                                  parseInt(value),
+                                  value,
                                   "reps"
                                 );
                                 return;

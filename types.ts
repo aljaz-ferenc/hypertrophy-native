@@ -50,8 +50,8 @@ export type WorkoutLog = {
     exercises: {
         exercise: string
         data: {
-            reps: number
-            weight: number
+            reps:  number
+            weight:  number
         }[]
     }[]
 }

@@ -7,8 +7,8 @@ type Exercise = {
     exercise: string;
     id: string,
     data: {
-        reps: number | '';
-        weight: number | '';
+        reps: string | '';
+        weight: string | '';
         id: string
     }[];
 };
@@ -22,7 +22,7 @@ type TodaysWorkoutStore = {
     updateInput: (
         exerciseId: string,
         inputId: string,
-        value: number | '',
+        value: string | '',
         field: "reps" | "weight"
     ) => void;
 };
@@ -69,7 +69,7 @@ const useTodaysWorkoutStore = create<TodaysWorkoutStore>((set) => ({
     updateInput: (
         exerciseId: string,
         inputId: string,
-        value: number | '',
+        value: string | '',
         field: "reps" | "weight"
     ) => {
         set((state) => {

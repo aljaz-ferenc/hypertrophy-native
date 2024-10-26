@@ -1,4 +1,4 @@
-import { HStack, ScrollView, Text, View, VStack } from "native-base";
+import { ChevronDownIcon, ChevronUpIcon, HStack, ScrollView, Text, View, VStack } from "native-base";
 import { FlatList, StyleSheet } from "react-native";
 import useGetLogs from "@/api/queries/useGetLogs";
 import useUserStore from "@/store/user.store";
@@ -7,6 +7,7 @@ import { Days } from "@/enums/Days";
 import useLogsStore from "@/store/logs.store";
 import { Colors } from "@/constants/Colors";
 import LoadingScreen from "@/components/modules/LoadingScreen";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 export default function CompletedWorkouts() {
   const userId = useUserStore((state) => state.user?._id);
@@ -15,10 +16,10 @@ export default function CompletedWorkouts() {
   const { logs, setLogs } = useLogsStore((state) => state);
 
   useEffect(() => {
-    if (!data || logs) return;
-
+    if (!data) return;
     setLogs(data);
   }, [data]);
+
 
   const handleOpenLog = (mesoId: string) => {
     setOpenedLog((prev) => {
@@ -38,12 +39,14 @@ export default function CompletedWorkouts() {
       <VStack style={styles.container}>
         {logs?.map((log, i) => (
           <View key={i}>
+            <TouchableOpacity style={styles.accordionTrigger} onPress={() => handleOpenLog(log.mesoId)}>
             <Text
-              onPress={() => handleOpenLog(log.mesoId)}
               style={styles.title}
-            >
+              >
               {log.mesoTitle}
             </Text>
+            {openedLog === log.mesoId ? <ChevronUpIcon/>:<ChevronDownIcon/>}
+              </TouchableOpacity>
             <View>
               {openedLog === log.mesoId ? (
                 <VStack space={10}>
@@ -170,4 +173,9 @@ const styles = StyleSheet.create({
     color: Colors.white,
     marginBottom: 5,
   },
+  accordionTrigger:{
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection:'row'
+  }
 });
