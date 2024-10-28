@@ -85,7 +85,7 @@ export default function CreateItemModal({
     const newItem: FoodItem = {
       name,
       calories: +calories,
-      protein: +calories,
+      protein: +protein,
       fat: +fat,
       carbs: +carbs,
       user: userId,
