@@ -5,6 +5,19 @@
     "fat":"maščobe",
     "carbs":"ogljikovi hidrati"
   },
+  "AUTH": {
+    "login": "Vpis",
+    "register": "Registracija",
+    "username": "Uporabniškoime",
+    "password": "Geslo",
+    "passwordConfirm": "Potrdi geslo",
+    "noAcc": "Še nimaš računa?",
+    "createAcc": "Ustvari ga!",
+    "loginBtn": "Vpiši se",
+    "registerBtn": "Ustvari račun",
+    "haveAcc": "Že imaš račun?",
+    "loginLink": "Vpiši se!"
+  },
   "MENU": {
     "todaysWorkout": "Današnji Trening",
     "createMesocycle": "Ustvari Mezocikel",

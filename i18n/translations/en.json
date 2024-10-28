@@ -5,6 +5,19 @@
     "fat": "fat",
     "carbs": "carbs"
   },
+  "AUTH": {
+    "login": "Login",
+    "register": "Register",
+    "username": "Username",
+    "password": "Password",
+    "passwordConfirm": "PasswordConfirm",
+    "noAcc": "Don't have an account?",
+    "createAcc": "Create one!",
+    "loginBtn": "Login",
+    "registerBtn": "Register",
+    "haveAcc": "Alrady have an account?",
+    "loginLink": "Log in!"
+  },
   "MENU": {
     "todaysWorkout": "Today's Workout",
     "createMesocycle": "Create Mesocycle",
