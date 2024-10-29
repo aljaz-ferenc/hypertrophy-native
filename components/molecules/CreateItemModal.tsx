@@ -63,19 +63,19 @@ export default function CreateItemModal({
     const errors: Errors = {};
 
     if (!name) {
-      errors.name = "Required";
+      errors.name = t("ERROR.required");
     }
     if (!calories) {
-      errors.calories = "Required";
+      errors.calories = t("ERROR.required");
     }
     if (!protein) {
-      errors.protein = "Required";
+      errors.protein = t("ERROR.required");
     }
     if (!carbs) {
-      errors.carbs = "Required";
+      errors.carbs = t("ERROR.required");
     }
     if (!fat) {
-      errors.fat = "Required";
+      errors.fat = t("ERROR.required");
     }
     if (!!Object.keys(errors).length) {
       setErrors(errors);

@@ -8,7 +8,7 @@ import { StyleProps } from "react-native-reanimated";
 import { Colors } from "@/constants/Colors";
 
 type ButtonProps = {
-  modifier: "primary" | "secondary" | "disabled" | 'destructive' | 'success';
+  modifier: "primary" | "secondary" | "disabled" | 'destructive' | 'success' | 'white';
   onPress: () => void;
   children: React.ReactNode;
   style?: StyleProps;
@@ -53,6 +53,9 @@ const textStyles = StyleSheet.create({
     },
     success: {
       color: Colors.white
+    },
+    white: {
+        color: Colors.primary
     }
 })
 
@@ -77,5 +80,9 @@ const buttonStyles = StyleSheet.create({
   success: {
     ...button.base,
     backgroundColor: Colors.green
-  }
+  },
+    white: {
+      ...button.base,
+        backgroundColor: Colors.white
+    }
 });
