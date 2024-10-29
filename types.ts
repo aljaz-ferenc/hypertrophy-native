@@ -25,12 +25,13 @@ export type BodyPart = {
 
 export type Mesocycle = {
     duration: number,
-    isActive: boolean,
+    isActive?: boolean,
     title: string,
-    user: string,
+    user?: string,
     workouts: Workout[]
-    _id: string
-    startDate: Date
+    _id?: string
+    startDate?: Date
+    units: WeightUnits
 }
 
 export type Workout = {
@@ -138,3 +139,13 @@ export type Weekday =
     | "friday"
     | "saturday"
     | "sunday";
+
+export type HeightUnits = 'cm' | 'in'
+export type WeightUnits = 'kg' | 'lb'
+export type Units = HeightUnits | WeightUnits
+
+export type Measurement<T> = {
+    value: number,
+    date: Date,
+    units: T
+}

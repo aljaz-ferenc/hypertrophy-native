@@ -92,22 +92,23 @@
       "fri": "fri",
       "sat": "sat",
       "sun": "sun"
-    },
-    "CREATE_MESO": {
-      "name": "Mesocycle Name",
-      "selectDuration": "Select a duration for the mesocycle (in weeks)",
-      "selectUnits": "Select units for weight",
-      "submitBtn": "Create Mesocycle"
     }
   },
+  "CREATE_MESO": {
+    "name": "Mesocycle Name",
+    "selectDuration": "Select a duration for the mesocycle (in weeks)",
+    "selectUnits": "Select units for weight",
+    "submitBtn": "Create Mesocycle",
+    "addDayBtn": "Add day"
+  },
   "DAYS": {
-    "monday": "monday",
-    "tuesday": "tuesday",
-    "wednesday": "wednesday",
-    "thursday": "thursday",
-    "friday": "friday",
-    "saturday": "saturday",
-    "sunday": "sunday"
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
   },
   "MUSCLE_GROUPS": {
     "back": "back",

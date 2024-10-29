@@ -1,28 +1,43 @@
-import {FlatList, HStack, Input, Text, VStack} from "native-base";
+import {Divider, FlatList, Input, Text, VStack} from "native-base";
 import ScreenContainer from "@/components/molecules/ScreenContainer";
-import Heading from "@/components/atoms/Heading";
 import {StyleSheet, TouchableOpacity} from "react-native";
 import {Colors} from "@/constants/Colors";
 import {useState} from "react";
 import {useTranslation} from "react-i18next";
 import FormErrorMessage from "@/components/atoms/FormErrorMessage";
 import Button from "@/components/atoms/Button";
+import {WeightUnits, Workout} from "@/types";
+import WorkoutComponent from '@/components/molecules/Workout'
+import {useNewMesoStore} from "@/store/newMeso.store";
+import {useShallow} from "zustand/react/shallow";
+import * as Crypto from 'expo-crypto'
 
 const durationOptions = [4, 6, 8] as const
-const unitOptions = ['KG', 'LB'] as const
+const unitOptions: WeightUnits[] = ['kg', 'lb']
 
 export default function CreateMesocycle() {
-    const [duration, setDuration] = useState(4)
-    const [units, setUnits] = useState<'KG' | 'LB'>('KG')
     const [mesoName, setMesoName] = useState('')
     const {t} = useTranslation()
     const [errors, setErrors] = useState({mesoName: ''})
+    const [duration, title, units, workouts, setTitle, setUnits, addWorkout, updateWorkout, setDuration] = useNewMesoStore(useShallow(state => [
+        state.duration,
+        state.title,
+        state.units,
+        state.workouts,
+        state.setTitle,
+        state.setUnits,
+        state.addWorkout,
+        state.updateWorkout,
+        state.setDuration
+    ]))
 
     const onSubmit = () => {
-        if(!mesoName){
+        if (!mesoName) {
             setErrors(prev => ({...prev, mesoName: t("ERROR.required")}))
         }
     }
+
+    console.log(duration, title, units, workouts)
 
     return (
         <ScreenContainer>
@@ -54,12 +69,26 @@ export default function CreateMesocycle() {
                         renderItem={({item}) => (
                             <TouchableOpacity onPress={() => setUnits(item)}
                                               style={[styles.toggleBtn, units === item && styles.toggleBtnActive]}><Text
-                                style={[styles.whiteText]}>{item}</Text></TouchableOpacity>
+                                style={[styles.whiteText, {textTransform: "uppercase"}]}>{item}</Text></TouchableOpacity>
                         )}
                     />
                 </VStack>
             </VStack>
-            <Button modifier={'white'} onPress={onSubmit}>{t("CREATE_MESO.submitBtn")}</Button>
+            <Divider style={{backgroundColor: Colors.textGray, marginVertical: 20}}/>
+            <Button modifier={'dark'} onPress={() => addWorkout({
+                id: Crypto.randomUUID(),
+                exercises: [],
+                weekDay: 1
+            })}>{t("CREATE_MESO.addDayBtn")}</Button>
+            <FlatList
+                marginBottom={8}
+                marginTop={1}
+                horizontal
+                data={workouts}
+                keyExtractor={item => item.id}
+                renderItem={({item}) => <WorkoutComponent/>}
+            />
+            <Button modifier={'primary'} onPress={onSubmit}>{t("CREATE_MESO.submitBtn")}</Button>
         </ScreenContainer>
     )
 }
