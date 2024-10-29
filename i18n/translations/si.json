@@ -94,6 +94,12 @@
       "sun": "ned"
     }
   },
+  "CREATE_MESO": {
+    "name": "Ime Mezocikla",
+    "selectDuration": "Izberi trajanje mezocikla (v tednih)",
+    "selectUnits": "Izberi enote za težo",
+    "submitBtn": "Create Mesocycle"
+  },
   "DAYS": {
     "monday": "ponedeljek",
     "tuesday": "torek",
@@ -117,5 +123,8 @@
     "calves": "meča",
     "abs": "trebušne mišice",
     "neck": "vrat"
+  },
+  "ERROR": {
+    "required": "Zahtevano"
   }
 }

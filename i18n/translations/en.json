@@ -92,6 +92,12 @@
       "fri": "fri",
       "sat": "sat",
       "sun": "sun"
+    },
+    "CREATE_MESO": {
+      "name": "Mesocycle Name",
+      "selectDuration": "Select a duration for the mesocycle (in weeks)",
+      "selectUnits": "Select units for weight",
+      "submitBtn": "Create Mesocycle"
     }
   },
   "DAYS": {
@@ -117,5 +123,8 @@
     "calves": "calves",
     "abs": "abs",
     "neck": "neck"
+  },
+  "ERROR": {
+    "required": "Required"
   }
 }
