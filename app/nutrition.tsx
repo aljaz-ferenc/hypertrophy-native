@@ -11,7 +11,7 @@ import {TouchableOpacity} from "react-native-gesture-handler";
 import {Icon} from "react-native-elements";
 import useDeleteNutrition from "@/api/queries/useDeleteNutrition";
 import {Actionsheet} from "native-base";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import CreateItemModal from "@/components/molecules/CreateItemModal";
 import FoodItemSelect from "@/components/molecules/FoodItemsSelect";
 import useGetFoodItems from "@/api/queries/useGetFoodItems";
@@ -20,6 +20,7 @@ import {AddItemModal} from "@/components/molecules/AddItemModal";
 import WeightChart from "@/components/molecules/WeeklyNutritionChart";
 import TotalMacros from "@/components/molecules/TotalMacros";
 import {useShallow} from "zustand/react/shallow";
+import { getDay } from "date-fns";
 
 export default function Nutrition() {
     const {t} = useTranslation();
@@ -39,12 +40,19 @@ export default function Nutrition() {
     const [foodItemsIsOpen, setFoodItemsIsOpen] = useState(false);
     const [selectedItem, setSelectedItem] = useState<FoodItem | undefined>();
     const {mutateAsync, error: deleteError, isLoading} = useDeleteNutrition();
-    console.log(data);
+    
+    const getTotalCaloriesArr = () : {value: number}[] => {
+        const arr: {value: number}[] = new Array(7).fill({value: 0})
+        if(!data) return arr
+
+        return arr.map((n, i) => {
+           return {value: data.weightData.find(d => getDay(d.date) - 1 === i)?.caloriesTotal || 0}
+        }) 
+    }
+
     if (!data?.nutrition || (isFetching && !foodItems?.length)) {
         return <LoadingScreen/>;
     }
-
-    console.log('WEIGHT_DATA: ', data.weightData)
 
     const handleDeleteItem = async (nutritionId: string) => {
         try {
@@ -134,7 +142,7 @@ export default function Nutrition() {
                             foodItems={foodItems}
                             isFetching={isFetchingFoodItems}
                         />
-                        <WeightChart weight={data.weightData.map(n => ({value: n.caloriesTotal}))}/>
+                        <WeightChart weight={getTotalCaloriesArr()}/>
                     </View>
 
                     {data.nutrition.length > 0 && (

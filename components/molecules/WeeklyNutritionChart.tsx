@@ -13,10 +13,11 @@ type WeightChartProps = {
 export default function WeightChart({ weight }: WeightChartProps) {
     const {t} = useTranslation()
 
-    const weightData = useMemo(() => {
-        const arr = new Array(7 - weight.length).fill({value: 0})
-        return [...weight, ...arr]
-    }, [weight])
+    // const weightData = useMemo(() => {
+    //     // const arr = new Array(7 - weight.length).fill({value: 0})
+    //     // return [...weight, ...arr]
+    //     const arr = new Array(7 - weight.length).fill({value: 0})
+    // }, [weight])
 
     const days = useMemo(() => {
         return [
@@ -44,7 +45,7 @@ export default function WeightChart({ weight }: WeightChartProps) {
         xAxisLabelTexts={days}
         xAxisLabelTextStyle={{color: 'white'}}
         yAxisTextStyle={{color: Colors.white}}
-          data={weightData}
+          data={weight}
         />
       </Center>
     </View>
