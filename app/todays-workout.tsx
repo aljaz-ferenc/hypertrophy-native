@@ -65,8 +65,8 @@ export default function TodaysWorkout() {
         if (!data?.mesocycle) return;
         const workout = todaysWorkout(data.mesocycle);
         const exercises = workout?.exercises.map((e) => ({
-            id: e.id,
-            exercise: e.exercise,
+            id: e._id,
+            exercise: e.name,
         }));
         exercises && setExercises(exercises);
     }, [data?.mesocycle]);
@@ -83,11 +83,12 @@ export default function TodaysWorkout() {
         if (!data?.mesocycle) return;
         const week = differenceInCalendarISOWeeks(
             new Date(),
-            new Date(data.mesocycle.startDate)
+            new Date(data.mesocycle.startDate!)
         );
 
         const workoutLog: WorkoutLog = {
             day: getTodaysDay(),
+            completedAt: new Date(),
             exercises: exercises.map((e) => ({
                 exercise: e.exercise,
                 data: e.data.map((d) => ({
@@ -101,7 +102,7 @@ export default function TodaysWorkout() {
         try {
             await mutateAsync({
                 userId,
-                logId: data.mesocycle._id,
+                logId: data.mesocycle._id!,
                 workout: workoutLog,
                 weekIndex: week,
                 workoutIndex: workoutLog.day,
@@ -170,7 +171,7 @@ export default function TodaysWorkout() {
                   <Text style={{ fontSize: 24 }}>
                     {differenceInCalendarISOWeeks(
                       new Date(),
-                      new Date(data.mesocycle.startDate)
+                      new Date(data.mesocycle.startDate!)
                     ) + 1}
                   </Text>
                   / {data.mesocycle.duration} -{" "}

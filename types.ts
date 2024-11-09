@@ -48,6 +48,7 @@ export type Exercise = {
 
 export type WorkoutLog = {
     day: number
+    completedAt: Date,
     exercises: {
         exercise: string
         data: {
