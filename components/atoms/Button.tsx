@@ -12,6 +12,8 @@ type ButtonProps = {
   onPress: () => void;
   children: React.ReactNode;
   style?: StyleProps;
+  textStyle?: StyleProps;
+  disabled?: boolean
 };
 
 export default function Button({
@@ -19,10 +21,12 @@ export default function Button({
   onPress,
   children,
   style = {},
+    textStyle = {},
+    disabled
 }: PropsWithChildren<ButtonProps>) {
   return (
-    <TouchableOpacity activeOpacity={1} style={[buttonStyles[modifier], style]} onPress={onPress}>
-      <Text style={textStyles[modifier]}>{children}</Text>
+    <TouchableOpacity activeOpacity={1} style={[buttonStyles[modifier], style]} disabled={disabled} onPress={onPress}>
+      <Text style={[textStyles[modifier], textStyle]}>{children}</Text>
     </TouchableOpacity>
   );
 }
@@ -85,6 +89,6 @@ const buttonStyles = StyleSheet.create({
       ...button.base,
         backgroundColor: Colors.primary,
         borderWidth: 1,
-        borderColor: Colors.textGray,
+        borderColor: Colors.border,
     }
 });

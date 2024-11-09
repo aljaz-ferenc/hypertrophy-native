@@ -37,7 +37,7 @@ export default function CreateMesocycle() {
         }
     }
 
-    console.log(duration, title, units, workouts)
+    // console.log(duration, title, units, workouts)
 
     return (
         <ScreenContainer>
@@ -86,7 +86,7 @@ export default function CreateMesocycle() {
                 horizontal
                 data={workouts}
                 keyExtractor={item => item.id}
-                renderItem={({item}) => <WorkoutComponent/>}
+                renderItem={({item}) => <WorkoutComponent workout={item}/>}
             />
             <Button modifier={'primary'} onPress={onSubmit}>{t("CREATE_MESO.submitBtn")}</Button>
         </ScreenContainer>
