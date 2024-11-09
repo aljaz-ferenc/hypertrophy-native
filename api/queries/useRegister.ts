@@ -5,6 +5,7 @@ type RegisterData = {
     username: string,
     password: string,
     passwordConfirm: string
+    email: string
 }
 
 const fetchRegister = async (registerData: RegisterData) => {

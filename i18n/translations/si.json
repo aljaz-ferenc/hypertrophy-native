@@ -8,7 +8,8 @@
   "AUTH": {
     "login": "Vpis",
     "register": "Registracija",
-    "username": "Uporabniškoime",
+    "username": "Uporabniško ime",
+    "email":"E-naslov",
     "password": "Geslo",
     "passwordConfirm": "Potrdi geslo",
     "noAcc": "Še nimaš računa?",

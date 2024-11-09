@@ -9,6 +9,7 @@
     "login": "Login",
     "register": "Register",
     "username": "Username",
+    "email":"Email",
     "password": "Password",
     "passwordConfirm": "PasswordConfirm",
     "noAcc": "Don't have an account?",
