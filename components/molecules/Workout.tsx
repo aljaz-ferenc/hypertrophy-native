@@ -78,7 +78,6 @@ export default function Workout({ workout }: WorkoutProps) {
         name: "",
       },
     ]);
-    // console.log(workout.exercises[0])
     setSelectMuscleGroupIsOpen(false);
   };
 

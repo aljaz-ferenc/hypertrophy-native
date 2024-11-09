@@ -12,6 +12,7 @@ import { useNewMesoStore } from "@/store/newMeso.store";
 import { useShallow } from "zustand/react/shallow";
 import useUserStore from "@/store/user.store";
 import * as Crypto from "expo-crypto";
+import useCreateMesocycle from "@/api/queries/useCreateMesocycle";
 
 const durationOptions = [4, 6, 8] as const;
 const unitOptions: WeightUnits[] = ["kg", "lb"];
@@ -20,6 +21,7 @@ export default function CreateMesocycle() {
   const [mesoName, setMesoName] = useState("");
   const { t } = useTranslation();
   const [errors, setErrors] = useState({ mesoName: "" });
+  const {mutateAsync} = useCreateMesocycle()
   const [userId] = useUserStore(useShallow((state) => [state.user?._id]));
   const [
     duration,
@@ -51,20 +53,26 @@ export default function CreateMesocycle() {
     });
   };
 
-  const onSubmit = () => {
-    if (!title) {
+  const onSubmit = async () => {
+    if (!mesoName) {
       setErrors((prev) => ({ ...prev, mesoName: t("ERROR.required") }));
+    }else{
+        setErrors(prev => ({...prev, mesoName: ''}))
     }
 
     const newMeso: Mesocycle = {
       duration,
       isActive: false,
-      title,
+      title: mesoName,
       user: userId,
       workouts: workouts,
       units,
     };
-    console.log(newMeso);
+
+    if(!userId) return 
+    
+    await mutateAsync(newMeso)
+
   };
 
   const createButtonDisabled = () => {
@@ -90,7 +98,7 @@ export default function CreateMesocycle() {
   return (
     <ScreenContainer>
       <VStack space={8}>
-        <VStack style={styles.nameContainer}>
+        <VStack>
           <Text style={[styles.whiteText]}>{t("CREATE_MESO.name")}</Text>
           <Input
             style={styles.whiteText}
@@ -192,5 +200,4 @@ const styles = StyleSheet.create({
   toggleBtnActive: {
     backgroundColor: Colors.secondary,
   },
-  nameContainer: {},
 });

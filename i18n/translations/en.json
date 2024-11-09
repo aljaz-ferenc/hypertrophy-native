@@ -46,13 +46,14 @@
     "STARTS_MONDAY": {
       "title": "You start on Monday",
       "message": "Your mesocycle is active! The first workout kicks off this Monday. Get ready to crush it!"
-    },
-    "MY_MESOCYCLES": {
+    }
+    
+  },
+  "MY_MESOCYCLES": {
       "delete": "Delete",
       "activate": "Activate",
       "active": "Active"
-    }
-  },
+    },
   "STATS": {
     "weight": "Weight",
     "thisWeek": "This Week",
