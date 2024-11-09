@@ -1,59 +1,84 @@
-import {Mesocycle, WeightUnits, Workout} from "@/types";
-import {create} from "zustand";
-import * as Crypto from 'expo-crypto'
+import { Mesocycle, WeightUnits, Workout } from "@/types";
+import { create } from "zustand";
+import * as Crypto from "expo-crypto";
 
 type NewMesoStore = {
-    duration: Mesocycle['duration'],
-    title: Mesocycle['title'],
-    workouts: Mesocycle['workouts'],
-    units: Mesocycle['units'],
-    setDuration: (duration: Mesocycle['duration']) => void
-    setUnits: (units: WeightUnits) => void
-    setTitle: (title: string) => void
-    addWorkout: (workout: Workout) => void
-    updateWorkout: (workoutId: string, field: string, value: any) => void
-    setExercise: (workoutId: string, exerciseId: string, exerciseName: string) => void
-}
+  duration: Mesocycle["duration"];
+  title: Mesocycle["title"];
+  workouts: Mesocycle["workouts"];
+  units: Mesocycle["units"];
+  setDuration: (duration: Mesocycle["duration"]) => void;
+  setUnits: (units: WeightUnits) => void;
+  setTitle: (title: string) => void;
+  addWorkout: (workout: Workout) => void;
+  updateWorkout: (workoutId: string, field: string, value: any) => void;
+  setExercise: (
+    workoutId: string,
+    exerciseId: string,
+    exerciseName: string
+  ) => void;
+  deleteExercise: (workoutId: string, exerciseId: string) => void;
+  deleteWorkout: (workoutId: string) => void
+};
 
 export const useNewMesoStore = create<NewMesoStore>((set) => ({
-    duration: 0,
-    title: '',
-    workouts: [],
-    units: 'kg',
-    setDuration: (duration) => set({duration}),
-    setUnits: (units) => set({units}),
-    setTitle: (title) => set({title}),
-    addWorkout: () => set((state) => ({
-        workouts: [...state.workouts, {exercises: [], id: Crypto.randomUUID(), weekDay: 0}],
+  duration: 4,
+  title: "",
+  workouts: [],
+  units: "kg",
+  setDuration: (duration) => set({ duration }),
+  setUnits: (units) => set({ units }),
+  setTitle: (title) => set({ title }),
+  addWorkout: () =>
+    set((state) => ({
+      workouts: [
+        ...state.workouts,
+        { exercises: [], id: Crypto.randomUUID(), weekDay: 0 },
+      ],
     })),
-    updateWorkout: (workoutId, field, value) => set((state) => {
-        const updatedWorkouts = state.workouts.map((w) => {
-            if (w.id === workoutId) {
-                // @ts-ignore
-                w[field] = value;
-                return {...w};
-            }
-            return w;
-        });
-        return {workouts: updatedWorkouts};
+  updateWorkout: (workoutId, field, value) =>
+    set((state) => {
+      const updatedWorkouts = state.workouts.map((w) => {
+        if (w.id === workoutId) {
+          // @ts-ignore
+          w[field] = value;
+          return { ...w };
+        }
+        return w;
+      });
+      return { workouts: updatedWorkouts };
     }),
-    setExercise: (workoutId, exerciseId, exerciseName) => set((state) => {
-        const updatedWorkouts = state.workouts.map((w) => {
-            if (w.id === workoutId) {
-                console.log('AAAAA: ', w)
-                const updatedExercises = w.exercises.map((e) => {
-                    if (e._id === exerciseId) {
-                        return {...e, name: exerciseName}; // Ensure it updates `name`
-                    }
-                    return e;
-                });
-                return {...w, exercises: updatedExercises};
+  setExercise: (workoutId, exerciseId, exerciseName) =>
+    set((state) => {
+      const updatedWorkouts = state.workouts.map((w) => {
+        if (w.id === workoutId) {
+          const updatedExercises = w.exercises.map((e) => {
+            if (e._id === exerciseId) {
+              const newExercise = { ...e, name: exerciseName };
+              return newExercise;
             }
-            return w;
-        });
-        return {workouts: updatedWorkouts};
+            return e;
+          });
+          return { ...w, exercises: updatedExercises };
+        }
+        return w;
+      });
+      return { workouts: updatedWorkouts };
     }),
-
+  deleteExercise: (workoutId, exerciseId) =>
+    set((state) => {
+      const updatedWorkouts = state.workouts.map((w) => {
+        if (w.id === workoutId) {
+          return {
+            ...w,
+            exercises: w.exercises.filter((e) => e._id !== exerciseId),
+          };
+        }
+        return w;
+      });
+      return { ...state, workouts: updatedWorkouts };
+    }),
+    deleteWorkout: (workoutId) => set(state => {
+        return {...state, workouts: state.workouts.filter(w => w.id !== workoutId)}
+    })
 }));
-
-

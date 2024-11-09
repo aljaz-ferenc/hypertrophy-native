@@ -46,12 +46,12 @@
     "STARTS_MONDAY": {
       "title": "You start on Monday",
       "message": "Your mesocycle is active! The first workout kicks off this Monday. Get ready to crush it!"
+    },
+    "MY_MESOCYCLES": {
+      "delete": "Delete",
+      "activate": "Activate",
+      "active": "Active"
     }
-  },
-  "MY_MESOCYCLES": {
-    "delete": "Delete",
-    "activate": "Activate",
-    "active": "Active"
   },
   "STATS": {
     "weight": "Weight",
@@ -94,13 +94,6 @@
       "sun": "sun"
     }
   },
-  "CREATE_MESO": {
-    "name": "Mesocycle Name",
-    "selectDuration": "Select a duration for the mesocycle (in weeks)",
-    "selectUnits": "Select units for weight",
-    "submitBtn": "Create Mesocycle",
-    "addDayBtn": "Add day"
-  },
   "DAYS": {
     "monday": "Monday",
     "tuesday": "Tuesday",
@@ -110,22 +103,33 @@
     "saturday": "Saturday",
     "sunday": "Sunday"
   },
-  "MUSCLE_GROUPS": {
-    "back": "back",
-    "biceps": "biceps",
-    "forearms": "forearms",
-    "traps": "traps",
-    "chest": "chest",
-    "shoulders": "shoulders",
-    "triceps": "triceps",
-    "glutes": "glutes",
-    "quads": "quads",
-    "hamstrings": "hamstrings",
-    "calves": "calves",
-    "abs": "abs",
-    "neck": "neck"
-  },
   "ERROR": {
     "required": "Required"
-  }
+  },
+  "CREATE_MESO": {
+    "name": "Mesocycle Name",
+    "selectDuration": "Select a duration for the mesocycle (in weeks)",
+    "selectUnits": "Select units for weight",
+    "submitBtn": "Create Mesocycle",
+    "addDayBtn": "Add day",
+    "selectDay": "Select day...",
+    "addMuscleGroup": "Add muscle group",
+    "selectExercise":"Select exercise",
+    "deleteDay":"Delete day"
+  },
+  "MUSCLE_GROUPS": {
+      "back": "back",
+      "biceps": "biceps",
+      "forearms": "forearms",
+      "traps": "traps",
+      "chest": "chest",
+      "shoulders": "shoulders",
+      "triceps": "triceps",
+      "glutes": "glutes",
+      "quads": "quads",
+      "hamstrings": "hamstrings",
+      "calves": "calves",
+      "abs": "abs",
+      "neck": "neck"
+    }
 }
