@@ -29,10 +29,10 @@ type MesoOverviewProps = {
 
 export default function MesoOverview({ meso }: MesoOverviewProps) {
   const { t } = useTranslation();
-
+console.log(meso)
   return (
     <View>
-      <AccordionItem value={meso._id}>
+      <AccordionItem value={meso._id!}>
         <AccordionHeader>
           <AccordionTrigger>
             <HStack style={{ gap: 10 }}>
@@ -60,20 +60,20 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
                   ]}
                 >
                   <Text style={styles.workoutTitle}>
-                    {t(`DAYS.${Days[item.weekDay]}`)}
+                    {t(`DAYS.${Days[item.weekDay].toLowerCase()}`)}
                   </Text>
                   <VStack>
                     <VStack style={styles.exercisesContainer}>
                       <FlatList
                         data={item.exercises}
-                        keyExtractor={(item) => item.id}
+                        keyExtractor={(item) => item._id}
                         renderItem={({ item }) => (
                           <Box style={styles.exerciseContainer}>
                             <Text style={styles.badge}>
-                              {t(`MUSCLE_GROUPS.${item.muscleGroup}`)}
+                              {t(`MUSCLE_GROUPS.${item.muscleGroup.name}`)}
                             </Text>
                             <Text style={styles.textWhite}>
-                              {item.exercise}
+                              {item.name}
                             </Text>
                           </Box>
                         )}

@@ -24,7 +24,7 @@ export default function MyMesocycles() {
       <Accordion style={{flex: 1}}>
         <FlatList
           data={data}
-          keyExtractor={item => item._id}
+          keyExtractor={item => item._id!}
           renderItem={({item}) => <MesoOverview meso={item}/>}
         />
       </Accordion>

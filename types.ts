@@ -25,12 +25,13 @@ export type BodyPart = {
 
 export type Mesocycle = {
     duration: number,
-    isActive: boolean,
+    isActive?: boolean,
     title: string,
-    user: string,
+    user?: string,
     workouts: Workout[]
-    _id: string
-    startDate: Date
+    _id?: string
+    startDate?: Date
+    units: WeightUnits
 }
 
 export type Workout = {
@@ -40,13 +41,14 @@ export type Workout = {
 }
 
 export type Exercise = {
-    exercise: string,
-    id: string,
-    muscleGroup: string
+    name: string,
+    _id: string,
+    muscleGroup: MuscleGroup
 }
 
 export type WorkoutLog = {
     day: number
+    completedAt: Date,
     exercises: {
         exercise: string
         data: {
@@ -114,21 +116,21 @@ export type FoodItem = {
 
 export type Macros = {calories: number, protein: number, fat: number, carbs: number}
 
-
-export type MuscleGroup =
-    | "biceps"
-    | "triceps"
-    | "chest"
-    | "back"
-    | "shoulders"
-    | "quads"
-    | "glutes"
-    | "hamstrings"
-    | "abs"
-    | "traps"
-    | "forearms"
-    | "calves"
-    | "neck"
+//
+// export type MuscleGroup =
+//     | "biceps"
+//     | "triceps"
+//     | "chest"
+//     | "back"
+//     | "shoulders"
+//     | "quads"
+//     | "glutes"
+//     | "hamstrings"
+//     | "abs"
+//     | "traps"
+//     | "forearms"
+//     | "calves"
+//     | "neck"
 
 export type Weekday =
     | "monday"
@@ -138,3 +140,18 @@ export type Weekday =
     | "friday"
     | "saturday"
     | "sunday";
+
+export type HeightUnits = 'cm' | 'in'
+export type WeightUnits = 'kg' | 'lb'
+export type Units = HeightUnits | WeightUnits
+
+export type Measurement<T> = {
+    value: number,
+    date: Date,
+    units: T
+}
+
+export type MuscleGroup = {
+    name: string,
+    _id: string
+}

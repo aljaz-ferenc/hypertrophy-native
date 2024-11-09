@@ -52,17 +52,17 @@ export default function RootLayout() {
 
     const Drawer = createDrawerNavigator()
 
-    return (
-        <GluestackUIProvider mode="light"><QueryClientProvider client={new QueryClient()}>
-            <NativeBaseProvider>
-                <ScreenContainer style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
-                    <KeyboardAvoidingView marginX={'auto'} minWidth={200} style={{gap: 20}}>
-                        {state === 'login' ? <Login setState={setState}/> : <Register setState={setState}/>}
-                    </KeyboardAvoidingView>
-                </ScreenContainer>
-            </NativeBaseProvider>
-        </QueryClientProvider></GluestackUIProvider>
-    )
+    // return (
+    //     <GluestackUIProvider mode="light"><QueryClientProvider client={new QueryClient()}>
+    //         <NativeBaseProvider>
+    //             <ScreenContainer style={{alignItems: 'center', flex: 1, justifyContent: 'center'}}>
+    //                 <KeyboardAvoidingView marginX={'auto'} minWidth={200} style={{gap: 20}}>
+    //                     {state === 'login' ? <Login setState={setState}/> : <Register setState={setState}/>}
+    //                 </KeyboardAvoidingView>
+    //             </ScreenContainer>
+    //         </NativeBaseProvider>
+    //     </QueryClientProvider></GluestackUIProvider>
+    // )
 
 
     return (

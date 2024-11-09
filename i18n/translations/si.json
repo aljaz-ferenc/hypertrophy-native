@@ -1,9 +1,9 @@
 {
-  "GENERAL":{
-    "calories":"kalorije",
-    "protein":"beljakovine",
-    "fat":"maščobe",
-    "carbs":"ogljikovi hidrati"
+  "GENERAL": {
+    "calories": "kalorije",
+    "protein": "beljakovine",
+    "fat": "maščobe",
+    "carbs": "ogljikovi hidrati"
   },
   "AUTH": {
     "login": "Vpis",
@@ -40,25 +40,25 @@
     "weight": "TEŽA",
     "reps": "REPETICIJE",
     "addSetBtn": "DODAJ SERIJO",
-    "REST":{
-      "title":"Dan počitka",
-      "message":"Danes je dan za počitek – ne pozabi, da je okrevanje enako pomembno kot trening! Izkoristi ta čas za sprostitev, raztezanje in regeneracijo telesa. Tvoj naslednji trening bo še boljši zaradi današnjega truda!"
+    "REST": {
+      "title": "Dan počitka",
+      "message": "Danes je dan za počitek – ne pozabi, da je okrevanje enako pomembno kot trening! Izkoristi ta čas za sprostitev, raztezanje in regeneracijo telesa. Tvoj naslednji trening bo še boljši zaradi današnjega truda!"
     },
-    "NO_ACTIVE_MESOS":{
-      "title":"Ni aktivnega mezocikla",
-      "message":"Da ostaneš na pravi poti do svojih fitnes ciljev, aktiviraj obstoječi mezocikel ali ustvari novega in začni svojo naslednjo fazo treninga. Nadaljujmo z napredkom!"
+    "NO_ACTIVE_MESOS": {
+      "title": "Ni aktivnega mezocikla",
+      "message": "Da ostaneš na pravi poti do svojih fitnes ciljev, aktiviraj obstoječi mezocikel ali ustvari novega in začni svojo naslednjo fazo treninga. Nadaljujmo z napredkom!"
     },
-    "MESO_COMPLETED":{
-      "title":"Mezocikel zaključen",
-      "message":"Ta mezocikel si že zaključil, zato danes ni predvidenega treninga. Pregled svojega napredka si lahko ogledaš v razdelku 'Zaključeni treningi'. Če želiš, lahko aktiviraš drugi mezocikel ali ustvariš novega. Odlično opravljeno!"
+    "MESO_COMPLETED": {
+      "title": "Mezocikel zaključen",
+      "message": "Ta mezocikel si že zaključil, zato danes ni predvidenega treninga. Pregled svojega napredka si lahko ogledaš v razdelku 'Zaključeni treningi'. Če želiš, lahko aktiviraš drugi mezocikel ali ustvariš novega. Odlično opravljeno!"
     },
-    "WORKOUT_COMPLETED":{
-      "title":"Trening opravljen",
-      "message":"Današnji trening si že opravil. Kar tako naprej!"
+    "WORKOUT_COMPLETED": {
+      "title": "Trening opravljen",
+      "message": "Današnji trening si že opravil. Kar tako naprej!"
     },
-    "STARTS_MONDAY":{
-      "title":"Začneš v ponedeljek",
-      "message":"Tvoj mezocikel je trenutno aktiven! Prvi trening se začne v ponedeljek. Pripravi se na akcijo!"
+    "STARTS_MONDAY": {
+      "title": "Začneš v ponedeljek",
+      "message": "Tvoj mezocikel je trenutno aktiven! Prvi trening se začne v ponedeljek. Pripravi se na akcijo!"
     }
   },
   "MY_MESOCYCLES": {
@@ -74,25 +74,25 @@
     "all": "Vse",
     "add": "Dodaj"
   },
-  "NUTRITION":{
-    "today":"Danes",
+  "NUTRITION": {
+    "today": "Danes",
     "addItem": "Dodaj",
     "select": "Izberi...",
     "cancel": "Prekliči",
     "save": "Shrani",
     "createNewItem": "Ustvari novo",
     "name": "Ime...",
-    "calories":"Kalorije: ",
-    "protein":"Beljakovine: ",
-    "fat":"Maščobe: ",
-    "carbs":"Ogljikovi hidrati: ",
-    "portions":"Porcije",
-    "portion":"Porcija",
-    "createPortions":"Ustvari porcije z določeno količino",
-    "amount":"Količina (g)",
-    "addPortion":"Dodaj porcijo",
-    "optional":"(Opcijsko)",
-    "portionPlaceholder":"npr. žlica, pajs, kos...",
+    "calories": "Kalorije: ",
+    "protein": "Beljakovine: ",
+    "fat": "Maščobe: ",
+    "carbs": "Ogljikovi hidrati: ",
+    "portions": "Porcije",
+    "portion": "Porcija",
+    "createPortions": "Ustvari porcije z določeno količino",
+    "amount": "Količina (g)",
+    "addPortion": "Dodaj porcijo",
+    "optional": "(Opcijsko)",
+    "portionPlaceholder": "npr. žlica, pajs, kos...",
     "createNewMeal": "Ustvari nov obrok",
     "caloriesLeft": "Ostane še {{calories}} kcal",
     "overCalories": "Prekoračeno za {{calories}} kcal",
@@ -107,21 +107,33 @@
       "sun": "ned"
     }
   },
+  "CREATE_MESO": {
+    "name": "Ime Mezocikla",
+    "selectDuration": "Izberi trajanje mezocikla (v tednih)",
+    "selectUnits": "Izberi enote za težo",
+    "submitBtn": "Ustvari mezocikel",
+    "addDayBtn": "Dodaj dan",
+    "selectDay": "Izberi dan...",
+    "addMuscleGroup": "Dodaj mišično skupino",
+    "selectExercise":"Izberi vajo",
+    "deleteDay":"Izbriši dan"
+
+  },
   "DAYS": {
-    "monday": "ponedeljek",
-    "tuesday": "torek",
-    "wednesday": "sreda",
-    "thursday": "četrtek",
-    "friday": "petek",
-    "saturday": "sobota",
-    "sunday": "nedelja"
+    "monday": "Ponedeljek",
+    "tuesday": "Torek",
+    "wednesday": "Sreda",
+    "thursday": "Četrtek",
+    "friday": "Petek",
+    "saturday": "Sobota",
+    "sunday": "Nedelja"
   },
   "MUSCLE_GROUPS": {
     "back": "hrbet",
     "biceps": "biceps",
     "forearms": "podlakti",
     "traps": "trapez",
-    "chest": "prsi",
+    "chest": "prsa",
     "shoulders": "ramena",
     "triceps": "triceps",
     "glutes": "gluteusi",
@@ -130,5 +142,8 @@
     "calves": "meča",
     "abs": "trebušne mišice",
     "neck": "vrat"
+  },
+  "ERROR": {
+    "required": "Zahtevano"
   }
 }
