@@ -41,8 +41,9 @@ export default function Workout({ workout }: WorkoutProps) {
         state.setExercise,
         state.deleteExercise,
         state.deleteWorkout,
-      ])
-    );
+      state.setExercises,
+    ])
+  );
   const [selectMuscleGroupIsOpen, setSelectMuscleGroupIsOpen] = useState(false);
   const [exercisesIsOpen, setExercisesIsOpen] = useState(false);
   const [currentMuscleGroup, setCurrentMuscleGroup] = useState("");

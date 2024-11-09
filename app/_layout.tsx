@@ -58,10 +58,7 @@ export default function RootLayout() {
     }
   }, [loaded]);
 
-  if (!loaded) {
-    return null;
-  }
-
+  
   useEffect(() => {
     getItem().then((item) => {
       if (item) {
@@ -72,6 +69,11 @@ export default function RootLayout() {
       }
     });
   }, []);
+
+
+  if (!loaded) {
+    return null;
+  }
 
   const Drawer = createDrawerNavigator();
 

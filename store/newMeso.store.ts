@@ -1,4 +1,4 @@
-import { Mesocycle, WeightUnits, Workout } from "@/types";
+import { Exercise, Mesocycle, WeightUnits, Workout } from "@/types";
 import { create } from "zustand";
 import * as Crypto from "expo-crypto";
 
@@ -17,8 +17,9 @@ type NewMesoStore = {
     exerciseId: string,
     exerciseName: string
   ) => void;
+  setExercises: (workoutId: string, exercises: Exercise[]) => void;
   deleteExercise: (workoutId: string, exerciseId: string) => void;
-  deleteWorkout: (workoutId: string) => void
+  deleteWorkout: (workoutId: string) => void;
 };
 
 export const useNewMesoStore = create<NewMesoStore>((set) => ({
@@ -65,6 +66,15 @@ export const useNewMesoStore = create<NewMesoStore>((set) => ({
       });
       return { workouts: updatedWorkouts };
     }),
+  setExercises: (workoutId, exercises) => set(state => {
+    const updatedWorkouts = state.workouts.map(w => {
+      if(w.id === workoutId){
+        return {...w, exercises: exercises}
+      }
+      return w
+    })
+    return {...state, workouts: updatedWorkouts}
+  }),
   deleteExercise: (workoutId, exerciseId) =>
     set((state) => {
       const updatedWorkouts = state.workouts.map((w) => {
@@ -78,7 +88,11 @@ export const useNewMesoStore = create<NewMesoStore>((set) => ({
       });
       return { ...state, workouts: updatedWorkouts };
     }),
-    deleteWorkout: (workoutId) => set(state => {
-        return {...state, workouts: state.workouts.filter(w => w.id !== workoutId)}
-    })
+  deleteWorkout: (workoutId) =>
+    set((state) => {
+      return {
+        ...state,
+        workouts: state.workouts.filter((w) => w.id !== workoutId),
+      };
+    }),
 }));
