@@ -65,25 +65,25 @@ export default function Stats() {
       <Heading modifier={"h3"}>{t("STATS.weight")}</Heading>
       <HStack space={5} marginBottom={5}>
         <Button
-          modifier={range === "week" ? "secondary" : "primary"}
+          modifier={range === "week" ? "dark" : "secondary"}
           onPress={() => setRange("week")}
         >
           {t("STATS.thisWeek")}
         </Button>
         <Button
-          modifier={range === "month" ? "secondary" : "primary"}
+          modifier={range === "month" ? "dark" : "secondary"}
           onPress={() => setRange("month")}
         >
           {t("STATS.month")}
         </Button>
         <Button
-          modifier={range === "year" ? "secondary" : "primary"}
+          modifier={range === "year" ? "dark" : "secondary"}
           onPress={() => setRange("year")}
         >
           {t("STATS.year")}
         </Button>
         <Button
-          modifier={range === "all" ? "secondary" : "primary"}
+          modifier={range === "all" ? "dark" : "secondary"}
           onPress={() => setRange("all")}
         >
           {t("STATS.all")}
@@ -96,12 +96,11 @@ export default function Stats() {
             data={{
               labels: data.weight.map((weight, i) => {
                 const thisMonth = format(new Date(weight.date), "M");
-
                 if (
                   i > 0 &&
                   thisMonth === format(data.weight[i - 1]?.date!, "M")
                 ) {
-                  return format(new Date(weight.date), "d");
+                  return range === 'week' ? format(new Date(weight.date), "d") : ''
                 }
 
                 return format(new Date(weight.date), "MMM d");
