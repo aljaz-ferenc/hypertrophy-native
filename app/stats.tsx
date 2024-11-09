@@ -46,7 +46,7 @@ export default function Stats() {
         userId: user?._id as string,
         update: {
           action: "update-weight",
-          weight: parseInt(weightInput),
+          weight: Number(weightInput),
         },
       });
       setWeightInput("");
