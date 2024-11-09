@@ -25,7 +25,7 @@ export default function Login({ setState }: LoginProps) {
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer style={{flex: 1, position: 'relative', justifyContent: 'center', width: '80%', marginHorizontal: 'auto'}}>
       <Heading modifier={"h2"}>{t("AUTH.login")}</Heading>
       <View style={{ gap: 10 }}>
         <Box flexDirection={"column"} style={{ gap: 5 }}>
@@ -49,8 +49,9 @@ export default function Login({ setState }: LoginProps) {
       <Button
         modifier={isLoading ? "spinner" : "primary"}
         onPress={handleLogin}
+        style={{marginVertical: 20}}
       >
-        Login
+        {t("AUTH.loginBtn")}
       </Button>
       <View>
         <Text style={styles.whiteText}>{t("AUTH.noAcc")}</Text>

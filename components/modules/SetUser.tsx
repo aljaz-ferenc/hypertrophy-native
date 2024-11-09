@@ -47,25 +47,18 @@ export default function SetUser({ userId }: SetUserProps) {
       <ScreenContainer
         style={{ justifyContent: "center", flex: 1, alignItems: "center" }}
       >
-        <Text style={{ color: "white" }}>Logging you in...</Text>
+        <Spinner size="lg" />
       </ScreenContainer>
     );
   }
 
   if (userId === null || error) {
-    return <Login setState={setState} />;
-  }
-
-  if (!userId)
-    return (
-      <>
-        {state === "login" ? (
-          <Login setState={setState} />
-        ) : (
-          <Register setState={setState} />
-        )}
-      </>
+    return state === "login" ? (
+      <Login setState={setState} />
+    ) : (
+      <Register setState={setState} />
     );
+  }
 }
 
 const styles = StyleSheet.create({

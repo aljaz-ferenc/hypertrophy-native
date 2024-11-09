@@ -25,7 +25,7 @@ export default function Register({ setState }: RegisterProps) {
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer style={{flex: 1, justifyContent: 'center', width: '80%', marginHorizontal: 'auto'}}>
       <Heading modifier={"h2"}>{t("AUTH.register")}</Heading>
       <View style={{ gap: 10 }}>
         <Box flexDirection={"column"} style={{ gap: 5 }}>
@@ -62,6 +62,7 @@ export default function Register({ setState }: RegisterProps) {
       <Button
         modifier={isLoading ? "spinner" : "primary"}
         onPress={handleRegister}
+        style={{marginVertical: 20}}
       >
         {t("AUTH.registerBtn")}
       </Button>
