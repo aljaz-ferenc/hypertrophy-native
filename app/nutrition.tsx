@@ -58,8 +58,6 @@ export default function Nutrition() {
     });
   }, [data]);
 
-  console.log(data);
-
   if (!data?.nutrition || (isFetching && !foodItems?.length)) {
     return <LoadingScreen />;
   }
@@ -158,10 +156,8 @@ export default function Nutrition() {
             <FlatList
               contentContainerStyle={{ marginBottom: 80 }}
               data={data?.nutrition}
-              keyExtractor={(item) => Math.random().toString()}
+              keyExtractor={(item) => item._id!}
               renderItem={({ item }) => <NutritionListItem item={item}/>}
-                
-              
             />
           )}
         </View>
