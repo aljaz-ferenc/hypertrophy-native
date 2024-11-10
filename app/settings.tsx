@@ -16,6 +16,7 @@ const [setUser] = useUserStore(useShallow(state => [state.setUser]))
     <ScreenContainer>
       <ChangeLanguage />
       <Button
+      style={{marginTop: 5}}
         onPress={async() => {
           removeItem().then(() => router.navigate('/'))
           setUser({} as User)

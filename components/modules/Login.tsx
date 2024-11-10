@@ -26,7 +26,7 @@ export default function Login({ setState }: LoginProps) {
 
   return (
     <ScreenContainer style={{flex: 1, position: 'relative', justifyContent: 'center', width: '80%', marginHorizontal: 'auto'}}>
-      <Heading modifier={"h2"}>{t("AUTH.login")}</Heading>
+      <Heading style={{paddingTop: 5}} modifier={"h2"}>{t("AUTH.login")}</Heading>
       <View style={{ gap: 10 }}>
         <Box flexDirection={"column"} style={{ gap: 5 }}>
           <Text style={styles.whiteText}>{t("AUTH.username")}</Text>
