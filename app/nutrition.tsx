@@ -11,7 +11,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Icon } from "react-native-elements";
 import useDeleteNutrition from "@/api/queries/useDeleteNutrition";
 import { Actionsheet } from "native-base";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import CreateItemModal from "@/components/molecules/CreateItemModal";
 import FoodItemSelect from "@/components/molecules/FoodItemsSelect";
 import useGetFoodItems from "@/api/queries/useGetFoodItems";
@@ -21,6 +21,7 @@ import WeightChart from "@/components/molecules/WeeklyNutritionChart";
 import TotalMacros from "@/components/molecules/TotalMacros";
 import { useShallow } from "zustand/react/shallow";
 import { getDay } from "date-fns";
+import NutritionListItem from "@/components/molecules/NutritionListItem";
 
 export default function Nutrition() {
   const { t } = useTranslation();
@@ -39,32 +40,31 @@ export default function Nutrition() {
   } = useGetFoodItems(userId!);
   const [foodItemsIsOpen, setFoodItemsIsOpen] = useState(false);
   const [selectedItem, setSelectedItem] = useState<FoodItem | undefined>();
-  const { mutateAsync, error: deleteError, isLoading } = useDeleteNutrition();
 
-  const getTotalCaloriesArr = (): { value: number }[] => {
-    const arr: { value: number }[] = new Array(7).fill({ value: 0 });
+  const getTotalCaloriesArr = useMemo(() => {
+    const arr = new Array(7).fill(null).map(() => ({ value: 0 }));
     if (!data) return arr;
 
-    return arr.map((n, i) => {
+    return arr.map((_, i) => {
+      const dayData = data.weightData.find((d) => {
+        const dayOfWeek = getDay(d.date);
+        const adjustedDay = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+        return adjustedDay === i;
+      });
+
       return {
-        value:
-          data.weightData.find((d) => getDay(d.date) - 1 === i)
-            ?.caloriesTotal || 0,
+        value: dayData?.caloriesTotal || 0,
       };
     });
-  };
+  }, [data]);
+
+  console.log(data);
 
   if (!data?.nutrition || (isFetching && !foodItems?.length)) {
     return <LoadingScreen />;
   }
 
-  const handleDeleteItem = async (nutritionId: string) => {
-    try {
-      await mutateAsync(nutritionId);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+
 
   const handleAddExistingPress = () => {
     setMenuIsOpen(false);
@@ -151,7 +151,7 @@ export default function Nutrition() {
               foodItems={foodItems}
               isFetching={isFetchingFoodItems}
             />
-            <WeightChart weight={getTotalCaloriesArr()} />
+            <WeightChart weight={getTotalCaloriesArr} />
           </View>
 
           {data.nutrition.length > 0 && (
@@ -159,19 +159,9 @@ export default function Nutrition() {
               contentContainerStyle={{ marginBottom: 80 }}
               data={data?.nutrition}
               keyExtractor={(item) => Math.random().toString()}
-              renderItem={({ item }) => (
-                <HStack style={styles.singleNutritionContainer}>
-                  <Text style={[styles.whiteText, { flexGrow: 1 }]}>
-                    {item.item.name}
-                  </Text>
-                  <Text style={[styles.whiteText, { marginRight: 10 }]}>
-                    {item.amount}g
-                  </Text>
-                  <TouchableOpacity onPress={() => handleDeleteItem(item._id!)}>
-                    <Icon name="close" color={Colors.danger} />
-                  </TouchableOpacity>
-                </HStack>
-              )}
+              renderItem={({ item }) => <NutritionListItem item={item}/>}
+                
+              
             />
           )}
         </View>
