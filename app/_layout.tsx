@@ -39,6 +39,7 @@ import { useAsyncStorage } from "@react-native-async-storage/async-storage";
 import { useLogin } from "@/api/queries/useLogin";
 import useGetUser from "@/api/queries/useGetUser";
 import Button from "@/components/atoms/Button";
+import Dashboard from "@/app/dashboard";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -100,6 +101,17 @@ export default function RootLayout() {
                 },
               }}
             >
+              <Drawer.Screen
+                  name={"dashboard"}
+                  component={Dashboard}
+                  options={{
+                    drawerLabel: t("MENU.dashboard"),
+                    title: t("MENU.dashboard"),
+                    drawerIcon: () => (
+                        <Icon name={"dashboard"} color={"white"} />
+                    ),
+                  }}
+              />
               <Drawer.Screen
                 name={"todays-workout"}
                 component={TodaysWorkout}
