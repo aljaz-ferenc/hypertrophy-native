@@ -6,5 +6,5 @@ export default class Endpoints{
     public static muscleGroups = `${BASE_URL}/muscleGroups`
     public static exercises = `${BASE_URL}/exercises`
     public static mesocycles = `${BASE_URL}/mesocycles`
-    public static activateMeso = (userId: string, mesoId: string) => `${BASE_URL}/${userId}/${mesoId}/activate`
+    public static activateMeso = (userId: string, mesoId: string) => `${BASE_URL}/mesocycles/${userId}/${mesoId}/activate`
 }
