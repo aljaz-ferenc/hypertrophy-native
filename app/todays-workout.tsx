@@ -90,7 +90,7 @@ export default function TodaysWorkout() {
             day: getTodaysDay(),
             completedAt: new Date(),
             exercises: exercises.map((e) => ({
-                exercise: e.exercise,
+                exercise: e.id,
                 data: e.data.map((d) => ({
                     reps: +d.reps || 0,
                     weight: +d.weight || 0,
@@ -167,7 +167,7 @@ export default function TodaysWorkout() {
                     { fontSize: 18, fontWeight: "bold" },
                   ]}
                 >
-                  {t("TODAYS_WORKOUT.week")}{" "}
+                  {t("TODAYS_WORKOUT.week")}
                   <Text style={{ fontSize: 24 }}>
                     {differenceInCalendarISOWeeks(
                       new Date(),
@@ -175,7 +175,7 @@ export default function TodaysWorkout() {
                     ) + 1}
                   </Text>
                   / {data.mesocycle.duration} -{" "}
-                  {t(`DAYS.${Days[getTodaysDay()]}`).toUpperCase()}
+                  {t(`DAYS.${Days[getTodaysDay()].toLowerCase()}`).toUpperCase()}
                 </Text>
               </Box>
               {exercises.map((e) => (
