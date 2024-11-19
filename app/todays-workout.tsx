@@ -153,139 +153,136 @@ export default function TodaysWorkout() {
           durationInWeeks={data.mesocycle.duration}
         />
       ) : null} */}
-      {data?.mesocycle && exercises ? (
-        <>
-          <Box>
-            <VStack space={3}>
-              <Box style={[styles.exerciseContainer]}>
-                <Text style={[styles.whiteText, { opacity: 0.5 }]}>
-                  {data?.mesocycle.title.toUpperCase()}
-                </Text>
-                <Text
-                  style={[
-                    styles.whiteText,
-                    { fontSize: 18, fontWeight: "bold" },
-                  ]}
-                >
-                  {t("TODAYS_WORKOUT.week")}{" "}
-                  <Text style={{ fontSize: 24 }}>
-                    {differenceInCalendarISOWeeks(
-                      new Date(),
-                      new Date(data.mesocycle.startDate!)
-                    ) + 1}
-                  </Text>
-                  / {data.mesocycle.duration} -{" "}
-                  {t(`DAYS.${Days[getTodaysDay()]}`).toUpperCase()}
-                </Text>
-              </Box>
-              {exercises.map((e) => (
-                <View style={[styles.exerciseContainer]} key={e.id}>
-                  <Text
-                    style={[
-                      styles.whiteText,
-                      {
-                        marginBottom: 10,
-                        fontWeight: "bold",
-                      },
-                    ]}
-                  >
-                    {e.exercise}
-                  </Text>
-                  <HStack style={styles.labels}>
-                    <Text style={[styles.label]}>SET</Text>
-                    <Text style={[styles.label, { marginLeft: 32 }]}>
-                      {" "}
-                      WEIGHT
-                    </Text>
-                    <Text style={[styles.label, { marginLeft: 78 }]}>REPS</Text>
-                  </HStack>
-                  {e.data.map((input, i) => (
-                    <VStack style={styles.inputRow} key={input.id}>
-                      <VStack space={3}>
-                        <HStack
-                          style={{
-                            marginHorizontal: "auto",
-                            alignItems: "center",
-                          }}
-                          space={5}
-                          key={input.id}
+            {data?.mesocycle && exercises ? (
+                <>
+                    <Box>
+                        <VStack space={3}>
+                            <Box style={[styles.exerciseContainer, {paddingTop: 5}]}>
+                                <Text style={[styles.whiteText, {opacity: 0.5}]}>
+                                    {data?.mesocycle.title.toUpperCase()}
+                                </Text>
+                                <Text
+                                    style={[
+                                        styles.whiteText,
+                                        {fontSize: 18, fontWeight: "bold"},
+                                    ]}
+                                >
+                                    {t("TODAYS_WORKOUT.week")}{" "}
+                                    <Text style={{fontSize: 24}}>
+                                        {differenceInCalendarISOWeeks(
+                                            new Date(),
+                                            new Date(data.mesocycle.startDate!)
+                                        ) + 1}
+                                    </Text>
+                                    / {data.mesocycle.duration} -{" "}
+                                    {t(`DAYS.${Days[getTodaysDay()]}`).toUpperCase()}
+                                </Text>
+                            </Box>
+                            {exercises.map((e) => (
+                                <View style={[styles.exerciseContainer]} key={e.id}>
+                                    <Text
+                                        style={[
+                                            styles.whiteText,
+                                            {
+                                                marginBottom: 10,
+                                                fontWeight: "bold",
+                                            },
+                                        ]}
+                                    >
+                                        {e.exercise}
+                                    </Text>
+                                    <HStack style={styles.labels}>
+                                        <Text style={[styles.label]}>SET</Text>
+                                        <Text style={[styles.label, {marginLeft: 32}]}>
+                                            {" "}
+                                            WEIGHT
+                                        </Text>
+                                        <Text style={[styles.label, {marginLeft: 78}]}>REPS</Text>
+                                    </HStack>
+                                    {e.data.map((input, i) => (
+                                        <VStack style={styles.inputRow} key={input.id}>
+                                            <VStack space={3}>
+                                                <HStack
+                                                    style={{
+                                                        marginHorizontal: "auto",
+                                                        alignItems: "center",
+                                                    }}
+                                                    space={5}
+                                                    key={input.id}
+                                                >
+                                                    <Text style={styles.whiteText}>{i + 1}</Text>
+                                                    <Input
+                                                        keyboardType="numeric"
+                                                        onChangeText={(value) => {
+                                                            if (value === "") {
+                                                                updateInput(e.id, input.id, value, "weight");
+                                                                return;
+                                                            }
+                                                            // Regex to allow whole numbers, decimals, and partial decimal inputs like "12."
+                                                            if (/^\d*\.?\d*$/.test(value)) {
+                                                                // Parse and update only if the value is a valid float number
+                                                                const parsedValue = parseFloat(value);
+                                                                if (!isNaN(parsedValue) && parsedValue.toString() === value) {
+                                                                    updateInput(e.id, input.id, parsedValue.toString(), "weight");
+                                                                } else {
+                                                                    // For partial inputs like "12." or ".", retain the string input
+                                                                    updateInput(e.id, input.id, value, "weight");
+                                                                }
+                                                            }
+                                                        }}
+                                                        style={styles.input}
+                                                        value={input.weight.toString()}
+                                                    />
+
+
+                                                    <Input
+                                                        keyboardType="numeric"
+                                                        onChangeText={(value) => {
+                                                            if (value === "") {
+                                                                updateInput(e.id, input.id, value, "reps");
+                                                                return;
+                                                            }
+                                                            if (!isNaN(parseInt(value))) {
+                                                                updateInput(
+                                                                    e.id,
+                                                                    input.id,
+                                                                    value,
+                                                                    "reps"
+                                                                );
+                                                                return;
+                                                            }
+                                                        }}
+                                                        style={styles.input}
+                                                        value={input.reps.toString()}
+                                                    />
+                                                    <TouchableOpacity
+                                                        disabled={e.data.length < 2}
+                                                        onPress={() => removeInput(e.id, input.id)}
+                                                    >
+                                                        <CloseIcon/>
+                                                    </TouchableOpacity>
+                                                </HStack>
+                                            </VStack>
+                                        </VStack>
+                                    ))}
+                                    <Button modifier={"primary"} onPress={() => addInput(e.id)}>
+                                        ADD SET
+                                    </Button>
+                                </View>
+                            ))}
+                        </VStack>
+                        <Button
+                            style={styles.completeBtn}
+                            onPress={onCompleteWorkout}
+                            modifier="primary"
                         >
-                          <Text style={styles.whiteText}>{i + 1}</Text>
-                          <Input
-  keyboardType="numeric"
-  onChangeText={(value) => {
-    if (value === "") {
-      updateInput(e.id, input.id, value, "weight");
-      return;
-    }
-    // Regex to allow whole numbers, decimals, and partial decimal inputs like "12."
-    if (/^\d*\.?\d*$/.test(value)) {
-      // Parse and update only if the value is a valid float number
-      const parsedValue = parseFloat(value);
-      if (!isNaN(parsedValue) && parsedValue.toString() === value) {
-        updateInput(e.id, input.id, parsedValue.toString(), "weight");
-      } else {
-        // For partial inputs like "12." or ".", retain the string input
-        updateInput(e.id, input.id, value, "weight");
-      }
-    }
-  }}
-  style={styles.input}
-  value={input.weight.toString()}
-/>
-
-
-
-
-
-                          <Input
-                            keyboardType="numeric"
-                            onChangeText={(value) => {
-                              if (value === "") {
-                                updateInput(e.id, input.id, value, "reps");
-                                return;
-                              }
-                              if (!isNaN(parseInt(value))) {
-                                updateInput(
-                                  e.id,
-                                  input.id,
-                                  value,
-                                  "reps"
-                                );
-                                return;
-                              }
-                            }}
-                            style={styles.input}
-                            value={input.reps.toString()}
-                          />
-                          <TouchableOpacity
-                            disabled={e.data.length < 2}
-                            onPress={() => removeInput(e.id, input.id)}
-                          >
-                            <CloseIcon />
-                          </TouchableOpacity>
-                        </HStack>
-                      </VStack>
-                    </VStack>
-                  ))}
-                  <Button modifier={"primary"} onPress={() => addInput(e.id)}>
-                    ADD SET
-                  </Button>
-                </View>
-              ))}
-            </VStack>
-            <Button
-              style={styles.completeBtn}
-              onPress={onCompleteWorkout}
-              modifier="primary"
-            >
-              {t("TODAYS_WORKOUT.completeBtn")}
-            </Button>
-          </Box>
-        </>
-      ) : null}
-    </ScrollView>
-  );
+                            {t("TODAYS_WORKOUT.completeBtn")}
+                        </Button>
+                    </Box>
+                </>
+            ) : null}
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
