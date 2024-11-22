@@ -1,5 +1,5 @@
 import ScreenContainer from "@/components/molecules/ScreenContainer";
-import {Box, HStack, ScrollView, Text, View, VStack} from "native-base";
+import {Box, FlatList, HStack, ScrollView, Text, View, VStack} from "native-base";
 import {CalendarList} from "react-native-calendars";
 import Heading from "@/components/atoms/Heading";
 import {Colors} from "@/constants/Colors";
@@ -33,7 +33,7 @@ const formatMarkedDays = (dates: OverviewResponse['mesoDates']) => {
             markedDates[dateString] = baseMarking;
         }
 
-            markedDates[dateString].workoutCompleted = date.workoutCompleted
+        markedDates[dateString].workoutCompleted = date.workoutCompleted
 
 
         if (index === 0) {
@@ -66,8 +66,12 @@ export default function Dashboard() {
                     dayComponent={({date, state, marking}) => {
                         if (!date) return
 
-                        const todayStyles = state === 'today' ? {backgroundColor: Colors.secondary, borderWidth: 1, borderColor: 'skyblue'} : {}
-                        const containerStyle = {backgroundColor: marking ? Colors.primary : Colors.white }
+                        const todayStyles = state === 'today' ? {
+                            backgroundColor: Colors.secondary,
+                            borderWidth: 1,
+                            borderColor: 'skyblue'
+                        } : {}
+                        const containerStyle = {backgroundColor: marking ? Colors.primary : Colors.white}
                         const isMarked = !!marking?.customStyles?.checkmark
                         const startingDayStyle = {borderBottomLeftRadius: 100, borderTopLeftRadius: 100}
                         const endingDayStyle = {borderBottomRightRadius: 100, borderTopRightRadius: 100}
@@ -88,26 +92,27 @@ export default function Dashboard() {
                                             color: marking ? Colors.white : Colors.primary
                                         }]}>{date?.day}</Text>
                                     {workoutCompleted === 'completed' && <MaterialIcons
-                                        name={"check" }
+                                        name={"check"}
                                         size={16}
                                         color={Colors.green}
                                     />}
                                     {workoutCompleted === 'missed' && <MaterialIcons
-                                        name={"close" }
+                                        name={"close"}
                                         size={16}
                                         color={Colors.danger}
                                     />}
                                     {workoutCompleted === 'rest' && <Text style={{color: 'white', opacity: 1}}>R</Text>}
-                                    {workoutCompleted === 'upcoming' && <Text style={{color: 'white', opacity: 0}}>R</Text>}
+                                    {workoutCompleted === 'upcoming' &&
+                                        <Text style={{color: 'white', opacity: 0}}>R</Text>}
                                 </VStack>
                             </View>
                         );
                     }}
                 />
-                <HStack marginTop={2} space={1} justifyContent={'space-between'} >
+                <HStack marginTop={2} space={1} justifyContent={'space-between'}>
                     <HStack alignItems={'center'}>
                         <MaterialIcons
-                            name={"check" }
+                            name={"check"}
                             size={16}
                             color={Colors.green}
                         />
@@ -115,7 +120,7 @@ export default function Dashboard() {
                     </HStack>
                     <HStack alignItems={'center'}>
                         <MaterialIcons
-                            name={"close" }
+                            name={"close"}
                             size={16}
                             color={Colors.danger}
                         />
@@ -129,10 +134,30 @@ export default function Dashboard() {
             </Box>
             <Box>
                 <Heading style={{marginTop: 10}} modifier={'h3'}>
-                    Nutrition and weight
+                    Nutrition
                 </Heading>
-                <Text style={[styles.textWhite]}>Average calories consumed: 2000 kcal</Text>
-                <Text style={[styles.textWhite]}>Total weight change: +2kg (0.5kg/week)</Text>
+                <HStack space={1}>
+                    <Text style={[styles.textWhite]}>Average daily calories:</Text><Text
+                    style={[styles.textWhite, {fontWeight: 'bold'}]}>{data.averageDailyCalories} kcal</Text>
+                </HStack>
+                <Heading style={{marginTop: 10}} modifier={'h3'}>
+                    Weight
+                </Heading>
+                <FlatList
+                    data={data.weightByWeeks}
+                    keyExtractor={item => item.week.toString()}
+                    renderItem={({item, index}) => (
+                        <HStack space={1}>
+                            <Text style={[styles.textWhite]}>Week {index + 1} -</Text>
+                            <Text style={[styles.textWhite, {fontWeight: 'bold'}]}>{item.averageWeight} kg</Text>
+                        </HStack>
+                    )}
+                />
+                <HStack space={1}>
+                    <Text style={[styles.textWhite]}>Total weight change:</Text>
+                    <Text
+                        style={[styles.textWhite, {fontWeight: 'bold'}]}>{data.weightByWeeks[0].averageWeight > data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight ? '-' : '+'} {data.weightByWeeks[0].averageWeight - data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight} kg</Text>
+                </HStack>
             </Box>
         </ScreenContainer>
     );

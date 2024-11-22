@@ -3,13 +3,24 @@ import useUserStore from '@/store/user.store'
 import Endpoints from "@/api/endpoints";
 import {useShallow} from "zustand/react/shallow";
 import useGetActiveMesocycle from "@/api/queries/useGetActiveMesocycle";
+import {Nutrition} from "@/types";
 
 export type OverviewResponse = {
     mesoDates: {
         date: Date,
         workoutCompleted: 'completed' | 'missed' | 'rest' | 'upcoming'
     }[],
-    mesocycle: string
+    mesocycle: string,
+    averageDailyCalories: number,
+    nutritionByWeeks: {
+        week: number,
+        days: Nutrition[],
+        totalCalories: number,
+        numberOfDays: number
+    }[],
+    weightByWeeks: {
+        week: number, averageWeight: number
+    }[]
 }
 
 const fetchMesoOverview = async (userId: string, mesoId: string) => {
