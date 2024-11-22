@@ -26,7 +26,8 @@
     "completedWorkouts": "Completed Workouts",
     "stats": "Stats",
     "nutrition": "Nutrition",
-    "settings": "Settings"
+    "settings": "Settings",
+    "dashboard": "Dashboard"
   },
   "SETTINGS": {
     "title": "Settings",
