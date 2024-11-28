@@ -85,7 +85,7 @@ export default function CompletedWorkouts() {
                                               </Text>
                                             </VStack>
                                             <HStack style={{ marginLeft: 30 }}>
-                                              {exercise.data.map((data, i) => (
+                                              {exercise.data?.map((data, i) => (
                                                 <VStack
                                                   key={i}
                                                   alignItems={"center"}

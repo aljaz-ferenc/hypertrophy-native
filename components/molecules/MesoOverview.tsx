@@ -22,6 +22,9 @@ import {
 import useMesocyclesStore from "@/store/mesocycles.store";
 import Button from "../atoms/Button";
 import { useTranslation } from "react-i18next";
+import useActivateMesocycle from "@/api/queries/useActivateMesocycle";
+import useUserStore from '@/store/user.store'
+import {useShallow} from "zustand/react/shallow";
 
 type MesoOverviewProps = {
   meso: Mesocycle;
@@ -29,7 +32,14 @@ type MesoOverviewProps = {
 
 export default function MesoOverview({ meso }: MesoOverviewProps) {
   const { t } = useTranslation();
-console.log(meso)
+  const {mutateAsync: activateMeso} = useActivateMesocycle()
+  const [userId] = useUserStore(useShallow(state => [state.user?._id]))
+
+  const onActivateMeso = () => {
+    if(!userId) return
+    activateMeso({userId, meso})
+  }
+
   return (
     <View>
       <AccordionItem value={meso._id!}>
@@ -95,7 +105,7 @@ console.log(meso)
             {!meso.isActive ? (
               <Button
                 style={{ marginBottom: 10 }}
-                onPress={() => {}}
+                onPress={onActivateMeso}
                 modifier="secondary"
               >
                 {t("MY_MESOCYCLES.activate")}
