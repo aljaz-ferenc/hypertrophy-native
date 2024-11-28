@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   h2: {
     fontSize: 28,
     fontWeight: 'semibold',
-    marginBottom: 10,
+    marginVertical: 10,
   },
   h3:{
     fontSize: 24,
