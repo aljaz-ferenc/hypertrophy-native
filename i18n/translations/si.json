@@ -26,7 +26,8 @@
     "completedWorkouts": "Opravljeni Treningi",
     "stats": "Statistika",
     "nutrition": "Prehrana",
-    "settings": "Nastavitve"
+    "settings": "Nastavitve",
+    "dashboard": "Nadzorna plošča"
   },
   "SETTINGS": {
     "title": "Nastavitve",
