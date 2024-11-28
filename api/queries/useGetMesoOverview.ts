@@ -25,6 +25,7 @@ export type OverviewResponse = {
 
 const fetchMesoOverview = async (userId: string, mesoId: string) => {
     const res = await fetch(`${Endpoints.mesocycles}/${userId}/${mesoId}/overview`)
+    console.log(res)
     return await res.json()
 }
 

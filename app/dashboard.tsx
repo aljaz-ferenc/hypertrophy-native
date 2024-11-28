@@ -50,6 +50,7 @@ const formatMarkedDays = (dates: OverviewResponse['mesoDates']) => {
 
 export default function Dashboard() {
     const {data} = useGetMesoOverview()
+    console.log(data)
 
     if (!data) return
 
@@ -72,10 +73,11 @@ export default function Dashboard() {
                             borderColor: 'skyblue'
                         } : {}
                         const containerStyle = {backgroundColor: marking ? Colors.primary : Colors.white}
-                        const isMarked = !!marking?.customStyles?.checkmark
+                        // const isMarked = !!marking?.customStyles?.checkmark
                         const startingDayStyle = {borderBottomLeftRadius: 100, borderTopLeftRadius: 100}
                         const endingDayStyle = {borderBottomRightRadius: 100, borderTopRightRadius: 100}
                         const dateObj = new Date(date?.dateString)
+                        //@ts-ignore
                         const workoutCompleted = marking?.workoutCompleted
 
                         return (
@@ -156,7 +158,7 @@ export default function Dashboard() {
                 <HStack space={1}>
                     <Text style={[styles.textWhite]}>Total weight change:</Text>
                     <Text
-                        style={[styles.textWhite, {fontWeight: 'bold'}]}>{data.weightByWeeks[0].averageWeight > data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight ? '-' : '+'} {data.weightByWeeks[0].averageWeight - data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight} kg</Text>
+                        style={[styles.textWhite, {fontWeight: 'bold'}]}>{data.weightByWeeks[0].averageWeight > data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight ? '-' : '+'} {Math.abs(data.weightByWeeks[0].averageWeight - data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight).toFixed(1)} kg</Text>
                 </HStack>
             </Box>
         </ScreenContainer>
