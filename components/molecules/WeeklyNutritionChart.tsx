@@ -35,7 +35,7 @@ export default function WeightChart({ weight }: WeightChartProps) {
     <View style={{ alignItems: "center", justifyContent: "center" }}>
       <Center>
         <BarChart
-        barWidth={22}
+        barWidth={20}
         noOfSections={3}
         barBorderRadius={4}
         frontColor={Colors.white}
@@ -46,6 +46,7 @@ export default function WeightChart({ weight }: WeightChartProps) {
         xAxisLabelTextStyle={{color: 'white'}}
         yAxisTextStyle={{color: Colors.white}}
           data={weight}
+          width={Dimensions.get('window').width - 50}
         />
       </Center>
     </View>
