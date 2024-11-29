@@ -9,7 +9,8 @@ type Exercise = {
     data: {
         reps: string | '';
         weight: string | '';
-        id: string
+        id: string,
+        isChecked: boolean
     }[];
 };
 
@@ -25,6 +26,7 @@ type TodaysWorkoutStore = {
         value: string | '',
         field: "reps" | "weight"
     ) => void;
+    toggleCheckedInput: (inputId: string, checked: boolean, exerciseId: string) => void
 };
 
 const useTodaysWorkoutStore = create<TodaysWorkoutStore>((set) => ({
@@ -35,7 +37,7 @@ const useTodaysWorkoutStore = create<TodaysWorkoutStore>((set) => ({
             const modded: Exercise[] = exercises.map((e) => ({
                 exercise: e.exercise,
                 id: e.id,
-                data: [{reps: "", weight: "", id:Crypto.randomUUID()}],
+                data: [{reps: "", weight: "", id: Crypto.randomUUID(), isChecked: false}],
             }));
             return {...state, exercises: modded};
         }),
@@ -44,7 +46,7 @@ const useTodaysWorkoutStore = create<TodaysWorkoutStore>((set) => ({
             ...state,
             exercises: state.exercises.map((e) => {
                 if (e.id === exerciseId) {
-                    e.data.push({reps: "", weight: "", id: Crypto.randomUUID()});
+                    e.data.push({reps: "", weight: "", id: Crypto.randomUUID(), isChecked: false});
                 }
                 return e;
             }),
@@ -95,6 +97,26 @@ const useTodaysWorkoutStore = create<TodaysWorkoutStore>((set) => ({
             };
         });
     },
+    toggleCheckedInput: (inputId, checked, exerciseId) => {
+        set((state) => {
+            return {
+                ...state,
+                exercises: state.exercises.map((e) => {
+                    if (e.id === exerciseId) {
+                        const updatedInputs = e.data.map((input) => {
+                            if (input.id === inputId) {
+                                if(!input.reps || !input.weight) return input
+                                return {...input, isChecked: checked};
+                            }
+                            return input;
+                        });
+                        return {...e, data: updatedInputs};
+                    }
+                    return e;
+                }),
+            };
+        });
+    }
 }));
 
 export default useTodaysWorkoutStore;

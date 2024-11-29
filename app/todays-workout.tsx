@@ -1,17 +1,17 @@
-import {useEffect, useTransition} from "react";
+import {useEffect, useState, useTransition} from "react";
 import useGetUser from "@/api/queries/useGetUser";
 import useGetMesocycles from "@/api/queries/useGetMesocycles";
 import useUserStore from "@/store/user.store";
 import useMesocyclesStore from "@/store/mesocycles.store";
 import {StyleSheet, TouchableOpacity, View} from "react-native";
 import {
-    Box,
+    Box, CheckCircleIcon, CheckIcon,
     CloseIcon,
     HStack,
-    Input,
+    Input, Popover,
     ScrollView,
     Spinner,
-    Text,
+    Text, ThreeDotsIcon,
     VStack,
 } from "native-base";
 import {getMesocycleProgress, getTodaysDay, todaysWorkout} from "@/utils";
@@ -36,12 +36,15 @@ import MesoCompletedScreen from "@/components/modules/MesoCompletedScreen";
 import WorkoutCompletedScreen from "@/components/modules/WorkoutCompletedScreen";
 import NoActiveMesosScreen from "@/components/modules/NoActiveMesosScreen";
 import RestDayScreen from "@/components/modules/RestDayScreen";
+import {Dialog} from "react-native-elements";
+import SetInput from "@/components/molecules/SetInput";
 
 export default function TodaysWorkout() {
     const [userId] = useUserStore(useShallow((state) => [state.user?._id]));
     const {t} = useTranslation();
     const queryClient = useQueryClient();
     const router = useRouter();
+    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false)
 
     const {
         data,
@@ -180,17 +183,19 @@ export default function TodaysWorkout() {
                             </Box>
                             {exercises.map((e) => (
                                 <View style={[styles.exerciseContainer]} key={e.id}>
-                                    <Text
-                                        style={[
-                                            styles.whiteText,
-                                            {
-                                                marginBottom: 10,
-                                                fontWeight: "bold",
-                                            },
-                                        ]}
-                                    >
-                                        {e.exercise}
-                                    </Text>
+                                    <HStack justifyContent={'space-between'} alignItems={'center'}>
+                                        <Text
+                                            style={[
+                                                styles.whiteText,
+                                                {
+                                                    marginBottom: 10,
+                                                    fontWeight: "bold",
+                                                },
+                                            ]}
+                                        >
+                                            {e.exercise}
+                                        </Text>
+                                    </HStack>
                                     <HStack style={styles.labels}>
                                         <Text style={[styles.label]}>SET</Text>
                                         <Text style={[styles.label, {marginLeft: 32}]}>
@@ -200,70 +205,7 @@ export default function TodaysWorkout() {
                                         <Text style={[styles.label, {marginLeft: 78}]}>REPS</Text>
                                     </HStack>
                                     {e.data.map((input, i) => (
-                                        <VStack style={styles.inputRow} key={input.id}>
-                                            <VStack space={3}>
-                                                <HStack
-                                                    style={{
-                                                        marginHorizontal: "auto",
-                                                        alignItems: "center",
-                                                    }}
-                                                    space={5}
-                                                    key={input.id}
-                                                >
-                                                    <Text style={styles.whiteText}>{i + 1}</Text>
-                                                    <Input
-                                                        keyboardType="numeric"
-                                                        onChangeText={(value) => {
-                                                            if (value === "") {
-                                                                updateInput(e.id, input.id, value, "weight");
-                                                                return;
-                                                            }
-                                                            // Regex to allow whole numbers, decimals, and partial decimal inputs like "12."
-                                                            if (/^\d*\.?\d*$/.test(value)) {
-                                                                // Parse and update only if the value is a valid float number
-                                                                const parsedValue = parseFloat(value);
-                                                                if (!isNaN(parsedValue) && parsedValue.toString() === value) {
-                                                                    updateInput(e.id, input.id, parsedValue.toString(), "weight");
-                                                                } else {
-                                                                    // For partial inputs like "12." or ".", retain the string input
-                                                                    updateInput(e.id, input.id, value, "weight");
-                                                                }
-                                                            }
-                                                        }}
-                                                        style={styles.input}
-                                                        value={input.weight.toString()}
-                                                    />
-
-
-                                                    <Input
-                                                        keyboardType="numeric"
-                                                        onChangeText={(value) => {
-                                                            if (value === "") {
-                                                                updateInput(e.id, input.id, value, "reps");
-                                                                return;
-                                                            }
-                                                            if (!isNaN(parseInt(value))) {
-                                                                updateInput(
-                                                                    e.id,
-                                                                    input.id,
-                                                                    value,
-                                                                    "reps"
-                                                                );
-                                                                return;
-                                                            }
-                                                        }}
-                                                        style={styles.input}
-                                                        value={input.reps.toString()}
-                                                    />
-                                                    <TouchableOpacity
-                                                        disabled={e.data.length < 2}
-                                                        onPress={() => removeInput(e.id, input.id)}
-                                                    >
-                                                        <CloseIcon/>
-                                                    </TouchableOpacity>
-                                                </HStack>
-                                            </VStack>
-                                        </VStack>
+                                        <SetInput key={input.id} input={input} exercise={e} index={i}/>
                                     ))}
                                     <Button modifier={"primary"} onPress={() => addInput(e.id)}>
                                         ADD SET
