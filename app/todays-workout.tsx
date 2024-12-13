@@ -90,7 +90,7 @@ export default function TodaysWorkout() {
             day: getTodaysDay(),
             completedAt: new Date(),
             exercises: exercises.map((e) => ({
-                exercise: e.id,
+                exercise: e.exercise,
                 data: e.data.map((d) => ({
                     reps: +d.reps || 0,
                     weight: +d.weight || 0,

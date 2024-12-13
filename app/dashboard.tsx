@@ -151,14 +151,14 @@ export default function Dashboard() {
                     renderItem={({item, index}) => (
                         <HStack space={1}>
                             <Text style={[styles.textWhite]}>Week {index + 1} -</Text>
-                            <Text style={[styles.textWhite, {fontWeight: 'bold'}]}>{item.averageWeight} kg</Text>
+                            {item?.averageWeight && <Text style={[styles.textWhite, {fontWeight: 'bold'}]}>{item.averageWeight} kg</Text>}
                         </HStack>
                     )}
                 />
                 <HStack space={1}>
                     <Text style={[styles.textWhite]}>Total weight change:</Text>
-                    <Text
-                        style={[styles.textWhite, {fontWeight: 'bold'}]}>{data.weightByWeeks[0].averageWeight > data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight ? '-' : '+'} {Math.abs(data.weightByWeeks[0].averageWeight - data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight).toFixed(1)} kg</Text>
+                    {data.weightByWeeks[0]?.averageWeight && <Text
+                        style={[styles.textWhite, {fontWeight: 'bold'}]}>{data.weightByWeeks[0].averageWeight > data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight ? '-' : '+'} {Math.abs(data.weightByWeeks[0].averageWeight - data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight).toFixed(1)} kg</Text>}
                 </HStack>
             </Box>
         </ScreenContainer>
