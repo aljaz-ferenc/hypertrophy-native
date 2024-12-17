@@ -76,14 +76,14 @@ export default function MesoOverview({ meso }: MesoOverviewProps) {
                     <VStack style={styles.exercisesContainer}>
                       <FlatList
                         data={item.exercises}
-                        keyExtractor={(item) => item._id}
+                        keyExtractor={(item) => item.id}
                         renderItem={({ item }) => (
                           <Box style={styles.exerciseContainer}>
                             <Text style={styles.badge}>
-                              {t(`MUSCLE_GROUPS.${item.muscleGroup.name}`)}
+                              {t(`MUSCLE_GROUPS.${item.muscleGroup}`)}
                             </Text>
                             <Text style={styles.textWhite}>
-                              {item.name}
+                              {item.exercise}
                             </Text>
                           </Box>
                         )}

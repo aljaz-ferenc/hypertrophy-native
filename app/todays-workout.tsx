@@ -65,8 +65,8 @@ export default function TodaysWorkout() {
         if (!data?.mesocycle) return;
         const workout = todaysWorkout(data.mesocycle);
         const exercises = workout?.exercises.map((e) => ({
-            id: e._id,
-            exercise: e.name,
+            id: e.id,
+            exercise: e.exercise,
         }));
         exercises && setExercises(exercises);
     }, [data?.mesocycle]);
@@ -175,10 +175,10 @@ export default function TodaysWorkout() {
                                         ) + 1}
                                     </Text>
                                     / {data.mesocycle.duration} -{" "}
-                                    {t(`DAYS.${Days[getTodaysDay()]}`).toUpperCase()}
+                                    {t(`DAYS.${Days[getTodaysDay()].toLowerCase()}`).toUpperCase()}
                                 </Text>
                             </Box>
-                            {exercises.map((e) => (
+                            {exercises.map((e, i) => (
                                 <View style={[styles.exerciseContainer]} key={e.id}>
                                     <Text
                                         style={[

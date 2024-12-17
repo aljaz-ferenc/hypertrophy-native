@@ -39,7 +39,7 @@ export default function TotalMacros({macros, style}: TotalMacrosProps){
             {macros.protein} g
           </Text>
           <Text style={{ color: Colors.white, fontWeight: "bold" }}>
-            ({percentages.protein}%)
+            ({percentages.protein || 0}%)
           </Text>
         </VStack>
         <VStack alignItems={"center"}>
@@ -50,7 +50,7 @@ export default function TotalMacros({macros, style}: TotalMacrosProps){
             {macros.fat} g
           </Text>
           <Text style={{ color: Colors.white, fontWeight: "bold" }}>
-            ({percentages.fat}%)
+            ({percentages.fat || 0}%)
           </Text>
         </VStack>
         <VStack alignItems={"center"}>
@@ -61,7 +61,7 @@ export default function TotalMacros({macros, style}: TotalMacrosProps){
             {macros.carbs} g
           </Text>
           <Text style={{ color: Colors.white, fontWeight: "bold" }}>
-            ({percentages.carbs}%)
+            ({percentages.carbs || 0}%)
           </Text>
         </VStack>
       </HStack>

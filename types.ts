@@ -41,8 +41,8 @@ export type Workout = {
 }
 
 export type Exercise = {
-    name: string,
-    _id: string,
+    exercise: string,
+    id: string,
     muscleGroup: MuscleGroup
 }
 
