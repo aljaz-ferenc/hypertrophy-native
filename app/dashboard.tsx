@@ -1,18 +1,20 @@
 import ScreenContainer from "@/components/molecules/ScreenContainer";
 import {Box, FlatList, HStack, ScrollView, Text, View, VStack} from "native-base";
-import {CalendarList} from "react-native-calendars";
+import {CalendarList, DateData} from "react-native-calendars";
 import Heading from "@/components/atoms/Heading";
 import {Colors} from "@/constants/Colors";
-import {formatDate, getDay, getMonth, isFirstDayOfMonth, isLastDayOfMonth, subDays} from "date-fns";
+import {formatDate, getDay, getMonth, isFirstDayOfMonth, isLastDayOfMonth, isSameDay, subDays} from "date-fns";
 import {Dimensions, StyleSheet} from "react-native";
 import useGetMesoOverview, {OverviewResponse} from "@/api/queries/useGetMesoOverview";
 import {MaterialIcons} from "@expo/vector-icons";
+import {useCallback, useMemo} from "react";
+import {WorkoutStatus} from "@/enums/WorkoutStatus";
 
 const formatMarkedDays = (dates: OverviewResponse['mesoDates']) => {
     const markedDates: any = {};
 
     dates.forEach((date, index) => {
-        const dateString = formatDate(subDays(date.date, 1), 'yyyy-MM-dd');
+        const dateString = formatDate(date.date, 'yyyy-MM-dd');
 
         const baseMarking = {
             color: Colors.primary,
@@ -47,12 +49,36 @@ const formatMarkedDays = (dates: OverviewResponse['mesoDates']) => {
     return markedDates;
 };
 
-
+const today = new Date()
 export default function Dashboard() {
     const {data} = useGetMesoOverview()
-    console.log(data)
 
     if (!data) return
+
+    const renderDateStatus = (date: string & DateData, workoutStatus: WorkoutStatus) => {
+        if (isSameDay(today, date.dateString)) {
+            return <Text style={{color: 'white', opacity: 0}}>{' '}</Text>
+        }
+
+        switch (workoutStatus) {
+            case WorkoutStatus.COMPLETED:
+                return <MaterialIcons
+                    name={"check"}
+                    size={16}
+                    color={Colors.green}
+                />
+            case WorkoutStatus.MISSED:
+                return <MaterialIcons
+                    name={"close"}
+                    size={16}
+                    color={Colors.danger}
+                />
+            case WorkoutStatus.REST:
+                return <Text style={{color: 'white', opacity: 1}}>R</Text>
+            case WorkoutStatus.UPCOMING:
+                return <Text style={{color: 'white', opacity: 0}}>R</Text>
+        }
+    }
 
     return (
         <ScreenContainer>
@@ -93,19 +119,7 @@ export default function Dashboard() {
                                             fontWeight: 'bold',
                                             color: marking ? Colors.white : Colors.primary
                                         }]}>{date?.day}</Text>
-                                    {workoutCompleted === 'completed' && <MaterialIcons
-                                        name={"check"}
-                                        size={16}
-                                        color={Colors.green}
-                                    />}
-                                    {workoutCompleted === 'missed' && <MaterialIcons
-                                        name={"close"}
-                                        size={16}
-                                        color={Colors.danger}
-                                    />}
-                                    {workoutCompleted === 'rest' && <Text style={{color: 'white', opacity: 1}}>R</Text>}
-                                    {workoutCompleted === 'upcoming' &&
-                                        <Text style={{color: 'white', opacity: 0}}>R</Text>}
+                                    {renderDateStatus(date, workoutCompleted)}
                                 </VStack>
                             </View>
                         );
@@ -151,7 +165,8 @@ export default function Dashboard() {
                     renderItem={({item, index}) => (
                         <HStack space={1}>
                             <Text style={[styles.textWhite]}>Week {index + 1} -</Text>
-                            {item?.averageWeight && <Text style={[styles.textWhite, {fontWeight: 'bold'}]}>{item.averageWeight} kg</Text>}
+                            {item?.averageWeight &&
+                                <Text style={[styles.textWhite, {fontWeight: 'bold'}]}>{item.averageWeight} kg</Text>}
                         </HStack>
                     )}
                 />
