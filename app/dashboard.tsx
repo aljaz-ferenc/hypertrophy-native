@@ -9,6 +9,7 @@ import useGetMesoOverview, {OverviewResponse} from "@/api/queries/useGetMesoOver
 import {MaterialIcons} from "@expo/vector-icons";
 import {useCallback, useMemo} from "react";
 import {WorkoutStatus} from "@/enums/WorkoutStatus";
+import {useTranslation} from "react-i18next";
 
 const formatMarkedDays = (dates: OverviewResponse['mesoDates']) => {
     const markedDates: any = {};
@@ -52,6 +53,7 @@ const formatMarkedDays = (dates: OverviewResponse['mesoDates']) => {
 const today = new Date()
 export default function Dashboard() {
     const {data} = useGetMesoOverview()
+    const {t} = useTranslation()
 
     if (!data) return
 
@@ -74,9 +76,9 @@ export default function Dashboard() {
                     color={Colors.danger}
                 />
             case WorkoutStatus.REST:
-                return <Text style={{color: 'white', opacity: 1}}>R</Text>
+                return <Text style={{color: 'white', opacity: 1}}>{t('DASHBOARD.restSymbol')}</Text>
             case WorkoutStatus.UPCOMING:
-                return <Text style={{color: 'white', opacity: 0}}>R</Text>
+                return <Text style={{color: 'white', opacity: 0}}>{' '}</Text>
         }
     }
 
@@ -132,7 +134,7 @@ export default function Dashboard() {
                             size={16}
                             color={Colors.green}
                         />
-                        <Text style={[styles.textWhite]}> - Completed</Text>
+                        <Text style={[styles.textWhite]}> - {t('DASHBOARD.completed')}</Text>
                     </HStack>
                     <HStack alignItems={'center'}>
                         <MaterialIcons
@@ -140,38 +142,38 @@ export default function Dashboard() {
                             size={16}
                             color={Colors.danger}
                         />
-                        <Text style={[styles.textWhite]}> - Missed</Text>
+                        <Text style={[styles.textWhite]}> - {t('DASHBOARD.missed')}</Text>
                     </HStack>
                     <HStack alignItems={'center'}>
-                        <Text style={{color: 'white', opacity: 1}}>R</Text>
-                        <Text style={[styles.textWhite]}> - Rest day</Text>
+                        <Text style={{color: 'white', opacity: 1}}>{t('DASHBOARD.restSymbol')}</Text>
+                        <Text style={[styles.textWhite]}> - {t('DASHBOARD.rest')}</Text>
                     </HStack>
                 </HStack>
             </Box>
             <Box>
                 <Heading style={{marginTop: 10}} modifier={'h3'}>
-                    Nutrition
+                    {t('DASHBOARD.nutrition.title')}
                 </Heading>
                 <HStack space={1}>
-                    <Text style={[styles.textWhite]}>Average daily calories:</Text><Text
+                    <Text style={[styles.textWhite]}>{t('DASHBOARD.nutrition.average')}:</Text><Text
                     style={[styles.textWhite, {fontWeight: 'bold'}]}>{data.averageDailyCalories} kcal</Text>
                 </HStack>
                 <Heading style={{marginTop: 10}} modifier={'h3'}>
-                    Weight
+                    {t('DASHBOARD.weight.title')}
                 </Heading>
                 <FlatList
                     data={data.weightByWeeks}
                     keyExtractor={item => item.week.toString()}
                     renderItem={({item, index}) => (
                         <HStack space={1}>
-                            <Text style={[styles.textWhite]}>Week {index + 1} -</Text>
+                            <Text style={[styles.textWhite]}>{t('DASHBOARD.weight.week')} {index + 1} -</Text>
                             {item?.averageWeight &&
                                 <Text style={[styles.textWhite, {fontWeight: 'bold'}]}>{item.averageWeight} kg</Text>}
                         </HStack>
                     )}
                 />
                 <HStack space={1}>
-                    <Text style={[styles.textWhite]}>Total weight change:</Text>
+                    <Text style={[styles.textWhite]}>{t('DASHBOARD.weight.totalChange')}:</Text>
                     {data.weightByWeeks[0]?.averageWeight && <Text
                         style={[styles.textWhite, {fontWeight: 'bold'}]}>{data.weightByWeeks[0].averageWeight > data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight ? '-' : '+'} {Math.abs(data.weightByWeeks[0].averageWeight - data.weightByWeeks[data.weightByWeeks.length - 1].averageWeight).toFixed(1)} kg</Text>}
                 </HStack>

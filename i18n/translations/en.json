@@ -29,8 +29,24 @@
     "settings": "Settings",
     "dashboard": "Dashboard"
   },
+  "DASHBOARD": {
+    "completed": "Completed",
+    "missed": "Missed",
+    "rest": "Rest day",
+    "restSymbol": "R",
+    "nutrition": {
+      "title": "Nutrition",
+      "average": "Average daily calories"
+    },
+    "weight": {
+      "title": "Weight",
+      "week": "Week",
+      "totalChange": "Total weight change"
+    }
+  },
   "SETTINGS": {
     "title": "Settings",
+    "logout": "Log out",
     "language": {
       "title": "Select language"
     }

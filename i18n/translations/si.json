@@ -29,8 +29,24 @@
     "settings": "Nastavitve",
     "dashboard": "Nadzorna plošča"
   },
+  "DASHBOARD": {
+    "completed": "Opravljeno",
+    "missed": "Neopravljeno",
+    "rest": "Počitek",
+    "restSymbol": "P",
+    "nutrition": {
+      "title": "Prehrana",
+      "average": "Dnevno povprečje"
+    },
+    "weight": {
+      "title": "Telesna teža",
+      "week": "Teden",
+      "totalChange": "Sprememba teže skupaj"
+    }
+  },
   "SETTINGS": {
     "title": "Nastavitve",
+    "logout": "Odjava",
     "language": {
       "title": "Izberi jezik"
     }
