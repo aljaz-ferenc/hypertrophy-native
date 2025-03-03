@@ -11,11 +11,11 @@ type ScreenContainerProps = {
 
 export default function ScreenContainer({children, style}: ScreenContainerProps) {
     return (
-            <ScrollView style={[styles.container]} contentContainerStyle={style}>
-        <SafeAreaView>
+        <ScrollView style={[styles.container]} contentContainerStyle={style}>
+            <SafeAreaView>
                 {children}
-        </SafeAreaView>
-            </ScrollView>
+            </SafeAreaView>
+        </ScrollView>
     )
 }
 
@@ -24,5 +24,6 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.primary,
         flex: 1,
         padding: styleConstants.screenPadding,
+        paddingBottom: 30
     }
 })
