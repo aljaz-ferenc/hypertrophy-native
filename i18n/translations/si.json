@@ -3,7 +3,8 @@
     "calories": "kalorije",
     "protein": "beljakovine",
     "fat": "maščobe",
-    "carbs": "ogljikovi hidrati"
+    "carbs": "ogljikovi hidrati",
+    "price": "cena"
   },
   "AUTH": {
     "login": "Vpis",
@@ -104,6 +105,8 @@
     "protein": "Beljakovine: ",
     "fat": "Maščobe: ",
     "carbs": "Ogljikovi hidrati: ",
+    "price": "Cena: ",
+    "pricePer": "Cena na: ",
     "portions": "Porcije",
     "portion": "Porcija",
     "createPortions": "Ustvari porcije z določeno količino",

@@ -63,6 +63,10 @@ export default function NutritionListItem({ item }: NutritionListItemProps) {
             <Text style={styles.macro}>{t("GENERAL.carbs")}</Text>
             <Text style={styles.amount}>{Math.round((item.item.carbs * item.amount) / 100)} g</Text>
           </VStack>
+            <VStack>
+                <Text style={styles.macro}>{t("GENERAL.price")}</Text>
+                <Text style={styles.amount}>{Math.round((item.item.price * item.amount / 100))} €</Text>
+            </VStack>
         </VStack>
       </Dialog>
     </HStack>

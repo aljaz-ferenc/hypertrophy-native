@@ -112,6 +112,7 @@ export type FoodItem = {
     carbs: number,
     user: string,
     portions: Portion[]
+    price: number
 }
 
 export type Macros = {calories: number, protein: number, fat: number, carbs: number}

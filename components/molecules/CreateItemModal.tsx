@@ -37,6 +37,7 @@ type Errors = Partial<{
   protein: string;
   fat: string;
   carbs: string;
+  price: string
 }>;
 
 export default function CreateItemModal({
@@ -51,6 +52,8 @@ export default function CreateItemModal({
   const [protein, setProtein] = useState("");
   const [fat, setFat] = useState("");
   const [carbs, setCarbs] = useState("");
+  const [price, setPrice] = useState('')
+  const [pricePer, setPricePer] = useState('')
   const [errors, setErrors] = useState<Partial<Errors>>({});
   const userId = useUserStore((state) => state.user?._id);
   const { mutateAsync, error, isLoading } = useCreateFoodItem();
@@ -77,6 +80,12 @@ export default function CreateItemModal({
     if (!fat) {
       errors.fat = t("ERROR.required");
     }
+    if (!price) {
+      errors.fat = t("ERROR.required");
+    }
+    if (!pricePer) {
+      errors.fat = t("ERROR.required");
+    }
     if (!!Object.keys(errors).length) {
       setErrors(errors);
       return;
@@ -89,6 +98,7 @@ export default function CreateItemModal({
       fat: +fat,
       carbs: +carbs,
       user: userId,
+      price: (+price / +pricePer)* 100,
       portions,
     };
 
@@ -211,6 +221,36 @@ export default function CreateItemModal({
                 </View>
                 <FormErrorMessage message={errors.carbs} />
               </View>
+              <View>
+                <View style={styles.inputGroup}>
+                  <Text>{t("NUTRITION.price")}</Text>
+                  <InputGroup>
+                    <Input
+                        style={styles.input}
+                        type={"text"}
+                        keyboardType={"numeric"}
+                        onChangeText={setPrice}
+                    />
+                    <InputRightAddon>g</InputRightAddon>
+                  </InputGroup>
+                </View>
+                <FormErrorMessage message={errors.carbs} />
+              </View>
+              <View>
+                <View style={styles.inputGroup}>
+                  <Text>{t("NUTRITION.pricePer")}</Text>
+                  <InputGroup>
+                    <Input
+                        style={styles.input}
+                        type={"text"}
+                        keyboardType={"numeric"}
+                        onChangeText={setPricePer}
+                    />
+                    <InputRightAddon>g</InputRightAddon>
+                  </InputGroup>
+                </View>
+                <FormErrorMessage message={errors.carbs} />
+              </View>
             </VStack>
             <View></View>
           </View>
@@ -267,7 +307,7 @@ export default function CreateItemModal({
                       onChangeText={(val) => updatePortionAmount(portion, val)}
                     />
                     {/* <InputRightAddon>g</InputRightAddon> */}
-                    {/* 
+                    {/*
                   </InputGroup> */}
                 </View>
               </View>

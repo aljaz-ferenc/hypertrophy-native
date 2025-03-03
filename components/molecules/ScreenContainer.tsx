@@ -1,7 +1,7 @@
-import { Colors } from "@/constants/Colors";
-import { styleConstants } from "@/constants/styles";
-import { ScrollView, View } from "native-base";
-import { StyleSheet } from "react-native";
+import {Colors} from "@/constants/Colors";
+import {styleConstants} from "@/constants/styles";
+import {ScrollView, View} from "native-base";
+import {SafeAreaView, StyleSheet} from "react-native";
 import {StyleProps} from "react-native-reanimated";
 
 type ScreenContainerProps = {
@@ -9,9 +9,13 @@ type ScreenContainerProps = {
     style?: StyleProps
 }
 
-export default function ScreenContainer({children, style}: ScreenContainerProps){
+export default function ScreenContainer({children, style}: ScreenContainerProps) {
     return (
-        <ScrollView style={[styles.container]} contentContainerStyle={style}>{children}</ScrollView>
+            <ScrollView style={[styles.container]} contentContainerStyle={style}>
+        <SafeAreaView>
+                {children}
+        </SafeAreaView>
+            </ScrollView>
     )
 }
 

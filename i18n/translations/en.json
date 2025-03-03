@@ -3,7 +3,8 @@
     "calories": "calories",
     "protein": "protein",
     "fat": "fat",
-    "carbs": "carbs"
+    "carbs": "carbs",
+    "price": "price"
   },
   "AUTH": {
     "login": "Login",
@@ -78,7 +79,7 @@
       "title": "You start on Monday",
       "message": "Your mesocycle is active! The first workout kicks off this Monday. Get ready to crush it!"
     }
-    
+
   },
   "MY_MESOCYCLES": {
       "delete": "Delete",
@@ -105,6 +106,8 @@
     "protein": "Protein: ",
     "fat": "Fat: ",
     "carbs": "Carbs: ",
+    "price": "Price: ",
+    "pricePer": "Price per: ",
     "portions": "Portions",
     "portion": "Portion",
     "createPortions": "Create portions with predefined amounts.",
